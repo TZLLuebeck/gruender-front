@@ -1,0 +1,47 @@
+.container-fluid
+  .container
+    .col-1-sm.white
+      i(style="background-image: {{cmc.icon}}")
+    .col-11-sm.blue
+      h1.text-white {{cmc.title}}
+    hline
+  .container-fluid
+    ul.nav.nav-tabs
+      li.active.blue
+        a.text-white(data-toogle="tab", href="#info") Übersicht
+      li.blue
+        a.text-white(data-toogle="tab", href="#projects", ui-sref="root.community.projects") Projekte
+      li.blue
+        a.text-white(data-toogle="tab", href="#discussions") Diskussionen
+    .tab-content
+      .tab-pane.fade.in.active#info
+        .well
+          p {{cmc.description}}
+          hline
+          h3 {{cmc.member_count}} Mitglieder
+          h3 {{cmc.project_count}} Projekte
+      .tab-pane.fade#projects
+        .container-fluid
+          .col-1-sm.well(ng-repeat="project in cmc.projects")
+            div(ui-sref="root.project(id: {{project.id}})")
+              img(src="{{project.image}}")
+              hline
+              p {{project.title}}
+      .tab-pane.fade#discussions
+        .container-fluid
+          .well(ng-repeat= "discussion in cmc.discussions")
+            .col-4-sm
+              p {{discussion.author}}
+            .col-8-sm.well
+              h3 {{discussion.title}}
+              hline
+              p {{discussion.content}}
+
+            hline
+            .well(ng-repeat="comment in discussion.comments")
+              .col-4-sm
+                p {{comment.author}}
+              .col-8-sm.well
+                h4 {{comment.title}}
+                p {{comment.content}}
+

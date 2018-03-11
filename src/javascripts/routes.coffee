@@ -1,0 +1,323 @@
+angular.module('gruenderviertel').config ($stateProvider, $urlRouterProvider, $locationProvider) ->
+
+  #
+  # This File defines all the routes/states used by the app.
+  #
+
+  console.log("Configuring Routes.")
+  # If a non-existing URL was entered, redirect to homepage.
+  $urlRouterProvider.otherwise ($injector) -> 
+    $state = $injector.get("$state");
+    $state.go('root.home');
+
+
+  $locationProvider.html5Mode(true)
+  $locationProvider.hashPrefix('')
+  
+  $stateProvider
+  # The state name is an internal definition of the state. 
+  # This is used to change states.
+  .state 'root',
+    # The URL of a state is appended to the host address if the state is entered.
+    # Alternatively, a state with a URL can be entered by accessing the URL in the browser.
+    url: ''
+    # An abstract state itself cannot be entered. However, it can still become active, if
+    # a child state of this state is entered. (Entering any state will also activate all
+    # parent states of that state.)
+    abstract: true
+    # The views section define the views and controllers of the current state.
+    # Any view is only displayed and any controller is only active if the specific state
+    # or one of its children is active. Any view will be rendered within an <ui-view></ui-view>-0
+    # Element within the base document or a parent view.
+    views:
+      # There can be multiple <ui-view> elements within one document, if they carry an 
+      # identifier. This allows for multiple (sub-)views to be displayed on one page.
+      # The root state, which is parent to (almost) all states, will display the navbar
+      # and the footer in their appropriate sections, while the child states will fill the
+      # body <ui-view> element inbetween them.
+      'header@':
+        # The TemplateURL defines the actual html file that should be loaded.
+        templateUrl: 'assets/views/common/navbar.html'
+        # The controller is a modular element of the app defined in its own file.
+        # It controls the behaviour of the active view. Not every view needs a controller,
+        # if the whole functionality is HTML-based.
+        controller: 'NavCtrl'
+        # The controller alias serves to be able to give the controller a speaking name.
+        # While still having a short variable to be used within the code. This can be
+        # chosen freely, though idealy duplicates should be avoided.
+        controllerAs: 'nav'
+      'footer@':
+        templateUrl: 'assets/views/common/footer.html'
+    # The Resolve part of a state, if present, will try to run all given functions within it
+    # and present any acquired result with the key the function is assigned to.
+    resolve: 
+      identity: (TokenContainer, User, $rootScope) ->
+        #If we have an Oauth2 token in our localstorage, then we might still be logged in.
+        #Try and retrieve our identity (if the token is not expired).
+        if TokenContainer.get()
+          User.retrieveUser().then (user) ->
+            User.user = user
+            console.log('User Retrieved from Token')
+            $rootScope.$broadcast('user:stateChanged')
+
+  ############################
+  #
+  #   Common Routes   
+  #     Homepage
+  #     Impressum
+  #     Kontakt
+  #     AGB
+  #     Datenschutzerklärung
+  #     Search Results (?)
+  #
+  ############################
+
+  .state 'root.home',
+    url: '/'
+    views:
+      'body@':
+        templateUrl: 'assets/views/common/home.html'
+        controller: 'HomeCtrl'
+        controllerAs: 'home'
+    resolve:
+      most_used: (Community) ->
+        Community.getMostUsed().then (response) ->
+          return response
+        , (error) ->
+          return []
+      featured: (Project) ->
+        Project.getFeatured().then (response) ->
+          return response
+        , (error) ->
+          return []
+
+  ##################################
+  #
+  # User Routes
+  #   Registration Page
+  #   Profile page
+  #     Account Projects
+  #     Account Posts
+  #     Account Comments
+  #   Update Profile page
+  #   
+  ##################################
+  
+  .state 'root.registration',
+    url: '/register'
+    views:
+      'body@':
+        templateUrl: 'assets/views/user/register.html'
+        controller: 'RegistrationCtrl'
+        controllerAs: 'reg'
+
+  .state 'root.profile',
+    url: '/profile'
+    views:
+      'body@':
+        templateUrl: 'assets/views/user/profile.html'
+        controller: 'ProfileCtrl'
+        controllerAs: 'profile'
+    params:
+      id: null
+    resolve:
+      instance: ($stateParams, Helper, User) ->
+        id = $stateParams.id
+        if(id != null){
+          User.getInstance(id).then (response) ->
+            return response
+          , (error) ->
+            Helper.goBack()
+            return null
+        }else{
+          Helper.goBack()
+          return null
+        }
+
+  .state 'root.profile.editprofile',
+    url: '/edit'
+    views:
+      'body@':
+        templateUrl: 'assets/views/user/editprofile.html'
+        controller: 'ProfileEditCtrl'
+        controllerAs: 'edit'
+
+  .state 'root.passwordrecovery',
+    url: '/recover'
+    views:
+      'body@':
+        templateUrl: 'assets/views/user/recovery.html'
+        controller: 'RecoveryCtrl'
+        controllerAs: 'recovery'
+
+  ##################################
+  #
+  # Project Routes
+  #   Create project
+  #   Update project
+  #   View Project
+  #
+  ##################################
+
+  .state 'root.project',
+    url: '/project'
+    views:
+      'body@':
+        templateUrl: 'assets/views/projects/project.html'
+        controller: 'ProjectCtrl'
+        controllerAs: 'project'
+    params:
+      id: null
+    resolve:
+      instance: ($stateParams, Helper, Project) ->
+        id = $stateParams.id
+        if(id != null){
+          Project.getInstance($stateParams.id).then (response) ->
+            return response
+          , (error) ->
+            Helper.goBack()
+            return null
+        }else{
+          Helper.goBack()
+          return null
+        }
+
+  .state 'root.createproject',
+    url: 'project/new'
+    views:
+      'body@':
+        templateUrl: 'assets/views/projects/create.html'
+        controller: 'CreateProjectCtrl'
+        controllerAs: 'create'
+
+  .state 'root.editproject',
+    url: 'project/edit'
+    views:
+      'body@':
+        templateUrl: 'assets/views/projects/edit.html'
+        controller: 'EditProjectCtrl'
+        controllerAs: 'edit'
+
+
+
+
+  ##################################
+  #
+  # Community Routes
+  #   View Communities
+  #   View Community
+  #     View Community Projects
+  #     View Community Discussions
+  #
+  ##################################
+
+  .state 'root.communityoverview',
+    url: '/communities'
+    views:
+      'body@':
+        templateUrl: 'assets/views/communties/overview.html'
+        controller: 'CommunityOverviewCtrl'
+        controllerAs: 'coc'
+    resolve:
+      list: (Helper, Community) ->
+        Community.getShorts().then (list) ->
+          return list
+        , (error) ->
+          Helper.goBack()
+          return null
+
+  .state 'root.community',
+    url: '/community'
+    views:
+      'body@':
+        templateUrl: 'assets/views/communities/show.html'
+        controller: 'CommunityCtrl'
+        controllerAs: 'community'
+    params:
+      id: null
+    resolve:
+      instance: ($stateParams, Helper, Community) ->
+        id = $stateParams.id
+        if(id != null){
+          Community.returnCommunity($stateParams.id).then (response) ->
+            return response
+          , (error) ->
+            Helper.goBack()
+            return null
+        }else{
+          Helper.goBack()
+          return null
+        }
+
+  .state 'root.community.overview',
+    url: ''
+    views:
+      templateUrl: 'assets/views/communities/community.html'
+      controller: 'CommunityMainCtrl'
+      controllerAs: 'cmc'
+
+  .state 'root.community.projects',
+    url: ''
+    views:
+      templateUrl: 'assets/views/communities/projects.html'
+      controller: 'CommunityProjectCtrl'
+      controllerAs: 'cpc'
+
+  .state 'root.community.discussions',
+    url: ''
+    views:
+      templateUrl: 'assets/views/communities/discussions.html'
+      controller: 'CommunityDiscussionCtrl'
+      controllerAs: 'cdc'
+
+  ##################################
+  #
+  #   Admin Routes
+  #     Base state (for permission)
+  #       User/Ban Management
+  #       Project Management
+  #       Community Management
+  #       Report Management
+  #
+  ##################################
+
+  .state 'root.admin',
+    url: '/admin'
+    abstract: true
+    data:
+      permissions:
+        only: 'admin'
+        redirectTo: 'root.home'
+
+  .state 'root.admin.usermanagement',
+    url: '/users'
+    views:
+      'body@':
+        templateUrl: 'assets/views/admin/users.html'
+        controller: 'UserManagementCtrl'
+        controllerAs: 'users'
+  
+  .state 'root.admin.projectmanagement',
+    url: '/projects'
+    views:
+      'body@':
+        templateUrl: 'assets/views/admin/projects.html'
+        controller: 'ProjectManagementCtrl'
+        controllerAs: 'projects'
+
+  .state 'root.admin.communitymanagement',
+    url: '/projects'
+    views:
+      'body@':
+        templateUrl: 'assets/views/admin/communities.html'
+        controller: 'CommunitiyManagementCtrl'
+        controllerAs: 'communities'
+
+  .state 'root.admin.reports',
+    url: '/projects'
+    views:
+      'body@':
+        templateUrl: 'assets/views/admin/reports.html'
+        controller: 'ReportCtrl'
+        controllerAs: 'reports'
+    

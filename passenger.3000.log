@@ -1,0 +1,73 @@
+[ N 2017-09-16 14:10:11.4337 2362/T1 age/Wat/WatchdogMain.cpp:1283 ]: Starting Passenger watchdog...
+[ N 2017-09-16 14:10:11.5758 2365/T1 age/Cor/CoreMain.cpp:1083 ]: Starting Passenger core...
+[ N 2017-09-16 14:10:11.5955 2365/T1 age/Cor/CoreMain.cpp:248 ]: Passenger core running in multi-application mode.
+[ N 2017-09-16 14:10:11.7761 2365/T1 age/Cor/CoreMain.cpp:830 ]: Passenger core online, PID 2365
+[ N 2017-09-16 14:10:11.7995 2371/T1 age/Ust/UstRouterMain.cpp:537 ]: Starting Passenger UstRouter...
+[ N 2017-09-16 14:10:11.8003 2371/T1 age/Ust/UstRouterMain.cpp:350 ]: Passenger UstRouter online, PID 2371
+2017/09/16 14:10:13 [error] 2381#0: *4 "/home/tobias/mediMeet/frontend/public/index.html" is not found (2: No such file or directory), client: 127.0.0.1, server: _, request: "HEAD / HTTP/1.1", host: "0.0.0.0"
+[ N 2017-09-16 14:10:14.4057 2365/T8 age/Cor/SecurityUpdateChecker.h:374 ]: Security update check: no update found (next check in 24 hours)
+
+[ N 2017-09-16 14:10:32.9916 2365/T7 age/Cor/CoreMain.cpp:588 ]: Signal received. Gracefully shutting down... (send signal 2 more time(s) to force shutdown)
+
+[ N 2017-09-16 14:10:32.9917 2371/T4 age/Ust/UstRouterMain.cpp:430 ]: Signal received. Gracefully shutting down... (send signal 2 more time(s) to force shutdown)
+[ N 2017-09-16 14:10:32.9919 2365/T1 age/Cor/CoreMain.cpp:1002 ]: Received command to shutdown gracefully. Waiting until all clients have disconnected...
+[ N 2017-09-16 14:10:32.9920 2371/T1 age/Ust/UstRouterMain.cpp:500 ]: Received command to shutdown gracefully. Waiting until all clients have disconnected...
+[ N 2017-09-16 14:10:32.9921 2365/Ta Ser/Server.h:886 ]: [ApiServer] Freed 0 spare client objects
+[ N 2017-09-16 14:10:32.9921 2365/Ta Ser/Server.h:531 ]: [ApiServer] Shutdown finished
+[ N 2017-09-16 14:10:32.9921 2371/T6 Ser/Server.h:886 ]: [UstRouterApiServer] Freed 0 spare client objects
+[ N 2017-09-16 14:10:32.9921 2371/T6 Ser/Server.h:531 ]: [UstRouterApiServer] Shutdown finished
+[ N 2017-09-16 14:10:32.9925 2365/T7 Ser/Server.h:886 ]: [ServerThr.1] Freed 128 spare client objects
+[ N 2017-09-16 14:10:32.9925 2365/T7 Ser/Server.h:531 ]: [ServerThr.1] Shutdown finished
+[ N 2017-09-16 14:10:32.9929 2371/T4 Ser/Server.h:531 ]: [UstRouter] Shutdown finished
+[ N 2017-09-16 14:10:32.9930 2371/T1 age/Ust/UstRouterMain.cpp:531 ]: Passenger UstRouter shutdown finished
+[ N 2017-09-16 14:10:33.0145 2365/T1 age/Cor/CoreMain.cpp:1068 ]: Passenger core shutdown finished
+[ N 2017-09-22 14:34:37.8390 6823/T1 age/Wat/WatchdogMain.cpp:1283 ]: Starting Passenger watchdog...
+[ N 2017-09-22 14:34:37.8445 6826/T1 age/Cor/CoreMain.cpp:1083 ]: Starting Passenger core...
+[ N 2017-09-22 14:34:37.8448 6826/T1 age/Cor/CoreMain.cpp:248 ]: Passenger core running in multi-application mode.
+[ N 2017-09-22 14:34:37.8533 6826/T1 age/Cor/CoreMain.cpp:830 ]: Passenger core online, PID 6826
+[ N 2017-09-22 14:34:37.8603 6832/T1 age/Ust/UstRouterMain.cpp:537 ]: Starting Passenger UstRouter...
+[ N 2017-09-22 14:34:37.8609 6832/T1 age/Ust/UstRouterMain.cpp:350 ]: Passenger UstRouter online, PID 6832
+2017/09/22 14:34:40 [error] 6842#0: *4 "/home/tobias/mediMeet/frontend/public/index.html" is not found (2: No such file or directory), client: 127.0.0.1, server: _, request: "HEAD / HTTP/1.1", host: "0.0.0.0"
+[ N 2017-09-22 14:34:40.2855 6826/T7 age/Cor/SecurityUpdateChecker.h:374 ]: Security update check: no update found (next check in 24 hours)
+2017/09/22 14:34:43 [error] 6842#0: *5 open() "/home/tobias/mediMeet/frontend/public/api/v1/users.json" failed (2: No such file or directory), client: 127.0.0.1, server: _, request: "GET /api/v1/users.json HTTP/1.1", host: "localhost:3000", referrer: "http://localhost:3000/admin/interests"
+2017/09/22 14:34:43 [error] 6842#0: *5 open() "/home/tobias/mediMeet/frontend/public/assets/views/admin/users.html" failed (2: No such file or directory), client: 127.0.0.1, server: _, request: "GET /assets/views/admin/users.html HTTP/1.1", host: "localhost:3000", referrer: "http://localhost:3000/admin/interests"
+2017/09/22 14:34:57 [error] 6842#0: *5 open() "/home/tobias/mediMeet/frontend/public/api/v1/users.json" failed (2: No such file or directory), client: 127.0.0.1, server: _, request: "GET /api/v1/users.json HTTP/1.1", host: "localhost:3000", referrer: "http://localhost:3000/admin/interests"
+2017/09/22 14:34:57 [error] 6842#0: *5 open() "/home/tobias/mediMeet/frontend/public/assets/views/admin/users.html" failed (2: No such file or directory), client: 127.0.0.1, server: _, request: "GET /assets/views/admin/users.html HTTP/1.1", host: "localhost:3000", referrer: "http://localhost:3000/admin/interests"
+
+[ N 2017-09-22 14:35:15.6653 6826/T5 age/Cor/CoreMain.cpp:588 ]: Signal received. Gracefully shutting down... (send signal 2 more time(s) to force shutdown)
+[ N 2017-09-22 14:35:15.6667 6826/T1 age/Cor/CoreMain.cpp:1002 ]: Received command to shutdown gracefully. Waiting until all clients have disconnected...
+[ N 2017-09-22 14:35:15.6669 6826/T9 Ser/Server.h:886 ]: [ApiServer] Freed 0 spare client objects
+[ N 2017-09-22 14:35:15.6672 6826/T9 Ser/Server.h:531 ]: [ApiServer] Shutdown finished
+[ N 2017-09-22 14:35:15.6674 6826/T5 Ser/Server.h:886 ]: [ServerThr.1] Freed 128 spare client objects
+[ N 2017-09-22 14:35:15.6675 6826/T5 Ser/Server.h:531 ]: [ServerThr.1] Shutdown finished
+
+[ N 2017-09-22 14:35:15.6685 6832/T4 age/Ust/UstRouterMain.cpp:430 ]: Signal received. Gracefully shutting down... (send signal 2 more time(s) to force shutdown)
+[ N 2017-09-22 14:35:15.6686 6832/T1 age/Ust/UstRouterMain.cpp:500 ]: Received command to shutdown gracefully. Waiting until all clients have disconnected...
+[ N 2017-09-22 14:35:15.6686 6832/T6 Ser/Server.h:886 ]: [UstRouterApiServer] Freed 0 spare client objects
+[ N 2017-09-22 14:35:15.6687 6832/T6 Ser/Server.h:531 ]: [UstRouterApiServer] Shutdown finished
+[ N 2017-09-22 14:35:15.6689 6832/T4 Ser/Server.h:531 ]: [UstRouter] Shutdown finished
+[ N 2017-09-22 14:35:15.6690 6832/T1 age/Ust/UstRouterMain.cpp:531 ]: Passenger UstRouter shutdown finished
+[ N 2017-09-22 14:35:15.6896 6826/T1 age/Cor/CoreMain.cpp:1068 ]: Passenger core shutdown finished
+[ N 2017-09-22 14:35:17.3616 6900/T1 age/Wat/WatchdogMain.cpp:1283 ]: Starting Passenger watchdog...
+[ N 2017-09-22 14:35:17.3665 6903/T1 age/Cor/CoreMain.cpp:1083 ]: Starting Passenger core...
+[ N 2017-09-22 14:35:17.3667 6903/T1 age/Cor/CoreMain.cpp:248 ]: Passenger core running in multi-application mode.
+[ N 2017-09-22 14:35:17.3722 6903/T1 age/Cor/CoreMain.cpp:830 ]: Passenger core online, PID 6903
+[ N 2017-09-22 14:35:17.3797 6909/T1 age/Ust/UstRouterMain.cpp:537 ]: Starting Passenger UstRouter...
+[ N 2017-09-22 14:35:17.3805 6909/T1 age/Ust/UstRouterMain.cpp:350 ]: Passenger UstRouter online, PID 6909
+2017/09/22 14:35:19 [error] 6919#0: *4 "/home/tobias/mediMeet/frontend/public/index.html" is not found (2: No such file or directory), client: 127.0.0.1, server: _, request: "HEAD / HTTP/1.1", host: "0.0.0.0"
+[ N 2017-09-22 14:35:19.8423 6903/T8 age/Cor/SecurityUpdateChecker.h:374 ]: Security update check: no update found (next check in 24 hours)
+
+[ N 2017-09-22 14:35:26.4156 6903/T6 age/Cor/CoreMain.cpp:588 ]: Signal received. Gracefully shutting down... (send signal 2 more time(s) to force shutdown)
+[ N 2017-09-22 14:35:26.4159 6903/T1 age/Cor/CoreMain.cpp:1002 ]: Received command to shutdown gracefully. Waiting until all clients have disconnected...
+[ N 2017-09-22 14:35:26.4217 6903/Ta Ser/Server.h:886 ]: [ApiServer] Freed 0 spare client objects
+[ N 2017-09-22 14:35:26.4218 6903/Ta Ser/Server.h:531 ]: [ApiServer] Shutdown finished
+[ N 2017-09-22 14:35:26.4220 6903/T6 Ser/Server.h:886 ]: [ServerThr.1] Freed 128 spare client objects
+[ N 2017-09-22 14:35:26.4221 6903/T6 Ser/Server.h:531 ]: [ServerThr.1] Shutdown finished
+
+[ N 2017-09-22 14:35:26.4236 6909/T4 age/Ust/UstRouterMain.cpp:430 ]: Signal received. Gracefully shutting down... (send signal 2 more time(s) to force shutdown)
+[ N 2017-09-22 14:35:26.4242 6909/T1 age/Ust/UstRouterMain.cpp:500 ]: Received command to shutdown gracefully. Waiting until all clients have disconnected...
+[ N 2017-09-22 14:35:26.4243 6909/T6 Ser/Server.h:886 ]: [UstRouterApiServer] Freed 0 spare client objects
+[ N 2017-09-22 14:35:26.4244 6909/T6 Ser/Server.h:531 ]: [UstRouterApiServer] Shutdown finished
+[ N 2017-09-22 14:35:26.4245 6909/T4 Ser/Server.h:531 ]: [UstRouter] Shutdown finished
+[ N 2017-09-22 14:35:26.4247 6909/T1 age/Ust/UstRouterMain.cpp:531 ]: Passenger UstRouter shutdown finished
+[ N 2017-09-22 14:35:26.4548 6903/T1 age/Cor/CoreMain.cpp:1068 ]: Passenger core shutdown finished

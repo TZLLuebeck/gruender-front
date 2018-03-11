@@ -1,0 +1,31 @@
+
+//Opening Header
+.jumbotron.blue.text-white
+  div
+    h1 Unlock your Coopotential!
+    h3 Präsentiert eure Projekte und Ideen
+    h3 Startups & Firmen: Findet Gleichgesinnte und Partner
+.container
+  h3 Beliebte Themen
+  .well
+    //Popular Communities
+    .col-sm-2.well(ng-repeat="community in home.most_used")
+      icon(style="background: {{community.logo}}") 
+  h3 Beliebte Projekte
+  .well
+    .col-sm-6(ng-repeat="project in home.featured")
+      b.text-center.text-red {{project.name}}
+    br(clear="all")
+
+  .jumbotron
+    b Infomaterial
+  div
+    //Artikel
+    .col-sm-4.text-center.text-red
+      b Artikel 1
+    .col-sm-4.text-center.text-red
+      b Artikel 2
+    .col-sm-4.text-center.text-red
+      b Artikel 3
+  div
+    //Freundliche Mitarbeiterbilder

@@ -1,0 +1,44 @@
+.navbar-inverse {
+  background-color: #ffffff;
+}
+
+.navbar li a,
+.navbar {
+  color: #1b355c !important;
+  background-color: #ffffff;
+}
+
+.navbar-nav li a:hover,
+.navbar-nav li.active a {
+  color: #1b355c !important;
+  background-color: #ffffff;
+}
+
+li .dropdown-header {
+  color: #1b355c;
+}
+
+li.open > a {
+  background-color: #134f81 !important;
+}
+
+.navbar-inverse .dropdown-menu {
+     background-color: #ffffff;
+     color:#1b355c;
+}
+
+.brand-image {
+  max-height: 200%;
+  margin-top: -10px;
+}
+
+.container-fluid>.navbar-collapse {
+  margin-right: -15px;
+}
+
+.navbar .divider-vertical {
+  height: 50px;
+  margin: 0 9px;
+  border-right: 1px solid #ffffff;
+  border-left: 1px solid #f2f2f2;
+}

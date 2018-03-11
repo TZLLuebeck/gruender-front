@@ -1,0 +1,49 @@
+nav.navbar.navbar-inverse.navbar-fixed-top(role="navigation")
+  .container-fluid
+    .navbar-header
+      button.navbar-toggle.collapsed(type="button", data-toggle="collapse", data-target="#medimeet-navbar-collapse")
+        span.sr-only Navigation
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+      a.navbar-brand(ui-sref="root.home")
+        img.brand-image(src="/assets/images/gv-logo2.jpg")
+    .collapse.navbar-collapse#medimeet-navbar-collapse(style="margin-right: 5px;")
+      form.navbar-form.navbar-right(role="login" ng-hide="nav.isAuthenticated" name="loginForm", novalidate)
+        .form-group
+          input#login_input_email.form-control.input-sm(name="username", type="text" ng-minlength="2", ng-model="nav.form.user.username", required, maxlength="30", placeholder="Accountname")
+        .form-group
+          input#login_input_password.form-control.input-sm(name="password", type="password" ng-minlength="8",
+            ng-model="nav.form.user.password", required, maxlength="30", placeholder="Passwort")
+        button#login_button_login.btn.btn-info.btn-sm(type="submit" ng-click="nav.login()", ng-disabled="loginForm.$invalid") Anmelden
+        .row
+          .col-sm-6.col-sm-offset-5
+            a.text-blue(ui-sref="forgot_password") Passwort vergessen?
+      ul.nav.navbar-nav.navbar-right(ng-show="nav.isAuthenticated")
+        li.dropdown
+          a.dropdown-toggle.clickable(data-toggle="dropdown", role="button") 
+            b {{nav.username}}
+          ul.dropdown-menu
+            li
+              a(ui-sref="root.profile") Accountdaten
+            li
+              a#navbar_a_logout.text-white.clickable(ng-click="nav.logout()") Abmelden
+      ul.nav.navbar-nav.navbar-right(ng-show="nav.isAuthenticated")
+        li.dropdown
+          a.dropdown-toggle(ng-show="nav.admin" href="#", data-toggle="dropdown", role="button") Administration
+          ul.dropdown-menu
+            li
+              a(ui-sref="root.admin.userlist") Nutzer
+            li
+              a(ui-sref="root.admin.interestlist") Projekte
+            li
+              a(ui-sref="root.admin.companylist") Communities
+      ul.nav.navbar-nav.navbar-right.clickable
+        li(ui-sref="root.createinterest", ng-show="nav.isAuthenticated")
+          a.text-white Neues Projekt
+      ul.nav.navbar-nav.navbar-right.clickable
+        li(ui-sref="root.companies") 
+          a.text-white Organisationen
+      ul.nav.navbar-nav.navbar-right.clickable
+        li(ui-sref="root.projects") 
+          a.text-white Projekte

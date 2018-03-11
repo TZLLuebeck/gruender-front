@@ -1,0 +1,74 @@
+body { padding-top: 70px; }
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Open Sans', sans-serif;
+}
+
+
+h1 {
+  font-size: 400% !important;
+}
+
+p, div {
+    font-family: 'Open Sans', sans-serif;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.flex {
+  width: auto;
+}
+
+.highlight:hover {
+  background-color: #ddddff;
+}
+
+.brightness {
+    background-color: black;
+    display: inline-block;
+
+}
+.brightness img:hover {
+    opacity: .9;
+}
+
+img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.blue {
+  background-color: #1b355c;
+}
+
+.white {
+  background-color: #ffffff;
+}
+
+.red {
+  background-color: #d30c4d;
+}
+
+.text-blue {
+  color: #1b355c;
+}
+
+.text-white {
+  color: #ffffff;
+}
+
+.text-red {
+  color: #d30c4d;
+}
+
+.text-left {
+  text-align: left;
+}
+.text-right {
+  text-align: right;
+}
+.text-center {
+  text-align: center;
+}

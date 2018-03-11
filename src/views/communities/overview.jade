@@ -1,0 +1,10 @@
+.container-fluid.well
+  h1.blue Branchen
+    .col-1-sm.well.clickable(ng-repeat="community in communities.branchen", ui-sref='root.community(id: {{community.id}})')
+      i(src="{{community.icon}}")
+      p.text-center {{community.title}}
+  hline
+  h1.blue Themen
+    .col-1-sm.well.clickable(ng-repeat='community in communities.themen', ui-sref='root.community(id: {{community.id}})')
+      i(src='{{community.icon}}')
+      p.text-center {{community.title}}
