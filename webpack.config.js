@@ -4,7 +4,7 @@ const path = require('path');
 module.exports = {
   entry: {
     //app: './src/javascripts/app.coffee',
-    vendor: ['jquery', '@angular/core', '@uirouter/angularjs', 'restangular', 'ngstorage', 'angular-permission', 'ng-file-upload', 'angularjs-toaster']
+    vendor: ['jquery', '@angular/core', '@uirouter/angularjs', 'restangular', 'ngstorage', 'angular-permission', 'ng-file-upload', 'angularjs-toaster', 'angular-animate']
     },
   output: {
     filename: '[name].bundle.js',

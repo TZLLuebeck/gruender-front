@@ -1,4 +1,4 @@
-angular.module('gruenderviertel').service 'User', (baseREST, $q, $http, Rails, $rootScope, Upload) ->
+angular.module('gruenderviertel').service 'User', (baseREST, $q, $http, Rails, $rootScope, Upload, TokenContainer) ->
   
   #
   # The Company Service contains all functions designed for creating, editing and accessing Company-type resources.
@@ -6,39 +6,48 @@ angular.module('gruenderviertel').service 'User', (baseREST, $q, $http, Rails, $
   # In addition, the service handles storing the identification of the current user upon login.
   #
 
-  users = baseREST.one('users')
   @user = null
   @deferreds = {}
   @unauthorized = true
 
   # CREATE
 
-  registerUser = (user) ->
+  createUser = (user) ->
+    console.log("Registering.")
+    console.log(user)
     defer = $q.defer()
     Upload.upload({
       url: '/api/v1/users/'
       data: {data: user}
       }).then (response) =>
-      defer.resolve(response.data)
+      console.log(response.data.data)
+      @user = response.data.data.user
+      TokenContainer.set(response.data.data.token)
+      @unauthorized = false
+      defer.resolve(@user)
     , (error) =>
       defer.reject(error)
     defer.promise
 
-  adminReg = (user) ->
+  login = (form) ->
     defer = $q.defer()
-    packet = users.one('create')
-    packet.data = user
+    packet = baseREST.one('users').one('login')
+    packet.data = {}
+    packet.data.username = form.username
+    packet.data.password = form.password
     packet.post().then (response) =>
-      defer.resolve(response.data)
+      @user = response.data.user
+      TokenContainer.set(response.data.token)
+      @unauthorized = false
+      defer.resolve(@user)
     , (error) =>
       defer.reject(error)
-    defer.promise
 
   # READ
 
   getAll = () ->
     defer = $q.defer()
-    users.get().then (results) ->
+    baseREST.one('users').get().then (results) ->
       defer.resolve(results.data)
     , (error) ->
       defer.reject(error)
@@ -57,20 +66,7 @@ angular.module('gruenderviertel').service 'User', (baseREST, $q, $http, Rails, $
       defer.reject(error.error)
     defer.promise
 
-  getUserPacket = (id) ->
-    defer = $q.defer()
-    packet = baseREST.one('users')
-    unless id
-      packet.id = 'me'
-    else
-      packet.id = id
-    packet.get().then (response) ->
-      defer.resolve(response)
-    , (error) ->
-      defer.reject(error)
-    defer.promise
-
-  retrieveUser = =>
+  currentUser = =>
     defer = $q.defer()
     if isAuthenticated()
       defer.resolve(@user)
@@ -92,37 +88,13 @@ angular.module('gruenderviertel').service 'User', (baseREST, $q, $http, Rails, $
         delete @deferreds.me
       @deferreds.me.promise
 
-  getRoles = =>
-    defer = $q.defer()
-    if isAuthenticated()
-      defer.resolve(@user.roles)
-    else
-      retrieveUser().then (user) ->
-        defer.resolve(user.roles)
-      , ->
-        defer.reject()
-    defer.promise
-
-  getInterests = (id) =>
-    defer = $q.defer()
-    packet = baseREST.one('users').one('interests')
-    if id
-      packet.id = id
-    else
-      packet.id = @user.id
-    packet.get().then (response) ->
-      defer.resolve(response)
-    , (error) ->
-      defer.reject(error)
-    defer.promise
-
   # UPDATE
   updateUser = (user) =>
     packet = baseREST.one('users')
     defer = $q.defer()
     Object.assign(packet, user.data[0])
     user.put().then (response) ->
-    #users.customPUT(null, null, user.data[0]).then (response) ->
+    #baseREST.one('users').customPUT(null, null, user.data[0]).then (response) ->
       if response.status == 422
         defer.reject(response.data)
       else
@@ -146,8 +118,9 @@ angular.module('gruenderviertel').service 'User', (baseREST, $q, $http, Rails, $
 
   logout = =>
     defer = $q.defer()
-    packet = baseREST.all('users').one('logout')
+    packet = baseREST.one('users').one('logout')
     packet.remove().then (response) =>
+      TokenContainer.deleteToken()
       @user = null
       console.log(@user)
       @unauthorized = true
@@ -176,14 +149,11 @@ angular.module('gruenderviertel').service 'User', (baseREST, $q, $http, Rails, $
 
   getAll: getAll
   getUser: getUser
-  getUserPacket: getUserPacket
-  getRoles: getRoles
-  getInterests: getInterests
-  retrieveUser: retrieveUser
+  currentUser: currentUser
   updateUser: updateUser
   resetPassword: resetPassword
+  login: login
   logout: logout
   deleteUser: deleteUser
-  registerUser: registerUser
-  adminReg: adminReg
+  createUser: createUser
   isAuthenticated: isAuthenticated

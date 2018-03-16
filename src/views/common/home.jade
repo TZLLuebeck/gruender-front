@@ -6,26 +6,41 @@
     h3 Präsentiert eure Projekte und Ideen
     h3 Startups & Firmen: Findet Gleichgesinnte und Partner
 .container
-  h3 Beliebte Themen
-  .well
+  h2.text-center.text-red
+    p Meistgenutzte Themen
+  .well.blue
     //Popular Communities
-    .col-sm-2.well(ng-repeat="community in home.most_used")
-      icon(style="background: {{community.logo}}") 
-  h3 Beliebte Projekte
-  .well
-    .col-sm-6(ng-repeat="project in home.featured")
-      b.text-center.text-red {{project.name}}
+    .col-sm-2.container(ng-repeat="community in home.most_used")
+      .container-fluid.well.blue.clickable.text-center(ui-sref="root.community({id: {{community.id}}})")
+        img.img-circle.white(ng-src='{{community.icon}}')
+        b.text-red {{community.name}}
+    br(clear="all")
+  h2.text-center.text-red
+    p Beliebteste Projekte
+  .well.blue
+    .col-sm-4.container(ng-repeat="project in home.featured")
+      .container-fluid.well.white.clickable.text-center(ui-sref="root.project({id: {{project.id}}})")
+        img(ng-src='{{project.image}}', ng-show='{{project.image}}')
+        b.text-red {{project.name}}
+        br
+        b.text-blue {{project.goal}}
     br(clear="all")
 
   .jumbotron
     b Infomaterial
-  div
+  .row
     //Artikel
-    .col-sm-4.text-center.text-red
-      b Artikel 1
-    .col-sm-4.text-center.text-red
-      b Artikel 2
-    .col-sm-4.text-center.text-red
-      b Artikel 3
+    .col-sm-3.col-sm-offset-1.well.white
+      img(src="assets/images/gvlogo.jpg")
+      h3.text-center.text-red Artikel 1
+      h5 Description of Artikel 1
+    .col-sm-3.col-sm-offset-1.well.white
+      img(src="assets/images/gvlogo.jpg")
+      h3.text-center.text-red Artikel 2
+      h5 Description of Artikel 2
+    .col-sm-3.col-sm-offset-1.well.white
+      img(src="assets/images/gvlogo.jpg")
+      h3.text-center.text-red Artikel 3
+      h5 Description of Artikel 3
   div
     //Freundliche Mitarbeiterbilder

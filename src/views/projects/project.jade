@@ -1,24 +1,55 @@
-.container-fluid
-  .col-9-sm.well
-    h1 {{project.project.name}}
+.sidenav.blue.text-white
+  .row
+    .col-sm-6
+      p {{project.project.type}}
+      br
+      p {{project.project.likes}} Likes
+    .col-sm-6
+      button.btn.white.text-red() Like
+  a(href="#Overview") Übersicht
+  a(href="#Ziel") Ziel
+  a(href="#Problem") Problem
+  a(href="#Solution", ng-show="project.project.solution") Lösung
+  a(href="#Coop", ng-show="project.project.coop") Kooperation
+  a(href="#Attachment", ng-show="project.project.attachment.url") Anhang
+
+.container-fluid.main.white.text-center
+  .col-sm-11
+    a.anchor#Overview
+    h1.text-red {{project.project.name}}
+    br
     h5 {{project.project.author}}
-    hline
-    h5.blue Ziel
+    br
+    .col-sm-1(ng-repeat="tag in project.project.tags")
+      p {{tag.name}}
+    hr
+    a.anchor#Ziel
+    h2.text-red Ziel
     p {{project.project.goal}}
-    hline
-    h5.blue Problem
+    br(clear="all")
+    hr
+    a.anchor#Problem
+    h2.text-red Problem
     p {{project.project.problem}}
-    hline
-    h5.blue Lösung
+    br(clear="all")
+    hr
+    a.anchor#Solution
+    h2.text-red Lösung
     p {{project.project.solution}}
-  .col-3-sm.well
-    p.text-blue {{project.project.type}}
-    {{project.project.likes}}
-  hl {{project.project.attachment}}
+    br(clear="all")
+    hr
+    a.anchor#Coop
+    h2.text-red(ng-show="project.project.coop") Kooperationswunsch
+    p {{project.project.coop_type}}
+    br(clear="all")
+    hr
+    a.anchor#Attachment
+    .well(ng-show="project.project.attachment.url")
+      h3.text-red Anhang
+      a(href="{{project.project.attachment.url}}")
   hline
-    .col-6-offset-4.well(ng-repeat="comment in project.project.comments")
-      .col-4-sm
+    .col-sm-6.col-sm-offset-4.well(ng-repeat="comment in project.project.comments")
+      .col-sm-4
         p {{comment.author}}
-      .col-8-sm.well
-        h4 {{comment.title}}
+      .col-sm-8.well
         p {{comment.content}}

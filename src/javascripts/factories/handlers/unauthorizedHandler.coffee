@@ -15,15 +15,9 @@ angular.module('gruenderviertel').factory 'unauthorizedHandler', ($injector) ->
     state = $injector.get('$state')
     console.log(response)
     if response.data.error.error.name == 'invalid_token' 
-      console.log("Token invalid:")
-      if response.data.error.reason = 'expired'
-        console.log("Token expired.")
-        access.delete()
-        state.go('root.home')
-      else
-        console.log("No Token.")
-        access.delete()
-        state.go('root.register')
+      console.log("Token invalid.")
+      access.deleteToken()
+      state.go('root.home')
 
     deferred.reject(response)
     deferred.promise

@@ -1,47 +1,65 @@
 .container-fluid
+  .container-fluid.blue
+    br(clear="all")
+    .col-sm-1.white
+      img(ng-src="{{community.icon}}")
+    .col-sm-10
+      h1.text-red {{community.community.name}}
+    .col-sm-2
+      button.btn.btn-lg(ng-hide="community.subscribed", ng-click="community.subscribe()") Abbonieren
+      button.btn.btn-lg(ng-show="community.subscribed", ng-click="community.unsubscribe()") Deabbonieren
+    br(clear="all")
+    hr
   .container
-    .col-1-sm.white
-      i(style="background-image: {{cmc.icon}}")
-    .col-11-sm.blue
-      h1.text-white {{cmc.title}}
-    hline
-  .container-fluid
-    ul.nav.nav-tabs
-      li.active.blue
-        a.text-white(data-toogle="tab", href="#info") Übersicht
-      li.blue
-        a.text-white(data-toogle="tab", href="#projects", ui-sref="root.community.projects") Projekte
-      li.blue
-        a.text-white(data-toogle="tab", href="#discussions") Diskussionen
-    .tab-content
-      .tab-pane.fade.in.active#info
-        .well
-          p {{cmc.description}}
-          hline
-          h3 {{cmc.member_count}} Mitglieder
-          h3 {{cmc.project_count}} Projekte
-      .tab-pane.fade#projects
-        .container-fluid
-          .col-1-sm.well(ng-repeat="project in cmc.projects")
-            div(ui-sref="root.project(id: {{project.id}})")
-              img(src="{{project.image}}")
-              hline
-              p {{project.title}}
-      .tab-pane.fade#discussions
-        .container-fluid
-          .well(ng-repeat= "discussion in cmc.discussions")
-            .col-4-sm
-              p {{discussion.author}}
-            .col-8-sm.well
-              h3 {{discussion.title}}
-              hline
-              p {{discussion.content}}
+    .col-sm-10
+      p {{community.community.description}}
+    .col-sm-2
+      h3 {{community.member_count}} Mitglied(er)
+      h3 {{community.project_count}} Projekt(e)
+    br(clear="all")
+    hr
+  .container
+    .col-sm-2.well.clickable(ng-repeat="project in community.projects", ui-sref="root.project({id: {{project.id}}})")
+      .text-center
+        img(ng-src="{{project.image}}")
+        hr
+        b.text-red {{project.name}}
+    br(clear="all")
+    hr
+  .container
+    center
+      h2 Diskussionen
+    .well.white(ng-repeat= "discussion in community.discussions")
+      .col-sm-2
+        .row
+          img(ng-src="{{discussion.author.logo}}")
+        .row
+          p.clickable(ui-sref="root.profile({id: {{discussion.user_id}}})") {{discussion.author.name}}
+      .col-sm-10.well.white
+        b(style="margin-top:0px; margin-bottom:0px;") {{discussion.title}}
+        hr
+        .row.text-center
+          p {{discussion.content}}
+      hline
+      .well(ng-repeat="comment in discussion.comments")
+        b(style="margin-top:0px; margin-bottom:0px;") {{comment.title}}
+        br
+        .row.text-center
+          p {{comment.content}}
+        br
+        p.text-right {{comment.author}}
+      center
+        form(name="commentForm", novalidate)
+          textarea(type="text", ng-model="community.comment_form.content")
+          br
+          button(ng-click="community.comment(discussion.id)") Kommentar abgeben.
 
-            hline
-            .well(ng-repeat="comment in discussion.comments")
-              .col-4-sm
-                p {{comment.author}}
-              .col-8-sm.well
-                h4 {{comment.title}}
-                p {{comment.content}}
+    a(ng-hide="community.discussions") Noch keine Diskussionen.
+    center
+      form(name="discussionForm", novalidate)
+        input(type="text", ng-model="community.discussion_form.title", required, placeholder="Diskussionstitel")
+        br
+        textarea(type="text", ng-model="community.discussion_form.content", required)
+        br
+        button(ng-click="community.startDiscussion()") Diskussion eröffnen.
 

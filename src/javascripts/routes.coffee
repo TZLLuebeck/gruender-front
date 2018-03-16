@@ -55,10 +55,13 @@ angular.module('gruenderviertel').config ($stateProvider, $urlRouterProvider, $l
         #If we have an Oauth2 token in our localstorage, then we might still be logged in.
         #Try and retrieve our identity (if the token is not expired).
         if TokenContainer.get()
-          User.retrieveUser().then (user) ->
+          console.log('Retrieving User from Token')
+          User.currentUser().then (user) ->
             User.user = user
             console.log('User Retrieved from Token')
             $rootScope.$broadcast('user:stateChanged')
+          , (error) ->
+            console.log('Couldn\'t retrieve User.')
 
   ############################
   #
@@ -103,19 +106,11 @@ angular.module('gruenderviertel').config ($stateProvider, $urlRouterProvider, $l
   #   
   ##################################
   
-  .state 'root.registration',
-    url: '/register'
-    views:
-      'body@':
-        templateUrl: 'assets/views/user/register.html'
-        controller: 'RegistrationCtrl'
-        controllerAs: 'reg'
-
   .state 'root.profile',
     url: '/profile'
     views:
       'body@':
-        templateUrl: 'assets/views/user/profile.html'
+        templateUrl: 'assets/views/users/profile.html'
         controller: 'ProfileCtrl'
         controllerAs: 'profile'
     params:
@@ -123,22 +118,25 @@ angular.module('gruenderviertel').config ($stateProvider, $urlRouterProvider, $l
     resolve:
       instance: ($stateParams, Helper, User) ->
         id = $stateParams.id
-        if(id != null){
-          User.getInstance(id).then (response) ->
-            return response
-          , (error) ->
-            Helper.goBack()
-            return null
-        }else{
+        User.getUser(id).then (response) ->
+          return response
+        , (error) ->
           Helper.goBack()
-          return null
-        }
+          return null        
+
+  .state 'root.register',
+    url: '/registration'
+    views:
+      'body@':
+        templateUrl: 'assets/views/users/registration.html'
+        controller: 'RegistrationCtrl'
+        controllerAs: 'reg'
 
   .state 'root.profile.editprofile',
     url: '/edit'
     views:
       'body@':
-        templateUrl: 'assets/views/user/editprofile.html'
+        templateUrl: 'assets/views/users/editprofile.html'
         controller: 'ProfileEditCtrl'
         controllerAs: 'edit'
 
@@ -146,7 +144,7 @@ angular.module('gruenderviertel').config ($stateProvider, $urlRouterProvider, $l
     url: '/recover'
     views:
       'body@':
-        templateUrl: 'assets/views/user/recovery.html'
+        templateUrl: 'assets/views/users/recovery.html'
         controller: 'RecoveryCtrl'
         controllerAs: 'recovery'
 
@@ -171,19 +169,18 @@ angular.module('gruenderviertel').config ($stateProvider, $urlRouterProvider, $l
     resolve:
       instance: ($stateParams, Helper, Project) ->
         id = $stateParams.id
-        if(id != null){
-          Project.getInstance($stateParams.id).then (response) ->
+        if id != null
+          Project.getOne($stateParams.id).then (response) ->
             return response
           , (error) ->
             Helper.goBack()
             return null
-        }else{
+        else
           Helper.goBack()
           return null
-        }
 
   .state 'root.createproject',
-    url: 'project/new'
+    url: '/project/new'
     views:
       'body@':
         templateUrl: 'assets/views/projects/create.html'
@@ -191,7 +188,7 @@ angular.module('gruenderviertel').config ($stateProvider, $urlRouterProvider, $l
         controllerAs: 'create'
 
   .state 'root.editproject',
-    url: 'project/edit'
+    url: '/project/edit'
     views:
       'body@':
         templateUrl: 'assets/views/projects/edit.html'
@@ -215,12 +212,12 @@ angular.module('gruenderviertel').config ($stateProvider, $urlRouterProvider, $l
     url: '/communities'
     views:
       'body@':
-        templateUrl: 'assets/views/communties/overview.html'
+        templateUrl: 'assets/views/communities/overview.html'
         controller: 'CommunityOverviewCtrl'
         controllerAs: 'coc'
     resolve:
       list: (Helper, Community) ->
-        Community.getShorts().then (list) ->
+        Community.get_all().then (list) ->
           return list
         , (error) ->
           Helper.goBack()
@@ -230,7 +227,7 @@ angular.module('gruenderviertel').config ($stateProvider, $urlRouterProvider, $l
     url: '/community'
     views:
       'body@':
-        templateUrl: 'assets/views/communities/show.html'
+        templateUrl: 'assets/views/communities/community.html'
         controller: 'CommunityCtrl'
         controllerAs: 'community'
     params:
@@ -238,37 +235,15 @@ angular.module('gruenderviertel').config ($stateProvider, $urlRouterProvider, $l
     resolve:
       instance: ($stateParams, Helper, Community) ->
         id = $stateParams.id
-        if(id != null){
+        if id != null
           Community.returnCommunity($stateParams.id).then (response) ->
             return response
           , (error) ->
             Helper.goBack()
             return null
-        }else{
+        else
           Helper.goBack()
           return null
-        }
-
-  .state 'root.community.overview',
-    url: ''
-    views:
-      templateUrl: 'assets/views/communities/community.html'
-      controller: 'CommunityMainCtrl'
-      controllerAs: 'cmc'
-
-  .state 'root.community.projects',
-    url: ''
-    views:
-      templateUrl: 'assets/views/communities/projects.html'
-      controller: 'CommunityProjectCtrl'
-      controllerAs: 'cpc'
-
-  .state 'root.community.discussions',
-    url: ''
-    views:
-      templateUrl: 'assets/views/communities/discussions.html'
-      controller: 'CommunityDiscussionCtrl'
-      controllerAs: 'cdc'
 
   ##################################
   #

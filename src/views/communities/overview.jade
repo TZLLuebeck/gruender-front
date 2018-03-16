@@ -1,10 +1,17 @@
-.container-fluid.well
-  h1.blue Branchen
-    .col-1-sm.well.clickable(ng-repeat="community in communities.branchen", ui-sref='root.community(id: {{community.id}})')
-      i(src="{{community.icon}}")
-      p.text-center {{community.title}}
-  hline
-  h1.blue Themen
-    .col-1-sm.well.clickable(ng-repeat='community in communities.themen', ui-sref='root.community(id: {{community.id}})')
-      i(src='{{community.icon}}')
-      p.text-center {{community.title}}
+.container.blue
+  h1.text-red Branchen
+  .col-sm-3.blue.clickable(ng-repeat="community in coc.list | filter: {typus: 'Branche'}")
+    .container-fluid.blue.clickable.text-center(ui-sref="root.community({id: {{community.id}}})")
+      .container-fluid.well.white
+        img.white(ng-src='{{community.icon}}')
+      h3.text-red {{community.name}}
+      br(clear="all")
+  br(clear="all")
+  hr
+  h1.text-red Themen
+  .col-sm-3.blue.clickable(ng-repeat="community in coc.list | filter: {typus: 'Thema'}", )
+    .container-fluid.blue.clickable.text-center(ui-sref="root.community({id: {{community.id}}})")
+      .container-fluid.well.white
+        img.white(ng-src='{{community.icon}}')
+      h3.text-red {{community.name}}
+  br(clear="all")

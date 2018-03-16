@@ -1,0 +1,35 @@
+.container
+  .col-sm-2
+    img(ng-src='{{profile.user.logo.url}}')
+  .col-sm-10
+    .row
+      h2.text-red{{profile.user.username}}
+    hr
+    .row(ng-show='profile.user.description')
+      h4{{profile.user.description}}
+  hr
+
+  .container
+    .col-sm-6
+      h4.text-red.text-center Meine Projekte
+      //Projects Here
+      ul.list-group
+        li.list-group-item.clickable(ng-repeat='project in profile.my_projects')
+          a(ui-sref='root.project({id: {{project.id}}})') {{project.name}}
+        li.list-group-item(ng-hide='profile.my_projects.length') Noch keine Projekte.
+    .col-sm-6
+      h4.text-red.text-center Meine Diskussionen
+      .row
+        // Discussions Here
+        ul.list-group
+          li.list-group-item.clickable(ng-repeat='discussion in profile.my_discussions')
+            a(ui-sref='root.community({id: {{discussion.community_id}}})') {{discussion.title}}
+          li.list-group-item(ng-hide='profile.my_discussions.length') Noch keine Diskussionen.
+      h4.text-red.text-center Meine Kommentare
+      .row
+        // Comments Here
+        ul.list-group
+          li.list-group-item.clickable(ng-repeat='comment in profile.my_comments')
+            a(ng-click='profile.goToComment(comment)') {{comment.title}}
+          li.list-group-item(ng-hide='profile.my_comments.length') Noch keine Kommentare.
+  br(clear="all")

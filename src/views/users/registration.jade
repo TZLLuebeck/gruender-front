@@ -1,0 +1,12 @@
+.container
+  form(role="register" name="regForm", novalidate)
+    .form-group
+      input#reg_input_username.form-control(name="username", type="text" ng-minlength="2", ng-model="reg.form.user.username", required, maxlength="30", placeholder="Accountname")
+      input#reg_input_email.form-control(name="email", type="email", ng-model="reg.form.user.email", required, placeholder="Email")
+    .form-group
+      input#reg_input_password.form-control(name="password", type="password" ng-minlength="8",
+        ng-model="reg.form.user.password", required, maxlength="30", placeholder="Passwort")
+      input#reg_input_password_confirmation.form-control(name="password_confirmation", type="password" ng-minlength="8",
+        ng-model="reg.form.user.password_confirmation", required, maxlength="30", placeholder="Passwort bestätigen.")
+    button#reg_button.btn.btn-info(type="submit" ng-click="reg.register()", ng-disabled="regForm.$invalid || reg.reg_in_progress", data-dismiss="modal") Anmelden
+  br(clear="all")

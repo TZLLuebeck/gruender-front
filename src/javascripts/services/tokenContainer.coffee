@@ -50,4 +50,4 @@ angular.module('gruenderviertel').service 'TokenContainer', ($localStorage, Rail
   get: get
   getRaw: getRaw
   set: set
-  delete: deleteToken
+  deleteToken: deleteToken

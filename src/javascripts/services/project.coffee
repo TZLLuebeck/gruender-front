@@ -20,9 +20,31 @@ angular.module('gruenderviertel').service 'Project', (baseREST, $q, Upload) ->
       defer.reject(error)
     defer.promise
 
+  postComment = (project, content) ->
+    defer = $q.defer()
+    packet = baseREST.one('projects').one('comment')
+    packet.id = project.id
+    packet.data = content
+    packet.post().then (reponse) ->
+      console.log('comment posted')
+      defer.resolve(response.data)
+    , (error) ->
+      console.log('Project.postComment ERror')
+    defer.promise
+
+  like = (project) ->
+    defer = $q.defer()
+    packet = baseREST.one('projects').one('like')
+    packet.id = project.id
+    packet.post().then (response) ->
+      console.log('like/unlike sent')
+      defer.resolve(response.data)
+    , (error) ->
+      console.log('Project.like Error')
+      defer.reject(error)
+    defer.promise
 
   #READ
-
 
   getAll = ->
     defer = $q.defer()
@@ -31,23 +53,32 @@ angular.module('gruenderviertel').service 'Project', (baseREST, $q, Upload) ->
         console.log('Got Interests')
         defer.resolve(response.data)
     , (error) ->
-        console.log('Interest Error')
+        console.log('Project.getAll Error')
         defer.reject(error.data.error)
     defer.promise
-
 
   getOne = (id) -> 
     defer = $q.defer()
     packet = baseREST.one('projects')
     packet.id = id
-    packet.get.then (response) ->
-      console.log('Got Interest')
+    packet.get().then (response) ->
+      console.log('Got Project')
       defer.resolve(response.data)
     , (error) ->
-      console.log('Interest.getOne Error')
+      console.log('Project.getOne Error')
       defer.reject(error)
     defer.promise
 
+  getFeatured = () ->
+    defer = $q.defer()
+    packet = baseREST.one('projects').one('featured')
+    packet.get().then (response) ->
+      console.log('Got Featured')
+      defer.resolve(response.data)
+    , (error) ->
+      console.log('Project.getFeatured Error')
+      defer.reject(error)
+    defer.promise
 
   #UPDATE
 
@@ -77,3 +108,13 @@ angular.module('gruenderviertel').service 'Project', (baseREST, $q, Upload) ->
       console.log('Interest.removeProject failed')
       defer.reject(error)
     defer.promise
+
+
+  createProject: createProject
+  postComment: postComment
+  like: like
+  getAll: getAll
+  getOne: getOne
+  editProject: editProject
+  removeProject: removeProject
+  getFeatured: getFeatured

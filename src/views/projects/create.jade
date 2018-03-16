@@ -1,0 +1,42 @@
+.sidenav.blue.text-white
+  a(href="#Overview") Übersicht
+  a(href="#Ziel") Ziel
+  a(href="#Problem") Problem
+  a(href="#Solution") Lösung
+  a(href="#Coop") Kooperation
+  a(href="#Attachment") Anhang
+
+form.main.white.text-center(name="createForm", novalidate, enctype="multipart/form-data")
+  .container-fluid
+    a.anchor#Overview
+    input(ng-model="create.form.project.name", placeholder= "Projektname", style="border: none;")
+    br
+    button Themen
+    hr
+    a.anchor#Ziel
+    h2.text-blue Ziel
+    textarea.white(ng-model="create.form.project.goal", style="border: none;", rows="20", cols ="200", resize: none;)
+    br(clear="all")
+    hr
+    a.anchor#Problem
+    h2.text-blue Problem
+    textarea.white(ng-model="create.form.project.problem", style="border: none;", rows="20", cols ="200", resize: none;)
+    br(clear="all")
+    hr
+    a.anchor#Solution
+    h2.text-blue Lösung
+    textarea.white(ng-model="create.form.project.solution", style="border: none;", rows="20", cols ="200", resize: none;)
+    br(clear="all")
+    hr
+    a.anchor#Coop
+    h2.text-blue Kooperationswunsch
+    textarea.white(ng-model="create.form.project.coop_type", style="border: none;", rows="20", cols ="200", resize: none;)
+    br(clear="all")
+    hr
+    a.anchor#Attachment
+    .well.white
+      h3.text-blue Anhang
+      input(type="file", ngf-select, ng-model="create.form.project.attachment" name="attachment" accept="application/pdf" ngf-max-size="2MB")
+  hline
+  br(clear="all")
+  button.btn.btn-info.btn-lg Absenden
