@@ -42,6 +42,8 @@ nav.navbar.navbar-inverse.navbar-fixed-top(role="navigation")
     .modal-content
       .modal-body
         .container-fluid
+          center.text-blue
+            b Melden Sie sich hier an:
           form(role="login" name="loginForm", novalidate)
             .form-group
               input#login_input_email.form-control(name="username", type="text" ng-minlength="2", ng-model="nav.form.username", required, maxlength="30", placeholder="Accountname")
@@ -52,10 +54,11 @@ nav.navbar.navbar-inverse.navbar-fixed-top(role="navigation")
               button#login_button_login.btn.btn-info(type="submit" ng-click="nav.login()", ng-disabled="loginForm.$invalid", data-dismiss="modal") Anmelden
           hr
           .col-4-offset-4
-            b.text-center.text-blue Oder registrieren sie sich hier:
-            br
-            button.btn.btn-large(ui-sref='root.register', data-dismiss="modal") Neuen Account Anlegen
-            br
-            h5.text-blue.clickable(ui-sref="forgot_password", data-dismiss="modal") Passwort vergessen?
+            center.text-blue
+              b Oder registrieren sie sich hier:
+              br(clear="all")
+              button.btn.btn-large.red.text-white(ui-sref='root.register', data-dismiss="modal") Neuen Account Anlegen
+              br
+              h5.text-red.clickable(ui-sref="forgot_password", data-dismiss="modal") Passwort vergessen?
       .modal-footer
         button.btn.btn-default(type="button", data-dismiss="modal") Schließen
