@@ -22,6 +22,7 @@
     br
     .col-sm-1(ng-repeat="tag in project.project.tags")
       p {{tag.name}}
+    br
     hr
     a.anchor#Ziel
     h2.text-red Ziel
@@ -53,3 +54,6 @@
         p {{comment.author}}
       .col-sm-8.well
         p {{comment.content}}
+  br
+  textarea(ng-model="project.comment")
+  button.btn(ng-click="project.addComment()") Kommentieren

@@ -30,6 +30,6 @@
         // Comments Here
         ul.list-group
           li.list-group-item.clickable(ng-repeat='comment in profile.my_comments')
-            a(ng-click='profile.goToComment(comment)') {{comment.title}}
+            a(ng-click='profile.goToComment(comment)') {{comment.content}}
           li.list-group-item(ng-hide='profile.my_comments.length') Noch keine Kommentare.
   br(clear="all")

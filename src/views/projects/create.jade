@@ -17,36 +17,35 @@
       hr
       a.anchor#Ziel
       h2.text-blue Ziel
-      .well.blue
-        textarea.white(ng-model="create.form.project.goal", style="border: none; width: 100%; resize: none;", rows="2")
+      textarea(ng-model="create.form.project.goal", style="width: 100%; resize: none;", rows="2")
       br(clear="all")
       hr
       a.anchor#Problem
       h2.text-blue Problem
-      .well.blue
-        textarea.white(ng-model="create.form.project.problem", style="border: none; width: 100%; resize: none;", rows="20", )
+      textarea(ng-model="create.form.project.problem", style="width: 100%; resize: none;", rows="20", )
       br(clear="all")
       hr
       a.anchor#Solution
       h2.text-blue Lösung
-      .well.blue
-        textarea.white(ng-model="create.form.project.solution", style="border: none; width: 100%; resize: none;", rows="20")
+      textarea(ng-model="create.form.project.solution", style="width: 100%; resize: none;", rows="20")
       br(clear="all")
       hr
       a.anchor#Coop
       h2.text-blue Kooperationswunsch
-      .well.blue
-        textarea.white(ng-model="create.form.project.coop_type", style="border: none; width: 100%; resize: none;", rows="20")
+      textarea(ng-model="create.form.project.cooptext", style="width: 100%; resize: none;", rows="20")
       br(clear="all")
       hr
       a.anchor#Attachment
       .well.white
-        h3.text-blue Anhang
+        h3.text-blue Anhang (*.pdf, Max. 1MB)
         center
           input(type="file", ngf-select, ng-model="create.form.project.attachment" name="attachment" accept="application/pdf" ngf-max-size="1MB")
+        h3.text-blue Bild (*)
+        center
+          input(type="file", ngf-select, ng-model="create.form.project.attachment" name="image" accept="image/*" ngf-max-size="1MB")
     hline
     br(clear="all")
-    button.btn.btn-info.btn-lg Absenden
+    button.btn.btn-info.btn-lg(ng-click="create.createProject()") Absenden
 
 .modal.fade#tagging_modal
   .modal-dialog
@@ -55,14 +54,14 @@
         h3.text-red Branchen
         .row.container-fluid.well.clickable(ng-repeat="community in create.tag_list | filter: {typus: 'Branche'}", style="max-height: 50px; margin-top: 0px; max-width: 80%; ", ng-click="create.selectTag(community)", ng-class="{blue: community.selected}")
           img.col-sm-4(ng-src='{{community.icon}}', style="max-height: inherit; position: relative; top: -20px;")
-          p.col-sm-8(ng-class="{text-red: !community.selected, text-white: community.selected}") {{community.name}}
+          p.col-sm-8(ng-class="{'text-red': !community.selected, 'text-white': community.selected}") {{community.name}}
           br(clear="all")
         br(clear="all")
         hr
         h3.text-red Branchen
         .row.container-fluid.well.clickable(ng-repeat="community in create.tag_list | filter: {typus: 'Thema'}", style="max-height: 50px; margin-top: 0px; max-width: 80%; ", ng-click="create.selectTag(community)", ng-class="{blue: community.selected}")
           img.col-sm-4(ng-src='{{community.icon}}', style="max-height: inherit; position: relative; top: -20px;")
-          p.col-sm-8(ng-class="{text-red: !community.selected, text-white: community.selected}") {{community.name}}
+          p.col-sm-8(ng-class="{'text-red': !community.selected, 'text-white': community.selected}") {{community.name}}
           br(clear="all")
         br(clear="all")
       .modal-footer

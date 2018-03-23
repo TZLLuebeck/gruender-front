@@ -13,6 +13,27 @@ angular.module('gruenderviertel').controller 'CreateProjectCtrl', (Project, Comm
     else
       e.selected = true
 
+  @createProject = () ->
+    @form.project.tags = []
+    for c in @tag_list
+      if c.selected
+        @form.project.tags.push(c.id)
+
+    @form.project.status = "Published"
+
+    if !@form.project.solution
+      @form.project.typus = "Problemstellung"
+    else
+      @form.project.typus = "Showcase"
+
+    if @form.project.cooptext
+      @form.project.coop = true
+    else
+      @form.project.coop = false
+
+    Project.createProject(@form.project)
+
   @form = {}
+  @form.project = {}
 
   this

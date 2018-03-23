@@ -24,7 +24,7 @@ angular.module('gruenderviertel').service 'Project', (baseREST, $q, Upload) ->
     defer = $q.defer()
     packet = baseREST.one('projects').one('comment')
     packet.id = project.id
-    packet.data = content
+    packet.content = content
     packet.post().then (reponse) ->
       console.log('comment posted')
       defer.resolve(response.data)
