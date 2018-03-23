@@ -51,22 +51,19 @@
 .modal.fade#tagging_modal
   .modal-dialog
     .modal-content
-      .modal-body
+      center.modal-body
         h3.text-red Branchen
-        .row.container.well.clickable(ng-repeat="community in create.tag_list | filter: {typus: 'Branche'}", style="max-height: 50px; margin-top: 0px;")
-          img.col-sm-4.white(ng-src='{{community.icon}}', style="max-height: inherit; position: top-left;")
-          p.col-sm-8.text-red {{community.name}}
+        .row.container-fluid.well.clickable(ng-repeat="community in create.tag_list | filter: {typus: 'Branche'}", style="max-height: 50px; margin-top: 0px; max-width: 80%; ", ng-click="create.selectTag(community)", ng-class="{blue: community.selected}")
+          img.col-sm-4(ng-src='{{community.icon}}', style="max-height: inherit; position: relative; top: -20px;")
+          p.col-sm-8(ng-class="{text-red: !community.selected, text-white: community.selected}") {{community.name}}
           br(clear="all")
         br(clear="all")
         hr
         h3.text-red Branchen
-        .col-sm-3.well.clickable(ng-repeat="community in create.tag_list | filter: {typus: 'Thema'}")
-          .col-sm-4
-            img.white(ng-src='{{community.icon}}')
-          .col-sm-8
-            p.text-red {{community.name}}
+        .row.container-fluid.well.clickable(ng-repeat="community in create.tag_list | filter: {typus: 'Thema'}", style="max-height: 50px; margin-top: 0px; max-width: 80%; ", ng-click="create.selectTag(community)", ng-class="{blue: community.selected}")
+          img.col-sm-4(ng-src='{{community.icon}}', style="max-height: inherit; position: relative; top: -20px;")
+          p.col-sm-8(ng-class="{text-red: !community.selected, text-white: community.selected}") {{community.name}}
           br(clear="all")
         br(clear="all")
-        
       .modal-footer
         button.btn.btn-default(type="button", data-dismiss="modal") Schließen
