@@ -13,34 +13,35 @@
   a(href="#Coop", ng-show="project.project.coop") Kooperation
   a(href="#Attachment", ng-show="project.project.attachment.url") Anhang
 
-.container-fluid.main.white.text-center
+.container-fluid.main
   .col-sm-11
     a.anchor#Overview
     h1.text-red {{project.project.name}}
     br
     h5 {{project.project.author}}
     br
-    .col-sm-1(ng-repeat="tag in project.project.tags")
-      p {{tag.name}}
+    center
+      .col-sm-1(ng-repeat="tag in project.project.tags")
+        p.blue.text-white.label {{tag.name}}
     br
     hr
     a.anchor#Ziel
-    h2.text-red Ziel
+    h2.text-red.text-center Ziel
     p {{project.project.goal}}
     br(clear="all")
     hr
     a.anchor#Problem
-    h2.text-red Problem
+    h2.text-red.text-center Problem
     p {{project.project.problem}}
     br(clear="all")
     hr
     a.anchor#Solution
-    h2.text-red Lösung
-    p {{project.project.solution}}
+    h2.text-red.text-center Lösung
+    ng-bind-html(ng-bind-html="project.project.solution")
     br(clear="all")
     hr
     a.anchor#Coop
-    h2.text-red(ng-show="project.project.coop") Kooperationswunsch
+    h2.text-red.text-center(ng-show="project.project.coop") Kooperationswunsch
     p {{project.project.coop_type}}
     br(clear="all")
     hr
@@ -49,11 +50,12 @@
       h3.text-red Anhang
       a(href="{{project.project.attachment.url}}")
   hline
-    .col-sm-6.col-sm-offset-4.well(ng-repeat="comment in project.project.comments")
-      .col-sm-4
-        p {{comment.author}}
-      .col-sm-8.well
-        p {{comment.content}}
-  br
-  textarea(ng-model="project.comment")
-  button.btn(ng-click="project.addComment()") Kommentieren
+  .col-sm-6.col-sm-offset-4.well(ng-repeat="comment in project.project.comments")
+    .col-sm-2
+      p {{comment.author}}
+    .col-sm-10.well
+      p {{comment.content}}
+  br(clear="all")
+  center
+    textarea(ng-model="project.comment")
+    button.btn(ng-click="project.addComment()") Kommentieren

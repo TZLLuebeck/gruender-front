@@ -4,7 +4,7 @@
 # ngStorage: API for simple use of the Browser's LocalStorage
 # permission: plugin for ui-router; limits state access to predefined attributes
 # toaster: Pop-up messages, used for login errors
-dependencies = ['ui.router', 'restangular', 'ngStorage', 'permission', 'permission.ui', 'ngFileUpload', 'toaster']
+dependencies = ['ui.router', 'restangular', 'ngStorage', 'permission', 'permission.ui', 'ngFileUpload', 'toaster', 'ngSanitize']
 
 # Define the App itself.
 app = angular.module('gruenderviertel', dependencies)

@@ -1,51 +1,55 @@
-.container-fluid
-  .sidenav.blue.text-white
-    a(href="#Overview") Übersicht
-    a(href="#Ziel") Ziel
-    a(href="#Problem") Problem
-    a(href="#Solution") Lösung
-    a(href="#Coop") Kooperation
-    a(href="#Attachment") Anhang
+.container-fluid(style="background-color: #cccccc; margin-right: 0px; margin-left: 0px;")
+  //.sidenav.blue.text-white
+      a(href="#Overview") Übersicht
+      a(href="#Ziel") Ziel
+      a(href="#Problem") Problem
+      a(href="#Solution") Lösung
+      a(href="#Coop") Kooperation
+      a(href="#Attachment") Anhang
 
-  form.main.white.text-center(name="createForm", novalidate, enctype="multipart/form-data")
-    .container-fluid
-      a.anchor#Overview
-      input(ng-model="create.form.project.name", placeholder= "Projektname", style="border: none; font-weight: bold; font-size: 32px; width: 80%; text-align: center;")
-      br
-      hr
-      button.btn(data-toggle="modal", data-target="#tagging_modal") Themen
-      hr
-      a.anchor#Ziel
-      h2.text-blue Ziel
-      textarea(ng-model="create.form.project.goal", style="width: 100%; resize: none;", rows="2")
-      br(clear="all")
-      hr
-      a.anchor#Problem
-      h2.text-blue Problem
-      textarea(ng-model="create.form.project.problem", style="width: 100%; resize: none;", rows="20", )
-      br(clear="all")
-      hr
-      a.anchor#Solution
-      h2.text-blue Lösung
-      textarea(ng-model="create.form.project.solution", style="width: 100%; resize: none;", rows="20")
-      br(clear="all")
-      hr
-      a.anchor#Coop
-      h2.text-blue Kooperationswunsch
-      textarea(ng-model="create.form.project.cooptext", style="width: 100%; resize: none;", rows="20")
-      br(clear="all")
-      hr
-      a.anchor#Attachment
-      .well.white
-        h3.text-blue Anhang (*.pdf, Max. 1MB)
+  .container
+    form.white(name="createForm", novalidate, enctype="multipart/form-data")
+      .container-fluid.white
+        a.anchor#Overview
+        h2.text-blue.text-center Projektname
         center
-          input(type="file", ngf-select, ng-model="create.form.project.attachment" name="attachment" accept="application/pdf" ngf-max-size="1MB")
-        h3.text-blue Bild (*)
+          input(ng-model="create.form.project.name", style="font-weight: bold; width: 100%; font-size: 32px; text-align: center;")
+        br
         center
-          input(type="file", ngf-select, ng-model="create.form.project.attachment" name="image" accept="image/*" ngf-max-size="1MB")
-    hline
-    br(clear="all")
-    button.btn.btn-info.btn-lg(ng-click="create.createProject()") Absenden
+          button.btn.btn-lg(data-toggle="modal", data-target="#tagging_modal") Themen
+        hr
+        a.anchor#Ziel
+        h2.text-blue.text-center Ziel
+        textarea(ng-model="create.form.project.goal", style="width: 100%; resize: none;", rows="2")
+        br(clear="all")
+        hr
+        a.anchor#Problem
+        h2.text-blue.text-center Problem
+        textarea(ng-model="create.form.project.problem", style="width: 100%;")
+      br(clear="all")
+      .container-fluid.white(summernote, style="margin-top: 20px;")
+        a.anchor#Solution
+        h2.text-blue.text-center Lösung
+        div#summernote
+        br(clear="all")
+        hr
+        a.anchor#Coop
+        h2.text-blue.text-center Kooperationswunsch
+        textarea(ng-model="create.form.project.cooptext", style="width: 100%;")
+        br(clear="all")
+        hr
+        a.anchor#Attachment
+        .well.white
+          h3.text-blue.text-center Anhang (*.pdf, Max. 1MB)
+          center
+            input(type="file", ngf-select, ng-model="create.form.project.attachment" name="attachment" accept="application/pdf" ngf-max-size="1MB")
+          h3.text-blue.text-center Bild (*)
+          center
+            input(type="file", ngf-select, ng-model="create.form.project.attachment" name="image" accept="image/*" ngf-max-size="1MB")
+      hline
+      br(clear="all")
+      center
+        button.btn.btn-info.btn-lg(ng-click="create.createProject()") Absenden
 
 .modal.fade#tagging_modal
   .modal-dialog
@@ -58,7 +62,7 @@
           br(clear="all")
         br(clear="all")
         hr
-        h3.text-red Branchen
+        h3.text-red Themen
         .row.container-fluid.well.clickable(ng-repeat="community in create.tag_list | filter: {typus: 'Thema'}", style="max-height: 50px; margin-top: 0px; max-width: 80%; ", ng-click="create.selectTag(community)", ng-class="{blue: community.selected}")
           img.col-sm-4(ng-src='{{community.icon}}', style="max-height: inherit; position: relative; top: -20px;")
           p.col-sm-8(ng-class="{'text-red': !community.selected, 'text-white': community.selected}") {{community.name}}

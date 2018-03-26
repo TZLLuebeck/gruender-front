@@ -1,17 +1,18 @@
-.container.blue
-  h1.text-red Branchen
-  .col-sm-3.blue.clickable(ng-repeat="community in coc.list | filter: {typus: 'Branche'}")
-    .container-fluid.blue.clickable.text-center(ui-sref="root.community({id: {{community.id}}})")
-      .container-fluid.well.white
-        img.white(ng-src='{{community.icon}}')
-      h3.text-red {{community.name}}
-      br(clear="all")
-  br(clear="all")
-  hr
-  h1.text-red Themen
-  .col-sm-3.blue.clickable(ng-repeat="community in coc.list | filter: {typus: 'Thema'}", )
-    .container-fluid.blue.clickable.text-center(ui-sref="root.community({id: {{community.id}}})")
-      .container-fluid.well.white
-        img.white(ng-src='{{community.icon}}')
-      h3.text-red {{community.name}}
-  br(clear="all")
+.container-fluid(style="background-color: #cccccc;")
+  .container
+    h1.text-red Branchen
+    .col-sm-2.white.well.clickable(ng-repeat="community in coc.list | filter: {typus: 'Branche'}")
+      .container-fluid.clickable.text-center(ui-sref="root.community({id: {{community.id}}})")
+        .container-fluid.well.white
+          img.white(ng-src='{{community.icon}}')
+        b.h5 {{community.name}}
+        br(clear="all")
+    br(clear="all")
+    hr
+    h1.text-red Themen
+    .col-sm-2.white.well.clickable(ng-repeat="community in coc.list | filter: {typus: 'Thema'}", )
+      .container-fluid.clickable.text-center(ui-sref="root.community({id: {{community.id}}})")
+        .container-fluid.well.white
+          img.white(ng-src='{{community.icon}}')
+        b.h5 {{community.name}}
+    br(clear="all")

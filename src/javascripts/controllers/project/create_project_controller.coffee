@@ -1,4 +1,4 @@
-angular.module('gruenderviertel').controller 'CreateProjectCtrl', (Project, Community) ->
+angular.module('gruenderviertel').controller 'CreateProjectCtrl', (Project, Community, $state) ->
 
   @tag_list
 
@@ -14,6 +14,7 @@ angular.module('gruenderviertel').controller 'CreateProjectCtrl', (Project, Comm
       e.selected = true
 
   @createProject = () ->
+    @form.project.solution = $('#summernote').summernote('code')
     @form.project.tags = []
     for c in @tag_list
       if c.selected
@@ -31,7 +32,8 @@ angular.module('gruenderviertel').controller 'CreateProjectCtrl', (Project, Comm
     else
       @form.project.coop = false
 
-    Project.createProject(@form.project)
+    Project.createProject(@form.project).then (response) ->
+      $state.go('root.project', {id: response.id})
 
   @form = {}
   @form.project = {}
