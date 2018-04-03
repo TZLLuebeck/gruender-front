@@ -1,16 +1,106 @@
-.container-fluid
-  .jumbotron.blue
-    center.text-white
-      h1 Registrierung
-.container
+.container-fluid.grey
+  .container.white
+    .row.text-center
+      h1.text-red Registrierung
+      h3.text-red Schritt {{reg.state}}/4
+
   form(role="register" name="regForm", novalidate)
-    .form-group
-      input#reg_input_username.form-control(name="username", type="text" ng-minlength="2", ng-model="reg.form.user.username", required, maxlength="30", placeholder="Accountname")
-      input#reg_input_email.form-control(name="email", type="email", ng-model="reg.form.user.email", required, placeholder="Email")
-    .form-group
-      input#reg_input_password.form-control(name="password", type="password" ng-minlength="8",
-        ng-model="reg.form.user.password", required, maxlength="30", placeholder="Passwort")
-      input#reg_input_password_confirmation.form-control(name="password_confirmation", type="password" ng-minlength="8",
-        ng-model="reg.form.user.password_confirmation", required, maxlength="30", placeholder="Passwort bestätigen.")
-    button#reg_button.btn.btn-info(type="submit" ng-click="reg.register()", ng-disabled="regForm.$invalid || reg.reg_in_progress", data-dismiss="modal") Anmelden
+    .container.white#account(ng-show="reg.state == 1")
+      .form-group
+        .row.col-sm-offset-2.col-sm-8
+          p Username/Firmenname*
+          input#reg_input_username.form-control(name="username", type="text" ng-minlength="2", ng-model="reg.form.user.username", required, maxlength="30")
+        br(clear="all")
+        .row.col-sm-offset-2.col-sm-8
+          p Ort*
+          input#reg_input_username.form-control(name="ort", type="text" ng-minlength="2", ng-model="reg.form.user.location", required, maxlength="30")
+        br(clear="all")
+        .row.col-sm-offset-2.col-sm-8
+          p Über mich/Über uns*
+          textarea#reg_input_bio.form-control(name="bio", type="text", ng-minlength="20", maxlength="150", ng-model="reg.form.user.description", required)
+        br(clear="all")
+        .row.col-sm-offset-2.col-sm-8
+          p Webseite*
+          .input-group
+            span.input-group-addon http://
+            input#reg_input_web.form-control(name="web", type="text" ng-minlength="7", ng-model="reg.form.user.web", required)  
+        br(clear="all")
+        .row.col-sm-offset-2.col-sm-8
+          p.col-sm-2 Fon
+          input#reg_input_fon.form-control(name="fon", type="text" ng-minlength="2", ng-model="reg.form.user.fon", maxlength="30")
+        br(clear="all")
+        .row.col-sm-offset-2.col-sm-8
+          p Profilbild
+            input#reg_input_picture(type="file", ngf-select, ng-model="reg.form.user.logo" name="image" accept="image/*" ngf-max-size="1MB")
+        br(clear="all")
+    .container.white#meta(ng-show="reg.state == 2")
+      .container-fluid
+        h2 Branchen
+        p Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+      .row.display-flex
+        .col-sm-2.white.well.clickable(ng-repeat="community in reg.community_list | filter: {typus: 'Branche'}", ng-click="reg.selectTag(community)")
+          .container-fluid.clickable.text-center(ng-class="{blue: community.selected}")
+            .container-fluid.well.white(style="margin-top: 5px;")
+              img.white(ng-src='{{community.icon}}')
+            b.h5(ng-class="{'text-white': community.selected}") {{community.name}}
+      br(clear="all")
+
+    .container.white#meta(ng-show="reg.state == 3")
+      .container-fluid
+        h2 Themen
+        p Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+
+      .row.display-flex
+        .col-sm-2.white.well.clickable(ng-repeat="community in reg.community_list | filter: {typus: 'Thema'}", ng-click="reg.selectTag(community)")
+          .container-fluid.clickable.text-center(ng-class="{blue: community.selected}")
+            .container-fluid.well.white(style="margin-top: 5px;")
+              img.white(ng-src='{{community.icon}}')
+            b.h5(ng-class="{'text-white': community.selected}") {{community.name}}
+      br(clear="all")
+    .container.white#overview(ng-show="reg.state == 4")
+      .container-fluid
+        center
+          h2.text-red Übersicht
+          h4 Name: {{reg.form.user.fullname}}
+          h4 Username/Firmenname: {{reg.form.user.username}}
+          h4 Email: {{reg.form.user.email}}
+          h4 Ort: {{reg.form.user.location}}
+          h4 Über Mich
+          p {{reg.form.user.description}}
+          h4 Webseite: http://{{reg.form.user.web}}
+          h4(ng-show="reg.form.user.fon") Telefonnummer: {{reg.form.user.fon}}
+          br(clear="all")
+          h3 Interessengebiete
+          h4 Branchen
+          .col-sm-2(ng-repeat="community in reg.community_list | filter: {typus: 'Branche', selected: true}")
+            .container-fluid
+              img(ng-src="{{community.icon}}")
+            p {{community.name}}
+          br(clear="all")
+          h4 Themen
+          .col-sm-2(ng-repeat="community in reg.community_list | filter: {typus: 'Thema', selected: true}")
+            .container-fluid
+              img(ng-src="{{community.icon}}")
+            p {{community.name}}
+          br(clear="all")
+          .form-group
+              input(name="agb" type="checkbox", ng-model="reg.read_agb")
+              b
+                span  Ich habe die 
+                a.clickable(data-toggle="modal", data-target="#registrations_modal_agb") Nutzungsbedingungen
+                span  und die 
+                a.clickable(data-toggle="modal", data-target="#registrations_modal_datenschutz") Datenschutzerklärung
+                span  gelesen und akzeptiere sie.
+
+  .container.white
+    .col-sm-1.col-sm-offset-4
+      center
+        button.btn.btn-lg.btn-primary(ng-click="reg.goBack()", scrolltop) Zurück
+    .col-sm-1.col-sm-offset-2
+      center
+        button.btn.btn-lg.btn-primary(ng-click="reg.proceed()", ng-hide="reg.state == 4", scrolltop) Weiter
+        button.btn.btn-lg.btn-primary(ng-click="reg.register()", ng-show="reg.state == 4", ng-disabled="regForm.$invalid || reg.reg_in_progress || !reg.read_agb") Registrieren
+    br(clear="all")
+
+
   br(clear="all")

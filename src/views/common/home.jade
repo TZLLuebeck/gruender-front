@@ -1,23 +1,38 @@
 
 //Opening Header
 .jumbotron.blue.text-white
-  div
-    h1 Unlock your Coopotential!
-    h3 Präsentiert eure Projekte und Ideen
-    h3 Startups & Firmen: Findet Gleichgesinnte und Partner
+  .row
+    .col-sm-6
+      h1 Unlock your Coopotential!
+      h3 Präsentiert eure Projekte und Ideen
+      h3 Startups & Firmen: Findet Gleichgesinnte und Partner
+    .col-sm-3.col-sm-offset-2.well.blue
+      form(role="register" name="regForm", novalidate)
+        .form-group
+          input#reg_input_fullname.form-control(name="full_name", type="text", ng-model="home.form.name", required, placeholder="Vor- & Nachname")
+        .form-group
+          input#reg_input_email.form-control(name="email", type="email", ng-model="home.form.email", required, placeholder="Email")
+        .form-group
+          input#reg_input_password.form-control(name="password", type="password" ng-minlength="8",
+            ng-model="home.form.password", required, maxlength="30", placeholder="Passwort")
+          input#reg_input_password_confirmation.form-control(name="password_confirmation", type="password" ng-minlength="8",
+            ng-model="home.form.password_confirmation", required, maxlength="30", placeholder="Passwort bestätigen")
+        button#reg_button.btn.btn-info(ng-click="home.register()", ng-disabled="regForm.$pristine || regForm.$invalid || home.form.password != home.form.password_confirmation", data-dismiss="modal") Jetzt Registrieren
+    br(clear="all")
 .container
   h2.text-center.text-red
     p Meistgenutzte Themen
-  .well.blue
+  .well.grey
     //Popular Communities
-    .col-sm-2.container(ng-repeat="community in home.most_used")
-      .container-fluid.well.blue.clickable.text-center(ui-sref="root.community({id: {{community.id}}})")
-        img.img-circle.white(ng-src='{{community.icon}}')
-        b.text-red {{community.name}}
-    br(clear="all")
+    .row.display-flex
+      .col-sm-2.container(ng-repeat="community in home.most_used")
+        .container-fluid.well.clickable.text-center(ui-sref="root.community({id: {{community.id}}})")
+          img.white(ng-src='{{community.icon}}')
+          b.text-red {{community.name}}
+      br(clear="all")
   h2.text-center.text-red
     p Beliebteste Projekte
-  .well.blue
+  .well.grey
     .col-sm-4.container(ng-repeat="project in home.featured")
       .container-fluid.well.white.clickable.text-center(ui-sref="root.project({id: {{project.id}}})")
         img(ng-src='{{project.image}}', ng-show='{{project.image}}')
@@ -26,8 +41,6 @@
         b.text-blue {{project.goal}}
     br(clear="all")
 
-  .jumbotron
-    b Infomaterial
   .row
     //Artikel
     .col-sm-3.col-sm-offset-1.well.white

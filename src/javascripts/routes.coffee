@@ -131,6 +131,8 @@ angular.module('gruenderviertel').config ($stateProvider, $urlRouterProvider, $l
         templateUrl: 'assets/views/users/registration.html'
         controller: 'RegistrationCtrl'
         controllerAs: 'reg'
+    params:
+      user: null
 
   .state 'root.profile.editprofile',
     url: '/edit'

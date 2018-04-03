@@ -51,6 +51,10 @@ img {
   background-color: #d30c4d;
 }
 
+.grey {
+  background-color: #cccccc;
+}
+
 .text-blue {
   color: #1b355c;
 }
@@ -73,24 +77,11 @@ img {
   text-align: center;
 }
 
-.sidebar-left {
-  height: 100%;
-  width: 5%; /* Set the width of the sidebar */
-  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
-  background-color: #1b355c;
-  z-index: -10; /* Stay on top */
-  top: 0; /* Stay at the top */
-  left: 0;
-  overflow-x: hidden; /* Disable horizontal scroll */
+.row.display-flex {
+  display: flex;
+  flex-wrap: wrap;
 }
-
-.sidebar-right {
-  height: 100%;
-  width: 5%; /* Set the width of the sidebar */
-  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
-  background-color: #1b355c;
-  z-index: -10; /* Stay on top */
-  top: 0; /* Stay at the top */
-  right: 0;
-  overflow-x: hidden; /* Disable horizontal scroll */
+.row.display-flex > [class*='col-'] {
+  display: flex;
+  flex-direction: column;
 }
