@@ -1,30 +1,31 @@
 angular.module('gruenderviertel').controller 'RegistrationCtrl', (User, TokenContainer, $state, $rootScope, $stateParams, Community) ->
 
   @state = 1
-  user = $stateParams.user
+  @user = $stateParams.user
   @community_list = []
-  @form = {user: user}
+  @form = {}
   @reg_in_progress = false
   @selected = 0
   @filter = 'Branche'
 
   @init = () =>
-    if user == null 
-      $state.go('root.home')
-    else
-      Community.get_all().then (response) =>
-        @community_list = angular.copy(response)
+    if @user != null
+      @state++ 
+      @form.user = @user
+
+    Community.get_all().then (response) =>
+      @community_list = angular.copy(response)
 
 
   @goBack = () =>
-    if @state <= 1
+    if @state <= 0
       $state.go('root.home')
     else
       @state--
 
   @proceed = () =>
     console.log(@form.user)
-    if @state < 4
+    if @state < 5
       @state++
 
   @selectTag = (community) =>
@@ -47,12 +48,20 @@ angular.module('gruenderviertel').controller 'RegistrationCtrl', (User, TokenCon
   @register = () ->
     console.log(@form)
     @reg_in_progress = true
+    c = []
+    for community in @community_list
+      if community.selected
+        c.push(community.id)
+
+    @form.user.subs = c
+
     User.createUser(@form.user).then (response) ->
       $rootScope.$broadcast('user:stateChanged')
       $state.go('root.home')
     , (error) ->
       @reg_in_progress = false
       console.log('RegistrationCtrl.register Error')
+
 
   @init()
 
