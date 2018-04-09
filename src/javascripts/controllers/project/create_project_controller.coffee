@@ -1,5 +1,7 @@
 angular.module('gruenderviertel').controller 'CreateProjectCtrl', (Project, Community, $state) ->
 
+  @step = 1
+
   @tag_list
 
   Community.get_all().then (response) =>
@@ -12,6 +14,17 @@ angular.module('gruenderviertel').controller 'CreateProjectCtrl', (Project, Comm
       e.selected = false
     else
       e.selected = true
+
+  @goBack = () =>
+    if @step <= 0
+      $state.go('root.home')
+    else
+      @step--
+
+  @proceed = () =>
+    console.log(@form.user)
+    if @step < 3
+      @step++
 
   @createProject = () ->
     @form.project.solution = $('#summernote').summernote('code')

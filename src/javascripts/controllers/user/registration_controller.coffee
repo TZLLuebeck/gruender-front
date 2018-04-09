@@ -53,11 +53,12 @@ angular.module('gruenderviertel').controller 'RegistrationCtrl', (User, TokenCon
       if community.selected
         c.push(community.id)
 
-    @form.user.subs = c
+    @form.user.subscriptions = c
 
     User.createUser(@form.user).then (response) ->
       $rootScope.$broadcast('user:stateChanged')
       $state.go('root.home')
+      @reg_in_progress = false
     , (error) ->
       @reg_in_progress = false
       console.log('RegistrationCtrl.register Error')

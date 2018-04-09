@@ -12,7 +12,7 @@ angular.module('gruenderviertel').service 'User', (baseREST, $q, $http, Rails, $
 
   # CREATE
 
-  createUser = (user) ->
+  createUser = (user) =>
     console.log("Registering.")
     console.log(user)
     defer = $q.defer()
@@ -29,7 +29,7 @@ angular.module('gruenderviertel').service 'User', (baseREST, $q, $http, Rails, $
       defer.reject(error)
     defer.promise
 
-  login = (form) ->
+  login = (form) =>
     defer = $q.defer()
     packet = baseREST.one('users').one('login')
     packet.data = {}
@@ -42,6 +42,7 @@ angular.module('gruenderviertel').service 'User', (baseREST, $q, $http, Rails, $
       defer.resolve(@user)
     , (error) =>
       defer.reject(error)
+    defer.promise
 
   # READ
 
@@ -124,6 +125,7 @@ angular.module('gruenderviertel').service 'User', (baseREST, $q, $http, Rails, $
       @user = null
       console.log(@user)
       @unauthorized = true
+      $rootScope.$broadcast('user:stateChanged')
       defer.resolve(response)
     , (error) =>
       defer.reject(error)

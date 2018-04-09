@@ -8,47 +8,47 @@
     .container.white#start(ng-show="reg.state == 1")
       .form-group
         .row.col-sm-offset-2.col-sm-8
-          p Vor- & Nachname*
+          label(for="reg_input_fullname") Vor- & Nachname*
           input#reg_input_fullname.form-control(name="full_name", type="text", ng-model="reg.form.user.name", required)
       .form-group
         .row.col-sm-offset-2.col-sm-8
-          p Email*
+          label(for="reg_input_email") Email*
           input#reg_input_email.form-control(name="email", type="email", ng-model="reg.form.user.email", required)
       .form-group
         .row.col-sm-offset-2.col-sm-8
-          p Passwort*
+          label(for="reg_input_password") Passwort*
           input#reg_input_password.form-control(name="password", type="password" ng-minlength="8", ng-model="reg.form.user.password", required, maxlength="30")
         .row.col-sm-offset-2.col-sm-8
-          p Passwort bestätigen*
+          label(for="reg_input_password_confirmation") Passwort bestätigen*
           input#reg_input_password_confirmation.form-control(name="password_confirmation", type="password" ng-minlength="8", ng-model="reg.form.user.password_confirmation", required, maxlength="30")
 
     .container.white#account(ng-show="reg.state == 2")
       .form-group
         .row.col-sm-offset-2.col-sm-8
-          p Username/Firmenname*
+          label(for="reg_input_username") Username/Firmenname*
           input#reg_input_username.form-control(name="username", type="text" ng-minlength="2", ng-model="reg.form.user.username", required, maxlength="30")
         br(clear="all")
         .row.col-sm-offset-2.col-sm-8
-          p Ort*
-          input#reg_input_username.form-control(name="ort", type="text" ng-minlength="2", ng-model="reg.form.user.location", required, maxlength="30")
+          label(for="reg_input_location") Ort*
+          input#reg_input_location.form-control(name="ort", type="text" ng-minlength="2", ng-model="reg.form.user.location", required, maxlength="30")
         br(clear="all")
         .row.col-sm-offset-2.col-sm-8
-          p Über mich/Über uns*
+          label(for="reg_input_bio") Über mich/Über uns*
           textarea#reg_input_bio.form-control(name="bio", type="text", ng-minlength="20", maxlength="150", ng-model="reg.form.user.description", required)
         br(clear="all")
         .row.col-sm-offset-2.col-sm-8
-          p Webseite*
-          .input-group
+          label(for="reg_input_web") Webseite*
+          .input-group#reg_input_web
             span.input-group-addon http://
-            input#reg_input_web.form-control(name="web", type="text" ng-minlength="7", ng-model="reg.form.user.web", required)  
+            input.form-control(name="web", type="text" ng-minlength="7", ng-model="reg.form.user.web", required)  
         br(clear="all")
         .row.col-sm-offset-2.col-sm-8
-          p.col-sm-2 Fon
+          label(for="reg_input_fon") Fon
           input#reg_input_fon.form-control(name="fon", type="text" ng-minlength="2", ng-model="reg.form.user.fon", maxlength="30")
         br(clear="all")
         .row.col-sm-offset-2.col-sm-8
-          p Profilbild
-            input#reg_input_picture(type="file", ngf-select, ng-model="reg.form.user.logo" name="image" accept="image/*" ngf-max-size="1MB")
+          label(for="reg_input_picture") Profilbild
+          input#reg_input_picture(type="file", ngf-select, ng-model="reg.form.user.logo" name="image" accept="image/*" ngf-max-size="1MB")
         br(clear="all")
     .container.white#meta(ng-show="reg.state == 3")
       .container-fluid

@@ -12,11 +12,10 @@ angular.module('gruenderviertel').controller 'NavCtrl', (User, $rootScope, $stat
     @isAdmin()
 
   @init = () ->
-    console.log("Initializing NavCtrl")
     @setLoggedIn(TokenContainer.get())
     @setUsername()
     @isAdmin()
-    console.log("Nav Controller Initialized")
+    console.log("NavCtrl Initialized")
 
   ##################
   # Active Functions

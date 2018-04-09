@@ -45,7 +45,6 @@ angular.module('gruenderviertel').service 'TokenContainer', ($localStorage, Rail
     delete $localStorage.token
     $timeout -> #timeout to overcome controller instantiating problem
       $rootScope.$broadcast('user:token_invalid')
-      $rootScope.$broadcast('user:stateChanged')
 
   get: get
   getRaw: getRaw

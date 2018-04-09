@@ -6,7 +6,7 @@
       h1 Unlock your Coopotential!
       h3 Präsentiert eure Projekte und Ideen
       h3 Startups & Firmen: Findet Gleichgesinnte und Partner
-    .col-sm-3.col-sm-offset-2.well.blue
+    .col-sm-3.col-sm-offset-2.well.blue(ng-hide="home.isAuthenticated")
       form(role="register" name="regForm", novalidate)
         .form-group
           input#reg_input_fullname.form-control(name="full_name", type="text", ng-model="home.form.name", required, placeholder="Vor- & Nachname")

@@ -1,23 +1,25 @@
-.container-fluid(style="background-color: #cccccc; margin-right: 0px; margin-left: 0px;")
-  //.sidenav.blue.text-white
-      a(href="#Overview") Übersicht
-      a(href="#Ziel") Ziel
-      a(href="#Problem") Problem
-      a(href="#Solution") Lösung
-      a(href="#Coop") Kooperation
-      a(href="#Attachment") Anhang
-
-  .container
-    form.white(name="createForm", novalidate, enctype="multipart/form-data")
-      .container-fluid.white
+.container-fluid.grey(style="margin-right: 0px; margin-left: 0px;")
+  .container.white
+    form(name="createForm", novalidate, enctype="multipart/form-data")
+      .container.white(ng-show="create.step == 1")
         a.anchor#Overview
         h2.text-blue.text-center Projektname
         center
           input(ng-model="create.form.project.name", style="font-weight: bold; width: 100%; font-size: 32px; text-align: center;")
         br
         center
+          label.text-blue(for="newProject_cover_image") Coverbild (*)
+          input#newProject_cover_image(type="file", ngf-select, ng-model="create.form.project.attachment" name="image" accept="image/*" ngf-max-size="1MB")
+        br
+        center
           button.btn.btn-lg(data-toggle="modal", data-target="#tagging_modal") Themen
         hr
+        center
+          select.form-control(ng-model="create.form.project.typus")
+            option(value="Problemstellung") Problemstellung
+            option(value="Showcase") Showcase
+            option(value="Anleitung") Anleitung
+
         a.anchor#Ziel
         h2.text-blue.text-center Ziel
         textarea(ng-model="create.form.project.goal", style="width: 100%; resize: none;", rows="2")
@@ -26,16 +28,20 @@
         a.anchor#Problem
         h2.text-blue.text-center Problem
         textarea(ng-model="create.form.project.problem", style="width: 100%;")
-      br(clear="all")
-      .container-fluid.white(summernote, style="margin-top: 20px;")
-        a.anchor#Solution
-        h2.text-blue.text-center Lösung
-        div#summernote
-        br(clear="all")
-        hr
+      .container.white(ng-show="create.step == 2")
+        .container-fluid.white(summernote, style="margin-top: 20px;")
+          a.anchor#Solution
+          center
+            h2.text-blue Lösung
+            p Beschreiben Sie die Details ihres Projektes oder Problems.
+          div#summernote
+      .container.white(ng-show="create.step == 3")
         a.anchor#Coop
         h2.text-blue.text-center Kooperationswunsch
-        textarea(ng-model="create.form.project.cooptext", style="width: 100%;")
+        center
+          label(for="newProject_coop_check") Ich möchte mit anderen Nutzern kooperieren.
+          input#newProject_coop_check(type="checkbox" ng-model="create.form.project.coop")
+        textarea(ng-disabled="!create.form.project.coop" ng-model="create.form.project.cooptext", style="width: 100%;")
         br(clear="all")
         hr
         a.anchor#Attachment
@@ -43,30 +49,35 @@
           h3.text-blue.text-center Anhang (*.pdf, Max. 1MB)
           center
             input(type="file", ngf-select, ng-model="create.form.project.attachment" name="attachment" accept="application/pdf" ngf-max-size="1MB")
-          h3.text-blue.text-center Bild (*)
+    .container.white
+      .container-fluid(style="margin-top: 10px;")
+        .col-sm-1.col-sm-offset-4
           center
-            input(type="file", ngf-select, ng-model="create.form.project.attachment" name="image" accept="image/*" ngf-max-size="1MB")
-      hline
-      br(clear="all")
-      center
-        button.btn.btn-info.btn-lg(ng-click="create.createProject()") Absenden
+            button.btn.btn-lg.btn-primary(ng-click="create.goBack()", scrolltop, ng-disabled="create.step == 1") Zurück
+        .col-sm-1.col-sm-offset-2
+          center
+            button.btn.btn-lg.btn-primary(ng-click="create.proceed()", ng-hide="create.step == 3", scrolltop) Weiter
+            button.btn.btn-lg.btn-primary(ng-click="create.createProject()", ng-show="create.step == 3", ng-disabled="createForm.$invalid || create.in_progress") Einreichen
 
 .modal.fade#tagging_modal
   .modal-dialog
     .modal-content
       center.modal-body
         h3.text-red Branchen
-        .row.container-fluid.well.clickable(ng-repeat="community in create.tag_list | filter: {typus: 'Branche'}", style="max-height: 50px; margin-top: 0px; max-width: 80%; ", ng-click="create.selectTag(community)", ng-class="{blue: community.selected}")
-          img.col-sm-4(ng-src='{{community.icon}}', style="max-height: inherit; position: relative; top: -20px;")
-          p.col-sm-8(ng-class="{'text-red': !community.selected, 'text-white': community.selected}") {{community.name}}
-          br(clear="all")
+        .row.display-flex
+          .col-sm-6.well.clickable(ng-repeat="community in create.tag_list | filter: {typus: 'Branche'}", style="max-height: 50px; margin-top: 0px; max-width= 80%;", ng-click="create.selectTag(community)", ng-class="{blue: community.selected}")
+            center(style="position: relative; top: -20px; max-height: inherit;")
+              img.col-sm-4(ng-class="{white: community.selected}", ng-src='{{community.icon}}')
+              p.col-sm-8(ng-class="{'text-red': !community.selected, 'text-white': community.selected}") {{community.name}}
+            br(clear="all")
         br(clear="all")
         hr
         h3.text-red Themen
-        .row.container-fluid.well.clickable(ng-repeat="community in create.tag_list | filter: {typus: 'Thema'}", style="max-height: 50px; margin-top: 0px; max-width: 80%; ", ng-click="create.selectTag(community)", ng-class="{blue: community.selected}")
-          img.col-sm-4(ng-src='{{community.icon}}', style="max-height: inherit; position: relative; top: -20px;")
-          p.col-sm-8(ng-class="{'text-red': !community.selected, 'text-white': community.selected}") {{community.name}}
-          br(clear="all")
-        br(clear="all")
+        .row.display-flex
+          .col-sm-6.well.clickable(ng-repeat="community in create.tag_list | filter: {typus: 'Thema'}", style="max-height: 50px; margin-top: 0px; max-width= 80%;", ng-click="create.selectTag(community)", ng-class="{blue: community.selected}")
+            center(style="position: relative; top: -20px; max-height: inherit;")
+              img.col-sm-4(ng-class="{white: community.selected}", ng-src='{{community.icon}}')
+              p.col-sm-8(ng-class="{'text-red': !community.selected, 'text-white': community.selected}") {{community.name}}
+            br(clear="all")
       .modal-footer
         button.btn.btn-default(type="button", data-dismiss="modal") Schließen
