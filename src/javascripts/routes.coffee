@@ -107,7 +107,7 @@ angular.module('gruenderviertel').config ($stateProvider, $urlRouterProvider, $l
   ##################################
   
   .state 'root.profile',
-    url: '/profile'
+    url: '/profile/:id'
     views:
       'body@':
         templateUrl: 'assets/views/users/profile.html'
@@ -160,7 +160,7 @@ angular.module('gruenderviertel').config ($stateProvider, $urlRouterProvider, $l
   ##################################
 
   .state 'root.project',
-    url: '/project'
+    url: '/project/:id'
     views:
       'body@':
         templateUrl: 'assets/views/projects/project.html'
@@ -226,7 +226,7 @@ angular.module('gruenderviertel').config ($stateProvider, $urlRouterProvider, $l
           return null
 
   .state 'root.community',
-    url: '/community'
+    url: '/community/:id'
     views:
       'body@':
         templateUrl: 'assets/views/communities/community.html'

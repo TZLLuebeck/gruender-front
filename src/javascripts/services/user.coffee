@@ -19,6 +19,7 @@ angular.module('gruenderviertel').service 'User', (baseREST, $q, $http, Rails, $
     Upload.upload({
       url: '/api/v1/users/'
       data: {data: user}
+      arrayKey: '[]'
       }).then (response) =>
       console.log(response.data.data)
       @user = response.data.data.user
