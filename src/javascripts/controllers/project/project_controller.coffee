@@ -19,6 +19,18 @@ angular.module('gruenderviertel').controller 'ProjectCtrl', (instance, Project, 
       console.log(response)
       @project.comments.push(response)
 
+  @like = () =>
+    Project.like(@project.id).then (response) =>
+      @project.likes++
+    , (error) ->
+      console.log("project.like error")
+
+
+  @unlike = () =>
+    Project.unlike(@project.id).then (response) =>
+      @project.likes--
+    , (error) ->
+      console.log("project.dislike error")
 
   @init()
 

@@ -32,10 +32,10 @@ angular.module('gruenderviertel').service 'Project', (baseREST, $q, Upload) ->
       console.log('Project.postComment ERror')
     defer.promise
 
-  like = (project) ->
+  like = (project_id) ->
     defer = $q.defer()
     packet = baseREST.one('projects').one('like')
-    packet.id = project.id
+    packet.id = project_id
     packet.post().then (response) ->
       console.log('like/unlike sent')
       defer.resolve(response.data)

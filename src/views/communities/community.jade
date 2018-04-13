@@ -1,65 +1,71 @@
-.container-fluid
-  .container-fluid.blue
+.container-fluid.grey(tooltips)
+  .container.blue
     br(clear="all")
-    .col-sm-1.white
+    .col-sm-2.white
       img(ng-src="{{community.icon}}")
-    .col-sm-10
-      h1.text-red {{community.community.name}}
+    .col-sm-8
+      h1.text-red.text-center {{community.community.name}}
     .col-sm-2
-      button.btn.btn-lg(ng-hide="community.subscribed", ng-click="community.subscribe()") Abbonieren
-      button.btn.btn-lg(ng-show="community.subscribed", ng-click="community.unsubscribe()") Deabbonieren
+      .row
+        button.btn.btn-lg.btn-info(ng-hide="community.subscribed", ng-click="community.subscribe()") Abbonieren
+        button.btn.btn-lg.btn-info(ng-show="community.subscribed", ng-click="community.unsubscribe()") Deabbonieren
+      .row
+        h3.text-white {{community.member_count}} Mitglied(er)
+        h3.text-white {{community.project_count}} Projekt(e)
     br(clear="all")
     hr
-  .container
+  .container.white
     .col-sm-10
       p {{community.community.description}}
-    .col-sm-2
-      h3 {{community.member_count}} Mitglied(er)
-      h3 {{community.project_count}} Projekt(e)
     br(clear="all")
-    hr
-  .container
-    .col-sm-2.well.clickable(ng-repeat="project in community.projects", ui-sref="root.project({id: {{project.id}}})")
+    hr(style="border-color: #cccccc;")
+  .container.white
+    center
+      h2 Projekte
+    .col-sm-3.well.clickable(ng-repeat="project in community.projects", ui-sref="root.project({id: {{project.id}}})", style="border-color: #cccccc;" data-toggle="tooltip" data-placement="bottom" title="{{project.goal}}" class="project-tooltip")
       .text-center
         img(ng-src="{{project.image}}")
         hr
         b.text-red {{project.name}}
     br(clear="all")
     hr
-  .container
+  .container.white
     center
       h2 Diskussionen
-    .well.white(ng-repeat= "discussion in community.discussions")
-      .col-sm-2
-        .row
-          img(ng-src="{{discussion.author.logo}}")
-        .row
-          p.clickable(ui-sref="root.profile({id: {{discussion.user_id}}})") {{discussion.author.name}}
-      .col-sm-10.well.white
-        b(style="margin-top:0px; margin-bottom:0px;") {{discussion.title}}
-        hr
+    .well(style="border-color: #cccccc;", ng-repeat= "discussion in community.discussions")
+      .container
+        a(id="d-{{discussion.author}}-{{discussion.id}}")
         .row.text-center
+          b.h3(style="margin-top:0px; margin-bottom:0px;") {{discussion.title}}
+        .row.text-center
+          a.clickable.text-blue(ui-sref="root.profile({id: discussion.user_id})", target="_blank") {{discussion.author}}
+          span &nbsp;- Verfasst am 
+          span {{discussion.created}}
+        .container
           p {{discussion.content}}
-      hline
+      hr(style="border-color: #cccccc;")
       .well(ng-repeat="comment in discussion.comments")
-        b(style="margin-top:0px; margin-bottom:0px;") {{comment.title}}
-        br
-        .row.text-center
+        a(id="c-{{comment.author}}-{{comment.id}}")
+        .row
+          a.clickable.text-blue(ui-sref="root.profile({id: comment.user_id})", target="_blank") {{comment.author}}
+          span &nbsp;- Verfasst am 
+          span {{comment.created}}
+        .well
           p {{comment.content}}
-        br
-        p.text-right {{comment.author}}
       center
         form(name="commentForm", novalidate)
-          textarea(type="text", ng-model="community.comment_form.content")
+          textarea(ng-model="community.comment_form.content[$index]", style="width: 40%; resize: vertical;")
           br
-          button(ng-click="community.comment(discussion.id)") Kommentar abgeben.
+          button.btn(ng-click="community.comment(discussion.id, $index)") Kommentieren
 
-    a(ng-hide="community.discussions") Noch keine Diskussionen.
+    h3.text-center(ng-hide="community.discussions.length") Noch keine Diskussionen.
+    
     center
       form(name="discussionForm", novalidate)
-        input(type="text", ng-model="community.discussion_form.title", required, placeholder="Diskussionstitel")
-        br
-        textarea(type="text", ng-model="community.discussion_form.content", required)
-        br
-        button(ng-click="community.startDiscussion()") Diskussion eröffnen.
+        center
+          input(type="text", ng-model="community.discussion_form.title", required, placeholder="Diskussionstitel")
+          br
+          textarea(type="text", ng-model="community.discussion_form.content", required, style="width: 70%; resize: vertical;")
+          br
+          button(ng-click="community.startDiscussion()") Diskussion eröffnen.
 

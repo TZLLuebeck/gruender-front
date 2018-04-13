@@ -9,8 +9,8 @@ angular.module('gruenderviertel').controller 'ProfileCtrl', (instance, $state) -
 
   @goToComment = (comment) ->
     if comment.parent_type == 'Project'
-      $state.go('root.project', comment.parent_id)
+      $state.go('root.project', {'id': comment.parent_id,'#': "c-"+comment.author+"-"+comment.id })
     else
-      $state.go('root.community', comment.parent_id)
+      $state.go('root.community', {'id': comment.parent_id,'#': "c-"+comment.author+"-"+comment.id })
 
   this

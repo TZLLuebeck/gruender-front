@@ -2,7 +2,7 @@
   .sidenav.blue.text-white
     p.h3.text-center(style="margin-top: 0px;") {{project.project.typus}}
     .text-center
-      button.btn.white.text-red() Like
+      button.btn.white.text-red(ng-click="project.like()") Like
       br
       p.h4 {{project.project.likes}} Likes
     hr
@@ -51,7 +51,7 @@
     hline
     .col-sm-6.col-sm-offset-4.well(ng-repeat="comment in project.project.comments")
       .row
-        a.clickable.text-blue(ui-sref="root.profile({id: comment.user_id})", target="_blank") {{comment.author}}
+        a.clickable.text-blue(id="c-{{comment.author}}-{{comment.id}}", ui-sref="root.profile({id: comment.user_id})", target="_blank") {{comment.author}}
         span &nbsp;- Verfasst am 
         span {{comment.created}}
       .well

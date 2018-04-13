@@ -11,15 +11,26 @@ angular.module('gruenderviertel').controller 'CommunityCtrl', (instance, Communi
 
   @discussion_form = {}
   @comment_form = {}
+  @comment_form.content = []
+
+  @init = () =>
+    for d in @discussions
+      d.created = new Date(Date.parse(d.created_at)).toLocaleString('de-DE')
+      d.updated = new Date(Date.parse(d.updated_at)).toLocaleString('de-DE')
+      for c in d.comments
+        c.created = new Date(Date.parse(c.created_at)).toLocaleString('de-DE')
+        c.updated = new Date(Date.parse(c.updated_at)).toLocaleString('de-DE')
 
   @subscribe = () =>
     Community.join_community(@community.id).then (response) =>
+      @member_count++
       @subscribed = response
     , (error) ->
       console.log('CommunityCtrl.subscribe Error')
 
   @unsubscribe = () =>
     Community.leave_community(@community.id).then (response) =>
+      @member_count--
       @subscribed = response
     , (error) ->
       console.log('CommunityCtrl.subscribe Error')
@@ -31,13 +42,19 @@ angular.module('gruenderviertel').controller 'CommunityCtrl', (instance, Communi
     , (error) ->
       console.log('CommunityCtrl.startDiscussion Error')
 
-  @comment = (discussion_id) =>
-    message = {content: @comment_form.content}
+  @comment = (discussion_id, index) =>
+    message = {content: @comment_form.content[index]}
+    console.log("sending comment")
     Community.post_comment(discussion_id, message).then (response) =>
+      console.log("added comment")
       for discussion in @discussions
         if discussion.id == discussion_id
+          response.created = new Date(Date.parse(response.created_at)).toLocaleString('de-DE')
+          response.updated = new Date(Date.parse(response.updated_at)).toLocaleString('de-DE')
           discussion.comments.push(response)
     , (error) ->
       console.log('CommunityCtrl.comment Error')
+
+  @init()      
 
   this

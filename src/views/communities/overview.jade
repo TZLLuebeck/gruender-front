@@ -2,7 +2,7 @@
   .container
     h1.text-red Branchen
     .row.display-flex
-      .col-sm-2.white.well.clickable(ng-repeat="community in coc.list | filter: {typus: 'Branche'}")
+      .col-sm-1.col-md-2.white.well.clickable.highlight(ng-repeat="community in coc.list | filter: {typus: 'Branche'}" style="margin-left:5px; margin-right:5px;")
         .container-fluid.clickable.text-center(ui-sref="root.community({id: {{community.id}}})")
           .container-fluid.well.white
             img.white(ng-src='{{community.icon}}')
@@ -12,7 +12,7 @@
     hr
     h1.text-red Themen
     .row.display-flex
-      .col-sm-2.white.well.clickable(ng-repeat="community in coc.list | filter: {typus: 'Thema'}", )
+      .col-sm-2.white.well.clickable.highlight(ng-repeat="community in coc.list | filter: {typus: 'Thema'}" style="margin-left:5px; margin-right:5px;")
         .container-fluid.clickable.text-center(ui-sref="root.community({id: {{community.id}}})")
           .container-fluid.well.white
             img.white(ng-src='{{community.icon}}')
