@@ -1,0 +1,63 @@
+.container-fluid.grey
+  .container.white
+    .row.text-center
+      h1.text-red Profil Bearbeiten
+      h3.text-red Schritt {{edit.state}}/2
+
+  form(role="register" name="preditForm", novalidate)
+    .container.white#start(ng-show="edit.state == 1")
+      .form-group
+        .row.col-sm-offset-2.col-sm-8
+          label(for="predit_input_fullname") Vor- & Nachname
+          input#predit_input_fullname.form-control(name="full_name", type="text", ng-model="edit.form.user.name")
+      .form-group
+        .row.col-sm-offset-2.col-sm-8
+          label(for="predit_input_email") Email
+          input#predit_input_email.form-control(name="email", type="email", ng-model="edit.form.user.email")
+      .form-group
+        .row.col-sm-offset-2.col-sm-8
+          label(for="predit_input_password") Neues Passwort
+          input#predit_input_password.form-control(name="password", type="password" ng-minlength="8", ng-model="edit.form.user.password", maxlength="30")
+        .row.col-sm-offset-2.col-sm-8
+          label(for="predit_input_password_confirmation") Neues Passwort bestätigen
+          input#predit_input_password_confirmation.form-control(name="password_confirmation", type="password" ng-minlength="8", ng-model="edit.form.user.password_confirmation", maxlength="30")
+
+    .container.white#account(ng-show="edit.state == 2")
+      .form-group
+        .row.col-sm-offset-2.col-sm-8
+          label(for="predit_input_location") Ort
+          input#predit_input_location.form-control(name="ort", type="text" ng-minlength="2", ng-model="edit.form.user.location", maxlength="30")
+        br(clear="all")
+        .row.col-sm-offset-2.col-sm-8
+          label(for="predit_input_bio") Über mich/Über uns
+          textarea#predit_input_bio.form-control(name="bio", type="text", ng-minlength="20", maxlength="150", ng-model="edit.form.user.description")
+        br(clear="all")
+        .row.col-sm-offset-2.col-sm-8
+          label(for="predit_input_web") Webseite
+          .input-group#predit_input_web
+            span.input-group-addon http://
+            input.form-control(name="web", type="text" ng-minlength="7", ng-model="edit.form.user.web")  
+        br(clear="all")
+        .row.col-sm-offset-2.col-sm-8
+          label(for="predit_input_fon") Fon
+          input#predit_input_fon.form-control(name="fon", type="text" ng-minlength="2", ng-model="edit.form.user.fon", maxlength="30")
+        br(clear="all")
+        .row.col-sm-offset-2.col-sm-8
+          label(for="predit_input_picture") Profilbild
+          input#predit_input_picture(type="file", ngf-select, ng-model="edit.form.user.logo" name="image" accept="image/*" ngf-max-size="1MB")
+        br(clear="all")
+
+  .container.white
+    .col-sm-1.col-sm-offset-4
+      center
+        button.btn.btn-lg.btn-primary(ng-click="edit.goBack()", scrolltop, ng-disabled="edit.state == 1") Zurück
+      div(ng-show="edit.state == 2")
+        label(for="predit_input_password") Aktuelles Passwort*
+        input#predit_input_password.form-control(name="currentpassword", type="password" ng-minlength="8", ng-model="edit.form.user.current_password", required, maxlength="30")  
+    .col-sm-1.col-sm-offset-2
+      center
+        button.btn.btn-lg.btn-primary(ng-click="edit.proceed()", ng-hide="edit.state == 2", scrolltop) Weiter
+        button.btn.btn-lg.btn-primary(ng-click="edit.saveEdit()", ng-show="edit.state == 2", ng-disabled="preditForm.$invalid || edit.predit_in_progress") Speichern
+    br(clear="all")
+
+

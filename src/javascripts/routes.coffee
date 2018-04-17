@@ -138,9 +138,16 @@ angular.module('gruenderviertel').config ($stateProvider, $urlRouterProvider, $l
     url: '/edit'
     views:
       'body@':
-        templateUrl: 'assets/views/users/editprofile.html'
+        templateUrl: 'assets/views/users/edit.html'
         controller: 'ProfileEditCtrl'
         controllerAs: 'edit'
+    resolve:
+      instance: (User) ->
+        User.currentUser().then (response) ->
+          return response
+        , (error) ->
+          Helper.goBack()
+          return null
 
   .state 'root.passwordrecovery',
     url: '/recover'

@@ -23,7 +23,7 @@
         // Discussions Here
         ul.list-group
           li.list-group-item.clickable(ng-repeat='discussion in profile.my_discussions')
-            a(ui-sref='root.community({id: {{discussion.community_id}}})') {{discussion.title}}
+            a(ui-sref='root.community({id: {{discussion.community_id}}, "#": "d-{{discussion.author}}-{{discussion.id}}"})') {{discussion.title}}
           li.list-group-item(ng-hide='profile.my_discussions.length') Noch keine Diskussionen.
       h4.text-red.text-center Meine Kommentare
       .row

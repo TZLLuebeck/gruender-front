@@ -35,7 +35,7 @@
   .container
     .col-sm-3.container.well(ng-repeat="project in home.featured" ng-class="{'col-sm-offset-1': $index}", style="border-color: #cccccc;")
       .container-fluid.clickable.text-center(ui-sref="root.project({id: {{project.id}}})" data-toggle="tooltip" data-placement="bottom" title="{{project.goal}}" class="project-tooltip")
-        img(ng-src='{{project.image}}', ng-show='{{project.image}}')
+        img(ng-src='{{project.image.url}}', ng-hide='!project.image')
         hr
         b.text-red {{project.name}}
     br(clear="all")

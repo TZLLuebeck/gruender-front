@@ -1,4 +1,4 @@
-.container-fluid.grey(tooltips)
+.container-fluid.grey(tooltips, anchormove)
   .container.blue
     br(clear="all")
     .col-sm-2.white
@@ -34,7 +34,7 @@
       h2 Diskussionen
     .well(style="border-color: #cccccc;", ng-repeat= "discussion in community.discussions")
       .container
-        a(id="d-{{discussion.author}}-{{discussion.id}}")
+        a.anchor(id="d-{{discussion.author}}-{{discussion.id}}")
         .row.text-center
           b.h3(style="margin-top:0px; margin-bottom:0px;") {{discussion.title}}
         .row.text-center
@@ -44,14 +44,13 @@
         .container
           p {{discussion.content}}
       hr(style="border-color: #cccccc;")
-      .well(ng-repeat="comment in discussion.comments")
-        a(id="c-{{comment.author}}-{{comment.id}}")
+      div(ng-repeat="comment in discussion.comments")
+        a.anchor(id="c-{{comment.author}}-{{comment.id}}")
         .row
           a.clickable.text-blue(ui-sref="root.profile({id: comment.user_id})", target="_blank") {{comment.author}}
           span &nbsp;- Verfasst am 
           span {{comment.created}}
-        .well
-          p {{comment.content}}
+        p {{comment.content}}
       center
         form(name="commentForm", novalidate)
           textarea(ng-model="community.comment_form.content[$index]", style="width: 40%; resize: vertical;")

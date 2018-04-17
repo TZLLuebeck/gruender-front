@@ -35,16 +35,6 @@ angular.module('gruenderviertel').controller 'CreateProjectCtrl', (Project, Comm
 
     @form.project.status = "Published"
 
-    if !@form.project.solution
-      @form.project.typus = "Problemstellung"
-    else
-      @form.project.typus = "Showcase"
-
-    if @form.project.cooptext
-      @form.project.coop = true
-    else
-      @form.project.coop = false
-
     Project.createProject(@form.project).then (response) ->
       $state.go('root.project', {id: response.id})
 

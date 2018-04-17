@@ -1,4 +1,4 @@
-angular.module('gruenderviertel').controller 'CommunityCtrl', (instance, Community) ->
+angular.module('gruenderviertel').controller 'CommunityCtrl', (instance, Community, $anchorScroll) ->
 
   @community = instance
   @icon = instance.icon
@@ -38,6 +38,8 @@ angular.module('gruenderviertel').controller 'CommunityCtrl', (instance, Communi
   @startDiscussion = () =>
     message = {title: @discussion_form.title, content: @discussion_form.content}
     Community.post_discussion(@community.id, message).then (response) =>
+      @discussion_form = {}
+      response.comments = []
       @discussions.push(response)
     , (error) ->
       console.log('CommunityCtrl.startDiscussion Error')

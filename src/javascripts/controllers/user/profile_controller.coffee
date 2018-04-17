@@ -5,12 +5,12 @@ angular.module('gruenderviertel').controller 'ProfileCtrl', (instance, $state) -
   @my_comments = angular.copy(@user.comments)
   @my_discussions = angular.copy(@user.posts)
 
-  console.log(instance)
-
   @goToComment = (comment) ->
     if comment.parent_type == 'Project'
       $state.go('root.project', {'id': comment.parent_id,'#': "c-"+comment.author+"-"+comment.id })
     else
-      $state.go('root.community', {'id': comment.parent_id,'#': "c-"+comment.author+"-"+comment.id })
+      console.log("Comment:")
+      console.log(comment)
+      $state.go('root.community', {'id': comment.grandparent_id,'#': "c-"+comment.author+"-"+comment.id })
 
   this

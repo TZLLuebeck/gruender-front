@@ -20,7 +20,7 @@ angular.module('gruenderviertel').service 'User', (baseREST, $q, $http, Rails, $
       url: '/api/v1/users/'
       data: {data: user}
       arrayKey: '[]'
-      }).then (response) =>
+    }).then (response) =>
       console.log(response.data.data)
       @user = response.data.data.user
       TokenContainer.set(response.data.data.token)
@@ -91,20 +91,36 @@ angular.module('gruenderviertel').service 'User', (baseREST, $q, $http, Rails, $
       @deferreds.me.promise
 
   # UPDATE
+
   updateUser = (user) =>
-    packet = baseREST.one('users')
     defer = $q.defer()
-    Object.assign(packet, user.data[0])
-    user.put().then (response) ->
-    #baseREST.one('users').customPUT(null, null, user.data[0]).then (response) ->
-      if response.status == 422
-        defer.reject(response.data)
-      else
-        console.log('golden!')
-        defer.resolve(response.data.data)
+    Upload.upload({
+      url: '/api/v1/users/'
+      data: {data: user}
+      arrayKey: '[]'
+      method: 'PUT'
+    }).then (response) ->
+      defer.resolve(response.data.data)
     , (error) ->
       defer.reject(error)
     defer.promise
+
+
+#  updateUser = (user) =>
+#    packet = baseREST.one('users')
+#    defer = $q.defer()
+#    packet.data = user
+#    #Object.assign(packet, user.data[0])
+#    packet.put().then (response) ->
+#    #baseREST.one('users').customPUT(null, null, user.data[0]).then (response) ->
+#      if response.status == 422
+#        defer.reject(response.data)
+#      else
+#        console.log('golden!')
+#        defer.resolve(response.data.data)
+#    , (error) ->
+#      defer.reject(error)
+#    defer.promise
 
   resetPassword = (accountname) =>
     packet = baseREST.one('users').one('reset')

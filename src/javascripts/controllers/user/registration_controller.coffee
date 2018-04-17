@@ -24,7 +24,6 @@ angular.module('gruenderviertel').controller 'RegistrationCtrl', (User, TokenCon
       @state--
 
   @proceed = () =>
-    console.log(@form.user)
     if @state < 5
       @state++
 
@@ -45,7 +44,7 @@ angular.module('gruenderviertel').controller 'RegistrationCtrl', (User, TokenCon
   @filterBy = (item) =>
     return item.typus == @filter
 
-  @register = () ->
+  @register = () =>
     console.log(@form)
     @reg_in_progress = true
     c = []
@@ -55,11 +54,11 @@ angular.module('gruenderviertel').controller 'RegistrationCtrl', (User, TokenCon
 
     @form.user.subscriptions = c
 
-    User.createUser(@form.user).then (response) ->
+    User.createUser(@form.user).then (response) =>
       $rootScope.$broadcast('user:stateChanged')
       $state.go('root.home')
       @reg_in_progress = false
-    , (error) ->
+    , (error) =>
       @reg_in_progress = false
       console.log('RegistrationCtrl.register Error')
 

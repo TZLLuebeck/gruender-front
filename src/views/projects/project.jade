@@ -1,4 +1,4 @@
-.container-fluid.grey
+.container-fluid.grey(anchormove)
   .sidenav.blue.text-white
     p.h3.text-center(style="margin-top: 0px;") {{project.project.typus}}
     .text-center
@@ -19,10 +19,15 @@
       center
         h1.text-red {{project.project.name}}
         br
-        h5 {{project.project.author}}
+        h4 
+          span Innovation von 
+          a.clickable(ui-sref="root.profile({id: project.project.user_id})", target="_blank") {{project.project.author}}
         br
         a.blue.text-white.label.clickable(ng-repeat="tag in project.project.tags", style="margin-left: 5px;", ui-sref="root.community({id: tag.id})" target="_blank") {{tag.name}}
       br
+      hr
+      center
+        img(ng-src='{{project.project.image.url}}', ng-hide='!project.project.image')
       hr
       a.anchor#Ziel
       h2.text-red.text-center Ziel
@@ -49,13 +54,14 @@
         h3.text-red Anhang
         a(href="{{project.project.attachment.url}}")
     hline
-    .col-sm-6.col-sm-offset-4.well(ng-repeat="comment in project.project.comments")
+    h2.text-center.text-red Kommentare
+    .col-sm-6.col-sm-offset-4(ng-repeat="comment in project.project.comments", style="margin-top: 10px;")
+      a.anchor(id="c-{{comment.author}}-{{comment.id}}")
       .row
-        a.clickable.text-blue(id="c-{{comment.author}}-{{comment.id}}", ui-sref="root.profile({id: comment.user_id})", target="_blank") {{comment.author}}
+        a.clickable.text-blue(ui-sref="root.profile({id: comment.user_id})", target="_blank") {{comment.author}}
         span &nbsp;- Verfasst am 
         span {{comment.created}}
-      .well
-        p {{comment.content}}
+      p {{comment.content}}
     br(clear="all")
     center
       textarea(ng-model="project.comment", style="width: 50%; resize: vertical;")

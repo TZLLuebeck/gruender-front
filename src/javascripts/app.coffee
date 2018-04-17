@@ -22,3 +22,10 @@ app.run (User, TokenContainer, $rootScope, $state, $stateParams, Rails, $transit
   $transitions.onBefore {}, (transition) ->
     $rootScope.lastState = transition.from()
     $rootScope.lastStateParams = transition.params('from')
+
+  $rootScope.$on '$stateChangeSuccess', ($location, $anchorScroll) -> 
+    if $location.hash()
+      $anchorScroll()
+    else
+      document.body.scrollTop = document.documentElement.scrollTop = 0
+  

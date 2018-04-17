@@ -1,4 +1,4 @@
-angular.module('gruenderviertel').controller 'ProjectCtrl', (instance, Project, $state, $window) ->
+angular.module('gruenderviertel').controller 'ProjectCtrl', (instance, Project, $state, $window, $anchorScroll, $location) ->
 
   @project = instance
   @comment = ""
@@ -16,6 +16,9 @@ angular.module('gruenderviertel').controller 'ProjectCtrl', (instance, Project, 
 
   @addComment = () =>
     Project.postComment(@project, @comment).then (response) =>
+      @comment = ""
+      response.created = new Date(Date.parse(response.created_at)).toLocaleString('de-DE')
+      response.updated = new Date(Date.parse(response.updated_at)).toLocaleString('de-DE')
       console.log(response)
       @project.comments.push(response)
 
