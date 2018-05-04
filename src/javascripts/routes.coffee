@@ -67,11 +67,7 @@ angular.module('gruenderviertel').config ($stateProvider, $urlRouterProvider, $l
   #
   #   Common Routes   
   #     Homepage
-  #     Impressum
-  #     Kontakt
-  #     AGB
-  #     Datenschutzerklärung
-  #     Search Results (?)
+  #
   #
   ############################
 
@@ -107,7 +103,7 @@ angular.module('gruenderviertel').config ($stateProvider, $urlRouterProvider, $l
   ##################################
   
   .state 'root.profile',
-    url: '/profile/:id'
+    url: '/profil/:id'
     views:
       'body@':
         templateUrl: 'assets/views/users/profile.html'
@@ -125,7 +121,7 @@ angular.module('gruenderviertel').config ($stateProvider, $urlRouterProvider, $l
           return null        
 
   .state 'root.register',
-    url: '/registration'
+    url: '/registrierung'
     views:
       'body@':
         templateUrl: 'assets/views/users/registration.html'
@@ -167,7 +163,7 @@ angular.module('gruenderviertel').config ($stateProvider, $urlRouterProvider, $l
   ##################################
 
   .state 'root.project',
-    url: '/project/:id'
+    url: '/projekt/:id'
     views:
       'body@':
         templateUrl: 'assets/views/projects/project.html'
@@ -189,15 +185,15 @@ angular.module('gruenderviertel').config ($stateProvider, $urlRouterProvider, $l
           return null
 
   .state 'root.createproject',
-    url: '/project/new'
+    url: '/projekt/neu'
     views:
       'body@':
         templateUrl: 'assets/views/projects/create.html'
         controller: 'CreateProjectCtrl'
         controllerAs: 'create'
 
-  .state 'root.editproject',
-    url: '/project/edit'
+  .state 'root.project.editproject',
+    url: '/bearbeiten'
     views:
       'body@':
         templateUrl: 'assets/views/projects/edit.html'
@@ -274,7 +270,7 @@ angular.module('gruenderviertel').config ($stateProvider, $urlRouterProvider, $l
         redirectTo: 'root.home'
 
   .state 'root.admin.usermanagement',
-    url: '/users'
+    url: '/accounts'
     views:
       'body@':
         templateUrl: 'assets/views/admin/users.html'
@@ -282,7 +278,7 @@ angular.module('gruenderviertel').config ($stateProvider, $urlRouterProvider, $l
         controllerAs: 'users'
   
   .state 'root.admin.projectmanagement',
-    url: '/projects'
+    url: '/projekte'
     views:
       'body@':
         templateUrl: 'assets/views/admin/projects.html'
@@ -290,7 +286,7 @@ angular.module('gruenderviertel').config ($stateProvider, $urlRouterProvider, $l
         controllerAs: 'projects'
 
   .state 'root.admin.communitymanagement',
-    url: '/projects'
+    url: '/communities'
     views:
       'body@':
         templateUrl: 'assets/views/admin/communities.html'
@@ -298,10 +294,44 @@ angular.module('gruenderviertel').config ($stateProvider, $urlRouterProvider, $l
         controllerAs: 'communities'
 
   .state 'root.admin.reports',
-    url: '/projects'
+    url: '/meldungen'
     views:
       'body@':
         templateUrl: 'assets/views/admin/reports.html'
         controller: 'ReportCtrl'
         controllerAs: 'reports'
     
+  ######################################
+  #
+  #   Singletons
+  #   Routes with only a view and no
+  #   need for a dedicated controller.
+  #
+  #
+  #
+  ######################################
+
+
+  .state 'root.datenschutz',
+   url: '/Datenschutz'
+   views:
+    'body@':
+      templateUrl: 'assets/views/singletons/datenschutz.html'
+
+  .state 'root.fablab',
+   url: '/FabLab_Luebeck'
+   views:
+    'body@':
+      templateUrl: 'assets/views/singletons/fablab.html'
+  
+  .state 'root.geschaeftsmodelle',
+   url: '/Geschaeftsmodelle_4.0'
+   views:
+    'body@':
+      templateUrl: 'assets/views/singletons/geschaeftsmodelle.html'
+  
+  .state 'root.openinnovation',
+   url: '/Open_Innovation'
+   views:
+    'body@':
+      templateUrl: 'assets/views/singletons/open_innovation.html'

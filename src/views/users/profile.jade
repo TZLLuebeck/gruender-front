@@ -10,6 +10,13 @@
   hr
 
   .container
+    h4.text-red.text-center Neue Ereignisse
+    ul.list-group
+      li.list-group-item.clickable(ng-repeat='event in profile.events | filter: {read: false}')
+        a {{event.event_type}}
+      li.list-group-item(ng-hide='profile.events.length') Keine neuen Ereignisse.
+
+  .container
     .col-sm-6
       h4.text-red.text-center Meine Projekte
       //Projects Here

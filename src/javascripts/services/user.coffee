@@ -7,6 +7,8 @@ angular.module('gruenderviertel').service 'User', (baseREST, $q, $http, Rails, $
   #
 
   @user = null
+  @newEvents = 0
+  @events = []
   @deferreds = {}
   @unauthorized = true
 
@@ -62,7 +64,7 @@ angular.module('gruenderviertel').service 'User', (baseREST, $q, $http, Rails, $
       packet.id = 'me'
     else
       packet.id = id
-    packet.get().then (response) ->
+    packet.get().then (response) =>
       defer.resolve(response.data)
     , (error) ->
       defer.reject(error.error)
@@ -89,6 +91,28 @@ angular.module('gruenderviertel').service 'User', (baseREST, $q, $http, Rails, $
         @deferreds.me.reject()
         delete @deferreds.me
       @deferreds.me.promise
+
+  getNewEvents = () =>
+    defer = $q.defer()
+    packet = baseRest.one('events').one('new')
+    packet.get().then (response) =>
+      if response.data > 0
+        $rootScope.$broadcast('event:newEvents')
+        @newEvents = response.data
+      defer.resolve(response.data)
+    , (error) =>
+      defer.reject(error)
+    defer.promise
+
+  getEvents = () =>
+    defer = $q.defer()
+    packet = baseREST.one('events')
+    packet.get().then (response) =>
+      @events = response.data
+      defer.resolve(response.data)
+    , (error) ->
+      defer.reject(error)
+    defer.promise
 
   # UPDATE
 

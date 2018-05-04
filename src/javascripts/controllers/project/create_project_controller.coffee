@@ -1,6 +1,11 @@
 angular.module('gruenderviertel').controller 'CreateProjectCtrl', (Project, Community, $state) ->
 
   @step = 1
+  @pitch_characters = 200
+
+  @form = {}
+  @form.project = {}
+  @form.project.coop = false
 
   @tag_list
 
@@ -23,7 +28,7 @@ angular.module('gruenderviertel').controller 'CreateProjectCtrl', (Project, Comm
 
   @proceed = () =>
     console.log(@form.user)
-    if @step < 3
+    if @step < 5
       @step++
 
   @createProject = () ->
@@ -38,7 +43,10 @@ angular.module('gruenderviertel').controller 'CreateProjectCtrl', (Project, Comm
     Project.createProject(@form.project).then (response) ->
       $state.go('root.project', {id: response.id})
 
-  @form = {}
-  @form.project = {}
+  @charLimit = () =>
+    if @form.project.goal
+      @pitch_characters = 200 - @form.project.goal.length
+    else
+      @pitch_characters = 200
 
   this

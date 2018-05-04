@@ -1,43 +1,41 @@
 .container-fluid.grey(tooltips, anchormove)
   .container.blue
     br(clear="all")
-    .col-sm-2.white
+    .col-md-2.white(style="border-radius: 25px;")
       img(ng-src="{{community.icon}}")
-    .col-sm-8
-      h1.text-red.text-center {{community.community.name}}
-    .col-sm-2
-      .row
-        button.btn.btn-lg.btn-info(ng-hide="community.subscribed", ng-click="community.subscribe()") Abbonieren
-        button.btn.btn-lg.btn-info(ng-show="community.subscribed", ng-click="community.unsubscribe()") Deabbonieren
-      .row
-        h3.text-white {{community.member_count}} Mitglied(er)
-        h3.text-white {{community.project_count}} Projekt(e)
+    .col-md-10
+      .col-md-11.col-md-offset-1
+        .row
+          .col-md-10
+            h1.text-white(style="vertical-align: middle;") {{community.community.name}}
+          .col-md-2.text-right
+            button.btn.btn-lg.btn-info(ng-hide="community.subscribed", ng-click="community.subscribe()", style="vertical-align: middle;") Abbonieren
+            button.btn.btn-lg.btn-info(ng-show="community.subscribed", ng-click="community.unsubscribe()", style="vertical-align: middle;") Deabbonieren
+        .row
+          .col-md-10
+            h5.text-white {{community.community.description}}
+          .col-md-2.text-right
+            h5.text-white {{community.member_count}} Mitglieder
+            h5.text-white {{community.project_count}} Projekte
     br(clear="all")
     hr
   .container.white
-    .col-sm-10
-      p {{community.community.description}}
-    br(clear="all")
-    hr(style="border-color: #cccccc;")
-  .container.white
-    center
-      h2 Projekte
-    .col-sm-3.well.clickable(ng-repeat="project in community.projects", ui-sref="root.project({id: {{project.id}}})", style="border-color: #cccccc;" data-toggle="tooltip" data-placement="bottom" title="{{project.goal}}" class="project-tooltip")
-      .text-center
-        img(ng-src="{{project.image}}")
+    h2 Projekte
+    .col-md-3.well.clickable.border-grey.white(ng-repeat="project in community.projects", ui-sref="root.project({id: {{project.id}}})", data-toggle="tooltip" data-placement="bottom" title="{{project.goal}}" class="project-tooltip")
+      center
+        img(ng-src="{{project.image.url}}")
         hr
         b.text-red {{project.name}}
     br(clear="all")
     hr
   .container.white
-    center
-      h2 Diskussionen
-    .well(style="border-color: #cccccc;", ng-repeat= "discussion in community.discussions")
+    h2 Diskussionen
+    .well.border-grey(ng-repeat= "discussion in community.discussions")
       .container
         a.anchor(id="d-{{discussion.author}}-{{discussion.id}}")
-        .row.text-center
+        .row
           b.h3(style="margin-top:0px; margin-bottom:0px;") {{discussion.title}}
-        .row.text-center
+        .row
           a.clickable.text-blue(ui-sref="root.profile({id: discussion.user_id})", target="_blank") {{discussion.author}}
           span &nbsp;- Verfasst am 
           span {{discussion.created}}
@@ -51,20 +49,17 @@
           span &nbsp;- Verfasst am 
           span {{comment.created}}
         p {{comment.content}}
-      center
-        form(name="commentForm", novalidate)
-          textarea(ng-model="community.comment_form.content[$index]", style="width: 40%; resize: vertical;")
-          br
-          button.btn(ng-click="community.comment(discussion.id, $index)") Kommentieren
+      form.abstand(name="commentForm", novalidate)
+        textarea(ng-model="community.comment_form.content[$index]", style="width: 40%; resize: vertical;")
+        br
+        button.btn(ng-click="community.comment(discussion.id, $index)") Kommentieren
 
-    h3.text-center(ng-hide="community.discussions.length") Noch keine Diskussionen.
-    
-    center
-      form(name="discussionForm", novalidate)
-        center
-          input(type="text", ng-model="community.discussion_form.title", required, placeholder="Diskussionstitel")
-          br
-          textarea(type="text", ng-model="community.discussion_form.content", required, style="width: 70%; resize: vertical;")
-          br
-          button(ng-click="community.startDiscussion()") Diskussion eröffnen.
+    h3(ng-hide="community.discussions.length") Noch keine Diskussionen.
+
+    form.abstand(name="discussionForm", novalidate)
+      input(type="text", ng-model="community.discussion_form.title", required, placeholder="Diskussionstitel")
+      br
+      textarea(type="text", ng-model="community.discussion_form.content", required, style="width: 70%; resize: vertical;")
+      br
+      button(ng-click="community.startDiscussion()") Diskussion eröffnen.
 

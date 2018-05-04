@@ -1,60 +1,68 @@
 .container-fluid.grey(anchormove)
-  .sidenav.blue.text-white
-    p.h3.text-center(style="margin-top: 0px;") {{project.project.typus}}
-    .text-center
-      button.btn.white.text-red(ng-click="project.like()") Like
-      br
-      p.h4 {{project.project.likes}} Likes
-    hr
-    a(href="#Overview") Übersicht
-    a(href="#Ziel") Ziel
-    a(href="#Problem") Problem
-    a(href="#Solution", ng-show="project.project.solution") Lösung
-    a(href="#Coop", ng-show="project.project.coop") Kooperation
-    a(href="#Attachment", ng-show="project.project.attachment.url") Anhang
-
   .container.white
-    .col-sm-11
+    nav(aria-label="breadcrumb")
+      ul.breadcrumb
+        li.breadcrumb-item Home
+        li.breadcrumb-item Projekt
+        li.breadcrumb-item.active {{project.project.name}}
+
+    .sidenav.blue.text-white
+      .text-center
+        button.btn.white.text-red(ng-click="project.like()") Like
+        br
+        p.h4 {{project.project.likes.length}} Likes
+      hr
+      a(href="#Overview") Übersicht
+      a(href="#Ziel") Ziel
+      a(href="#Problem") Problem
+      a(href="#Solution", ng-show="project.project.solution") Lösung
+      a(href="#Coop", ng-show="project.project.coop") Kooperation
+      a(href="#Attachment", ng-show="project.project.attachment.url") Anhang
+
+    .col-lg-11
       a.anchor#Overview
       center
+        h3.text-red - {{project.project.typus}} -
         h1.text-red {{project.project.name}}
         br
         h4 
-          span Innovation von 
-          a.clickable(ui-sref="root.profile({id: project.project.user_id})", target="_blank") {{project.project.author}}
+          span Projekt von 
+          a.clickable(ui-sref="root.profile({id: project.project.user_id})", target="_blank") {{project.project.author.name}}
+          span(ng-hide="!project.project.author.url") &nbsp;- 
+          a(href="{{project.project.author.url}}", ng-hide="!project.project.author.url") {{project.project.author.url}}
         br
         a.blue.text-white.label.clickable(ng-repeat="tag in project.project.tags", style="margin-left: 5px;", ui-sref="root.community({id: tag.id})" target="_blank") {{tag.name}}
       br
-      hr
       center
         img(ng-src='{{project.project.image.url}}', ng-hide='!project.project.image')
-      hr
       a.anchor#Ziel
-      h2.text-red.text-center Ziel
+      h2.text-blue Ziel
+      hr(style="border-color: #b2b8cf;")
       p {{project.project.goal}}
       br(clear="all")
-      hr
+
       a.anchor#Problem
-      h2.text-red.text-center Problem
+      h2.text-blue Problem
+      hr(style="border-color: #b2b8cf;")
       p {{project.project.problem}}
       br(clear="all")
-      hr
       a.anchor#Solution
-      h2.text-red.text-center Lösung
+      h2.text-blue Lösung
+      hr(style="border-color: #b2b8cf;")
       ng-bind-html(ng-bind-html="project.project.solution")
       br(clear="all")
-      hr
       a.anchor#Coop
-      h2.text-red.text-center(ng-show="project.project.coop") Kooperationswunsch
-      p {{project.project.coop_type}}
-      br(clear="all")
-      hr
+      //h2.text-blue.text-center(ng-show="project.project.coop") Kooperationswunsch
+      //hr(style="border-color: #b2b8cf;")
+      //p {{project.project.coop_type}}
+      //br(clear="all")
+      hr(style="border-color: #b2b8cf;")
       a.anchor#Attachment
       .well(ng-show="project.project.attachment.url")
         h3.text-red Anhang
         a(href="{{project.project.attachment.url}}")
-    hline
-    h2.text-center.text-red Kommentare
+    hr(style="border-color: #b2b8cf;")
+    h2 Kommentare
     .col-sm-6.col-sm-offset-4(ng-repeat="comment in project.project.comments", style="margin-top: 10px;")
       a.anchor(id="c-{{comment.author}}-{{comment.id}}")
       .row

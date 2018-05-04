@@ -4,12 +4,17 @@ angular.module('gruenderviertel').controller 'NavCtrl', (User, $rootScope, $stat
   @form = {}
   @admin = false
   @username = "default"
+  @newEvents = 0
 
   $rootScope.$on 'user:stateChanged', (e, state, params) =>
     console.log("NavCtrl user:StateChanged")
     @setLoggedIn(TokenContainer.get())
     @setUsername()
     @isAdmin()
+
+  $rootScope.$on 'event:newEvents', (e, state, params) =>
+    console.log("NavCtrl event:newEvents")
+    @newEvents = User.newEvents
 
   @init = () ->
     @setLoggedIn(TokenContainer.get())

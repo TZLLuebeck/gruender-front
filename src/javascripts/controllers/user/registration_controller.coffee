@@ -4,17 +4,24 @@ angular.module('gruenderviertel').controller 'RegistrationCtrl', (User, TokenCon
   @user = $stateParams.user
   @community_list = []
   @form = {}
+  @form.user = {}
   @reg_in_progress = false
   @selected = 0
   @filter = 'Branche'
+  @bio_characters = 200
 
   @init = () =>
+
+
+
     if @user != null
       @state++ 
       @form.user = @user
 
     Community.get_all().then (response) =>
       @community_list = angular.copy(response)
+
+    console.log("RegistrationCtrl initialized.")
 
 
   @goBack = () =>
@@ -62,6 +69,11 @@ angular.module('gruenderviertel').controller 'RegistrationCtrl', (User, TokenCon
       @reg_in_progress = false
       console.log('RegistrationCtrl.register Error')
 
+  @charLimit = () =>
+    if @form.user.description
+      @bio_characters = 200 - @form.user.description.length
+    else
+      @bio_characters = 200
 
   @init()
 

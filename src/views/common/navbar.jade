@@ -13,14 +13,21 @@ nav.navbar.navbar-inverse.navbar-fixed-top(role="navigation")
         li(ng-hide='nav.isAuthenticated')
           a.clickable(data-toggle="modal", data-target="#login_modal") Anmelden
         li.dropdown(ng-show="nav.isAuthenticated")
-          a.dropdown-toggle.clickable(data-toggle="dropdown", role="button") 
+          a.dropdown-toggle.clickable(data-toggle="dropdown", role="button")
             b {{nav.username}}
           ul.dropdown-menu
             li
               a(ui-sref="root.profile") Accountdaten
             li
               a#navbar_a_logout.text-white.clickable(ng-click="nav.logout()") Abmelden
-      ul.nav.navbar-nav
+      ul.nav.navbar-nav.navbar-right(ng-show="nav.isAuthenticated")
+        li
+          .clickable.image-container(ui-sref="root.profile", style="border-radius: 50%; width: 30px; height: 30px; margin-right: 10px;", ng-class="{'white': nav.newEvents <= 0, 'grey': nav.newEvents > 0}")
+            img(src="/assets/images/icons/alarm.svg")
+            div.bottom-right.blue.text-white {{nav.newEvents}}
+        li.clickable(ui-sref="root.createproject") 
+          button.btn.btn-primary.navbar-btn.text-white Neues Projekt
+      ul.nav.navbar-nav.navbar-right
         li.dropdown(ng-show="nav.isAuthenticated")
           a.dropdown-toggle(ng-show="nav.admin" href="#", data-toggle="dropdown", role="button") Administration
           ul.dropdown-menu
@@ -34,8 +41,7 @@ nav.navbar.navbar-inverse.navbar-fixed-top(role="navigation")
               a(ui-sref="root.admin.reports")
         li.clickable(ui-sref="root.communityoverview") 
           a.text-blue Communities
-        li.clickable(ui-sref="root.createproject") 
-          a.text-blue Projekte
+        
 
 .modal.fade#login_modal
   .modal-dialog

@@ -43,6 +43,10 @@ img {
   background-color: #1b355c;
 }
 
+.border-blue {
+  border-color: #1b355c;
+}
+
 .white {
   background-color: #ffffff;
 }
@@ -51,8 +55,16 @@ img {
   background-color: #d30c4d;
 }
 
+.border-red {
+  border-color: #d30c4d;
+}
+
 .grey {
-  background-color: #cccccc;
+  background-color: #b2b8cf;
+}
+
+.border-grey {
+  border-color: #b2b8cf;
 }
 
 .text-blue {
@@ -64,7 +76,7 @@ img {
 }
 
 .text-red {
-  color: #d30c4d;
+  color: #000000;
 }
 
 .text-left {
@@ -77,6 +89,10 @@ img {
   text-align: center;
 }
 
+.justify {
+  text-align: justify;
+}
+
 .row.display-flex {
   display: flex;
   flex-wrap: wrap;
@@ -87,5 +103,44 @@ img {
 }
 
 .highlight:hover {
-    background-color: #bbbbbb;
+    background-color: #7681aa;
+    color: #ffffff;
+}
+
+ol {
+  counter-reset: item
+}
+ol>li {
+  display: block
+}
+ol>li:before {
+  content: counters(item, ".") ". ";
+  counter-increment: item
+}
+
+.abstand {
+  margin-top: 25px;
+}
+
+.image-container {
+  position: relative;
+}
+
+.image-container > img {
+  width: 100%;
+}
+
+.bottom-right {
+    position: absolute;
+    top: 60%;
+    left: 75%;
+}
+
+.form-control {
+  border-color: #b2b8cf;
+  resize: vertical;
+}
+
+.input-group-addon {
+  border-color: #b2b8cf;
 }

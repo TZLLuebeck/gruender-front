@@ -1,106 +1,167 @@
 .container-fluid.grey
   .container.white
     .row.text-center
-      h1.text-red Registrierung
+      h1.text-red Profil
       h3.text-red Schritt {{reg.state}}/5
 
-  form(role="register" name="regForm", novalidate)
-    .container.white#start(ng-show="reg.state == 1")
-      .form-group
-        .row.col-sm-offset-2.col-sm-8
-          label(for="reg_input_fullname") Vor- & Nachname*
-          input#reg_input_fullname.form-control(name="full_name", type="text", ng-model="reg.form.user.name", required)
-      .form-group
-        .row.col-sm-offset-2.col-sm-8
-          label(for="reg_input_email") Email*
-          input#reg_input_email.form-control(name="email", type="email", ng-model="reg.form.user.email", required)
-      .form-group
-        .row.col-sm-offset-2.col-sm-8
-          label(for="reg_input_password") Passwort*
-          input#reg_input_password.form-control(name="password", type="password" ng-minlength="8", ng-model="reg.form.user.password", required, maxlength="30")
-        .row.col-sm-offset-2.col-sm-8
-          label(for="reg_input_password_confirmation") Passwort bestätigen*
-          input#reg_input_password_confirmation.form-control(name="password_confirmation", type="password" ng-minlength="8", ng-model="reg.form.user.password_confirmation", required, maxlength="30")
+  .container.white(style="padding-bottom: 30px;")
+    form(role="register" name="regForm", novalidate)
+      .container#start(ng-show="reg.state == 1")
+        .form-group
+          .row.col-sm-offset-2.col-sm-8
+            label(for="reg_input_fullname") Vor- & Nachname*
+            input#reg_input_fullname.form-control(name="full_name", type="text", ng-model="reg.form.user.name", required)
+          .row.col-sm-offset-2.col-sm-8(style="margin-top: 15px;")
+            label(for="reg_input_email") Email*
+            input#reg_input_email.form-control(name="email", type="email", ng-model="reg.form.user.email", required)
+          .row.col-sm-offset-2.col-sm-8(style="margin-top: 15px;")
+            label(for="reg_input_password") Passwort*
+            input#reg_input_password.form-control(name="password", type="password" ng-minlength="8", ng-model="reg.form.user.password", required, maxlength="30")
+          .row.col-sm-offset-2.col-sm-8(style="margin-top: 15px;")
+            label(for="reg_input_password_confirmation") Passwort bestätigen*
+            input#reg_input_password_confirmation.form-control(name="password_confirmation", type="password" ng-minlength="8", ng-model="reg.form.user.password_confirmation", required, maxlength="30")
 
-    .container.white#account(ng-show="reg.state == 2")
-      .form-group
-        .row.col-sm-offset-2.col-sm-8
-          label(for="reg_input_username") Username/Firmenname*
-          input#reg_input_username.form-control(name="username", type="text" ng-minlength="2", ng-model="reg.form.user.username", required, maxlength="30")
-        br(clear="all")
-        .row.col-sm-offset-2.col-sm-8
-          label(for="reg_input_location") Ort*
-          input#reg_input_location.form-control(name="ort", type="text" ng-minlength="2", ng-model="reg.form.user.location", required, maxlength="30")
-        br(clear="all")
-        .row.col-sm-offset-2.col-sm-8
-          label(for="reg_input_bio") Über mich/Über uns*
-          textarea#reg_input_bio.form-control(name="bio", type="text", ng-minlength="20", maxlength="150", ng-model="reg.form.user.description", required)
-        br(clear="all")
-        .row.col-sm-offset-2.col-sm-8
-          label(for="reg_input_web") Webseite*
-          .input-group#reg_input_web
-            span.input-group-addon http://
-            input.form-control(name="web", type="text" ng-minlength="7", ng-model="reg.form.user.web", required)  
-        br(clear="all")
-        .row.col-sm-offset-2.col-sm-8
-          label(for="reg_input_fon") Telefonnummer
-          input#reg_input_fon.form-control(name="fon", type="text" ng-minlength="2", ng-model="reg.form.user.fon", maxlength="30")
-        br(clear="all")
-        .row.col-sm-offset-2.col-sm-8
-          label(for="reg_input_picture") Profilbild
-          input#reg_input_picture(type="file", ngf-select, ng-model="reg.form.user.logo" name="image" accept="image/*" ngf-max-size="1MB")
-        br(clear="all")
-    .container.white#meta(ng-show="reg.state == 3")
-      .container-fluid
-        h2 Branchen
-        p Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-      .row.display-flex
-        .col-sm-2.white.well.clickable(ng-repeat="community in reg.community_list | filter: {typus: 'Branche'}", ng-click="reg.selectTag(community)")
-          .container-fluid.clickable.text-center(ng-class="{blue: community.selected}")
-            .container-fluid.well.white(style="margin-top: 5px;")
-              img.white(ng-src='{{community.icon}}')
-            b.h5(ng-class="{'text-white': community.selected}") {{community.name}}
-      br(clear="all")
+      .container#account(ng-show="reg.state == 2")
+        .form-group
+          .row.col-sm-offset-2.col-sm-8
+            label(for="reg_input_username") Username*
+            input#reg_input_username.form-control(name="username", type="text" ng-minlength="2", ng-model="reg.form.user.username", required, maxlength="30")
+          br(clear="all")
+          .row.col-sm-offset-2.col-sm-8(style="margin-top: 15px;")
+            label(for="reg_input_location") Ort*
+            input#reg_input_location.form-control(name="ort", type="text" ng-minlength="2", ng-model="reg.form.user.location", required, maxlength="30")
+          br(clear="all")
+          .row.col-sm-offset-2.col-sm-8(style="margin-top: 15px;")
+            label(for="reg_input_bio") Über uns*
+            textarea#reg_input_bio.form-control(ng-keyup="reg.charLimit()", ng-change="reg.charLimit()", name="bio", type="text", maxlength="200", ng-model="reg.form.user.description", required)
+            label(for=reg_input_bio) {{reg.bio_characters}} verbleibend.
+          br(clear="all")
+          .row.col-sm-offset-2.col-sm-8(style="margin-top: 15px;")
+            label(for="reg_input_web") Webseite*
+            .input-group#reg_input_web
+              span.input-group-addon http://
+              input.form-control(name="web", type="text" ng-minlength="7", ng-model="reg.form.user.web", required)  
+          br(clear="all")
+          .row.col-sm-offset-2.col-sm-8(style="margin-top: 15px;")
+            label(for="reg_input_fon") Telefonnummer
+            input#reg_input_fon.form-control(name="fon", type="text" ng-minlength="2", ng-model="reg.form.user.fon", maxlength="30")
+          br(clear="all")
+          .row.col-sm-offset-2.col-sm-8(style="margin-top: 15px;")
+            label(for="reg_input_picture") Profilbild
+            input#reg_input_picture(type="file", ngf-select, ng-model="reg.form.user.logo" name="image" accept="image/*" ngf-max-size="1MB")
+          br(clear="all")
 
-    .container.white#meta(ng-show="reg.state == 4")
-      .container-fluid
-        h2 Themen
-        p Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
 
-      .row.display-flex
-        .col-sm-2.white.well.clickable(ng-repeat="community in reg.community_list | filter: {typus: 'Thema'}", ng-click="reg.selectTag(community)")
-          .container-fluid.clickable.text-center(ng-class="{blue: community.selected}")
-            .container-fluid.well.white(style="margin-top: 5px;")
-              img.white(ng-src='{{community.icon}}')
-            b.h5(ng-class="{'text-white': community.selected}") {{community.name}}
-      br(clear="all")
-    .container.white#overview(ng-show="reg.state == 5")
-      .container-fluid
-        center
-          h2.text-red Übersicht
-          h4 Name: {{reg.form.user.name}}
-          h4 Username/Firmenname: {{reg.form.user.username}}
-          h4 Email: {{reg.form.user.email}}
-          h4 Ort: {{reg.form.user.location}}
-          h4 Über Mich
-          p {{reg.form.user.description}}
-          h4 Webseite: http://{{reg.form.user.web}}
-          h4(ng-show="reg.form.user.fon") Telefonnummer: {{reg.form.user.fon}}
-          br(clear="all")
-          h3 Interessengebiete
-          h4 Branchen
-          .col-sm-2(ng-repeat="community in reg.community_list | filter: {typus: 'Branche', selected: true}")
-            .container-fluid
-              img(ng-src="{{community.icon}}")
-            p {{community.name}}
-          br(clear="all")
-          h4 Themen
-          .col-sm-2(ng-repeat="community in reg.community_list | filter: {typus: 'Thema', selected: true}")
-            .container-fluid
-              img(ng-src="{{community.icon}}")
-            p {{community.name}}
-          br(clear="all")
-          .form-group
+
+
+      .container#Branchen(ng-show="reg.state == 3")
+        h2 Welche Branchen interessieren Dich?
+        p Du kannst mehrere Branchen auswählen und diese jederzeit anpassen.
+        .row.display-flex
+          .col-md-5.well.clickable.border-grey(ng-repeat="community in reg.community_list | filter: {typus: 'Branche'}", style="max-height: 50px; margin-bottom: 5px; max-width: 80%;", ng-click="reg.selectTag(community)", ng-class="{blue: community.selected, 'col-md-offset-1': $index%2}")
+            center(style="position: relative; top: -20px; max-height: inherit;")
+              img.col-md-2(ng-class="{white: community.selected}", ng-src='{{community.icon}}' style="border-radius: 10px; height: 50px;")
+              h4.col-md-9(ng-class="{'text-red': !community.selected, 'text-white': community.selected}", style="vertical-align: middle;") {{community.name}}
+            br(clear="all")
+        br(clear="all")
+
+      .container#Themen(ng-show="reg.state == 4")
+        h2 Welche Themen interessieren Dich?
+        p Du kannst mehrere Themen auswählen und diese jederzeit anpassen.
+        .row.display-flex
+          .col-md-5.well.clickable.border-grey(ng-repeat="community in reg.community_list | filter: {typus: 'Thema'}", style="max-height: 50px; margin-bottom: 5px; max-width: 80%;", ng-click="reg.selectTag(community)", ng-class="{blue: community.selected, 'col-md-offset-1': $index%2}")
+            center(style="position: relative; top: -20px; max-height: inherit;")
+              img.col-md-2(ng-class="{white: community.selected}", ng-src='{{community.icon}}' style="border-radius: 10px; height: 50px;")
+              h4.col-md-9(ng-class="{'text-red': !community.selected, 'text-white': community.selected}", style="vertical-align: middle;") {{community.name}}
+            br(clear="all")
+        br(clear="all")
+
+
+      //.container#meta(ng-show="reg.state == 3")
+        .container-fluid
+          h2 Welche Branchen interessieren Dich?
+          p Du kannst mehrere Branchen auswählen und diese jederzeit anpassen.
+        .container-fluid.row.display-flex(style="margin: auto;")
+          .col-sm-2.white.well.clickable(ng-repeat="community in reg.community_list | filter: {typus: 'Branche'}", ng-click="reg.selectTag(community)", style="border-color: #b2b8cf;", ng-class="{'col-sm-offset-1': $index%4}")
+            .container-fluid.clickable.text-center(ng-class="{blue: community.selected}")
+              .container-fluid.well.white(style="margin-top: 5px;")
+                img.white(ng-src='{{community.icon}}')
+              b.h5(ng-class="{'text-white': community.selected}") {{community.name}}
+        br(clear="all")
+
+      //.container#meta(ng-show="reg.state == 4")
+        .container-fluid
+          h2 Welche Themen interessieren Dich?
+          p Du kannst mehrere Themen auswählen und diese jederzeit anpassen.
+
+        .container-fluid.row.display-flex
+          .col-sm-2.white.well.clickable(ng-repeat="community in reg.community_list | filter: {typus: 'Thema'}", ng-click="reg.selectTag(community)", style="border-color: #b2b8cf;", ng-class="{'col-sm-offset-1': $index%4}")
+            .container-fluid.clickable.text-center(ng-class="{blue: community.selected}")
+              .container-fluid.well.white(style="margin-top: 5px;")
+                img.white(ng-src='{{community.icon}}')
+              b.h5(ng-class="{'text-white': community.selected}") {{community.name}}
+        br(clear="all")
+
+      .container#overview(ng-show="reg.state == 5")
+        .container-fluid
+          .row
+            h2.text-red Übersicht
+          .row
+            .col-sm-2
+              b Name: 
+            .col-sm-6.col-sm-offset-2 
+              p {{reg.form.user.name}}
+          .row
+            .col-sm-2
+              b Username/Firmenname: 
+            .col-sm-6.col-sm-offset-2
+              p {{reg.form.user.username}}
+          .row
+            .col-sm-2
+              b Email: 
+            .col-sm-6.col-sm-offset-2
+              p {{reg.form.user.email}}
+          .row
+            .col-sm-2
+              b Ort: 
+            .col-sm-6.col-sm-offset-2
+              p {{reg.form.user.location}}
+          .row
+            .col-sm-2
+              b Über Mich
+            .col-sm-6.col-sm-offset-2
+              p {{reg.form.user.description}}
+          .row
+            .col-sm-2
+              b Webseite: 
+            .col-sm-6.col-sm-offset-2
+              p http://{{reg.form.user.web}}
+          .row(ng-show="reg.form.user.fon")
+            .col-sm-2
+              b Telefonnummer:
+            .col-sm-6.col-sm-offset-2 
+              p {{reg.form.user.fon}}
+            br(clear="all")
+          .row
+            h3.text-red Interessengebiete
+            br
+            h4 Branchen
+            .row.display-flex
+              .col-sm-2(ng-repeat="community in reg.community_list | filter: {typus: 'Branche', selected: true}", style="border-color: #b2b8cf;")
+                .col-sm-8.col-sm-offset.2
+                  img(ng-src="{{community.icon}}", style="max-width: 100%;")
+                b {{community.name}}
+            br(clear="all")
+            h4 Themen
+            .row.display-flex
+              .col-sm-2(ng-repeat="community in reg.community_list | filter: {typus: 'Thema', selected: true}", style="border-color: #b2b8cf;")
+                .col-sm-8.col-sm-offset.2
+                  img(ng-src="{{community.icon}}", style="max-width: 100%;")
+                b {{community.name}}
+            br(clear="all")
+            
+          center(style="margin-top: 30px;")
+            .form-group
               input(name="agb" type="checkbox", ng-model="reg.read_agb")
               b
                 span  Ich habe die 
@@ -109,60 +170,12 @@
                 a.clickable(data-toggle="modal", data-target="#registrations_modal_datenschutz") Datenschutzerklärung
                 span  gelesen und akzeptiere sie.
 
-  .container.white
-    .col-sm-1.col-sm-offset-4
-      center
-        button.btn.btn-lg.btn-primary(ng-click="reg.goBack()", scrolltop, ng-disabled="reg.state == 1") Zurück
-    .col-sm-1.col-sm-offset-2
-      center
-        button.btn.btn-lg.btn-primary(ng-click="reg.proceed()", ng-hide="reg.state == 5", scrolltop) Weiter
-        button.btn.btn-lg.btn-primary(ng-click="reg.register()", ng-show="reg.state == 5", ng-disabled="regForm.$invalid || reg.reg_in_progress || !reg.read_agb") Registrieren
-    br(clear="all")
-
-
-  br(clear="all")
-
-  .modal.fade#registrations_modal_agb
-    .modal-dialog
-      .modal-content
-        .modal-body
-          button.close(type="button", data-dismiss="modal") &times;
-          h2.text-blue.text-center Nutzungsbedingungen
-          p Mit der Nutzung der Anbietersuche und den ergänzenden Services akzeptiert der Webseiten Nutzer die folgenden Nutzungsbedingungen. 
-          ul(style="list-style-type:none")
-            li.h4.text-blue §1 Nutzungsumfang
-            ol
-              li Der Nutzer verpflichtet sich mit der Registrierung, keine diffamierende beleidigende, hasserfüllte, bedrohliche, Spam oder Spam-ähnliche, Jugendschutz gefährdete, Copyright verletzende, zur Straftat aufrufende oder anderweitig strafrechtlich relevante Materialen zu verwenden oder zu versenden. 
-              li Jegliche Inhalte, egal ob erstellt oder hochgeladen, können von unseren Mitarbeitern überprüft werden. 
-
-            li.h4.text-blue §2 Haftung
-            ol 
-              li Der Anbieter dieses Services ("wir", "uns" ,"unseren") ist nicht für die Inhalte und die Datenintegrität der hier verfassten Beiträge verantwortlich. Die Inhalte der Angebote gehören den jeweiligen Autoren. 
-              li Wir übernehmen keine Haftung oder Garantie für die Aktualität, Richtigkeit und Vollständigkeit der zur Verfügung gestellten Informationen. Gleiches gilt auch für den Inhalt der Websites, auf die mittels Hyperlink verwiesen wird. Wir sind für den Inhalt der Websites, die auf Grund einer solchen Verbindung erreicht werden, nicht verantwortlich.
-            li.h4.text-blue §3 Folgen des Missbrauchs
-            p Wir behalten uns das Recht vor, jeglichen Beitrag, ohne Angabe von Gründen, zu bearbeiten oder zu löschen. Wir behalten uns ebenfalls das Recht vor, Maßnahmen gegen Benutzerkonten durchzuführen.
-            li.h4.text-blue §4 Gerichtsstand
-            p Es gilt das Recht der Bundesrepublik Deutschland. Ausschließlicher Erfüllungs- und Gerichtsort ist Lübeck. 
-          p Diese Nutzungsbedingungen können jederzeit ohne einen Hinweis verändert werden.
-        .modal-footer
-          button.btn.btn-default(type="button", data-dismiss="modal") Schließen
-  .modal.fade#registrations_modal_datenschutz
-    .modal-dialog
-      .modal-content
-        .modal-body
-          button.close(type="button", data-dismiss="modal") &times;
-          h2.text-blue.text-center Datenschutzerklärung
-          p.text-left Den Schutz Ihrer persönlichen Daten nehmen wir ernst, auch anlässlich Ihres Besuches auf unserer Homepage. Ihre Daten werden so geschützt, wie es die gesetzlichen Vorschriften, insbesondere das neue Telemediengesetz vorsehen. Nachfolgend finden Sie Informationen, welche Daten während Ihres Besuches auf der Homepage erfasst und wie diese genutzt werden:
-          ol
-            li.h4.text-blue Gespeicherte Daten
-            p Unvermeidlich ist, dass in den Serverstatistiken automatisch solche Daten gespeichert werden, die Ihr Browser uns übermittelt. Diese Speicherung dient lediglich internen systembezogenen und statistischen Zwecken. Weitergehende personenbezogene Daten werden nur erfasst, wenn Sie diese Angaben freiwillig, etwa im Rahmen einer Anfrage und der Registrierung, machen. Die oben genannten Daten sind für uns in der Regel nicht bestimmten Personen zuordenbar, eine Zusammenführung dieser Daten mit anderen Datenquellen wird nicht vorgenommen.
-            li.h4.text-blue Nutung und Weitergabe personenbezogener Daten
-            p Jegliche Nutzung Ihrer personenbezogenen Daten erfolgt nur zu den genannten Zwecken und in dem zur Erreichung dieser Zwecke erforderlichen Umfang. Ihre personenbezogenen Daten werden an Dritte nur weitergegeben oder sonst übermittelt, wenn dies zum Zwecke der Vertragsabwicklung oder der Abrechnung erforderlich ist oder Sie zuvor eingewilligt haben. Eine Weitergabe zu Werbezwecken an hier nicht genannte Dritte erfolgt in keinem Fall.
-            li.h4.text-blue Einwillingung in weitergehende Nutzung
-            p Damit Sie die Angebote auf unserer Webseite wie etwa Kontaktaufnahme, Newsletter oder Angebotserstellung nutzen können, muss eine vorherige Registrierung und eine weitergehende Verarbeitung personenbezogener Daten erfolgen, zum Beispiel eine Speicherung der E-Mail-Adresse und des Passworts.  Die Verwendung solcher Daten erfolgt nur, wenn Sie uns diese übermittelt oder Sie uns zur Verfügung gestellt haben. Die Löschung der gespeicherten personenbezogenen Daten erfolgt, wenn Sie Ihre Einwilligung zur Speicherung widerrufen, wenn ihre Kenntnis zur Erfüllung des mit der Speicherung verfolgten Zwecks nicht mehr erforderlich ist oder wenn ihre Speicherung aus sonstigen gesetzlichen Gründen unzulässig ist.
-            li.h4.text-blue Newsletter/Suchauftrag
-            p Um den Newsletter-Dienst/ Suchauftrag für neue Angebote zu nutzten, müssen Sie auf unserer Webseite ein Profil anlegen und sich damit registrieren. Sie können den abonnierten Newsletter jederzeit abbestellen indem Sie uns eine E-Mail über die entsprechende Webseite des Dienstes zusenden.
-            li.h4.text-blue Auskunftsrecht und Kontaktdaten
-            p Gern geben wir Ihnen Auskunft über die bei uns gespeicherten persönlichen Daten. Wenn Sie Fragen zur Behandlung Ihrer Daten haben, deren Korrektur oder Löschung wünschen, genügt eine E-Mail.
-        .modal-footer
-          button.btn.btn-default(type="button", data-dismiss="modal") Schließen
+      .container(style="margin-top: 25px;")
+        .col-sm-1.col-sm-offset-4
+          center
+            button.btn.btn-lg.btn-info(ng-click="reg.goBack()", scrolltop, ng-disabled="reg.state == 1") Zurück
+        .col-sm-1.col-sm-offset-2
+          center
+            button.btn.btn-lg.btn-info(ng-click="reg.proceed()", ng-hide="reg.state == 5", scrolltop) Weiter
+            button.btn.btn-lg.btn-info(ng-click="reg.register()", ng-show="reg.state == 5", ng-disabled="regForm.$invalid || reg.reg_in_progress || !reg.read_agb") Registrieren
+        br(clear="all", style="margin-bottom: 25px;")

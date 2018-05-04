@@ -1,12 +1,12 @@
 
 //Opening Header
-.jumbotron.blue.text-white
+img(src="/assets/images/aufhaenger.svg" style="width: 100%;")
+.jumbotron.blue.text-white(ng-hide="home.isAuthenticated")
   .row
-    .col-sm-6
-      h1 Unlock your Coopotential!
-      h3 Präsentiert eure Projekte und Ideen
-      h3 Startups & Firmen: Findet Gleichgesinnte und Partner
-    .col-sm-3.col-sm-offset-2.well.blue(ng-hide="home.isAuthenticated")
+    .col-md-6
+      h1 Jetzt anmelden!
+      h3 Präsentiert Eure Projekte und Ideen.
+    .col-md-3.col-md-offset-2.well.blue(ng-hide="home.isAuthenticated")
       form(role="register" name="regForm", novalidate)
         .form-group
           input#reg_input_fullname.form-control(name="full_name", type="text", ng-model="home.form.name", required, placeholder="Vor- & Nachname")
@@ -19,40 +19,307 @@
             ng-model="home.form.password_confirmation", required, maxlength="30", placeholder="Passwort bestätigen")
         button#reg_button.btn.btn-info(ng-click="home.register()", ng-disabled="regForm.$pristine || regForm.$invalid || home.form.password != home.form.password_confirmation", data-dismiss="modal") Jetzt Registrieren
     br(clear="all")
+
+.container(style="margin-top: 50px;")
+  // 1. Slide
+  .row.display-flex
+    .col-md-4
+      center(style="margin-bottom: 10px;")
+        img(src="/assets/images/icons/color/user.png", style="max-width: 25%;")
+      b.text-center Find new parters
+      p.text-center Neue Impulse für Produkte und Services durch Innovationspartner und unsere Community. 
+    .col-md-4
+      center(style="margin-bottom: 10px;")
+        img(src="/assets/images/icons/color/search.png", style="max-width: 25%;")
+      b.text-center Discover creative ideas
+      p.text-center Außergewöhnliche Ideen, kreative Lösungen und dazugehörige How-To´s werden hier vorgestellt. 
+    .col-md-4
+      center(style="margin-bottom: 10px;")
+        img(src="/assets/images/icons/color/like.png", style="max-width: 25%;")
+      b.text-center Explore great products
+      p.text-center Gründer, StartUps, Unternehmen und Institute präsentieren Ihre Produkte, Anwendungen und Problemstellungen.
+  br(clear="all")
+.container
+  hr.border-grey
 .container(tooltips)
-  h2.text-center.text-red
-    p Meistgenutzte Themen
-  .container.well.grey
-    //Popular Communities
-    .row.display-flex
-      .col-sm-2.container.well.clickable(ui-sref="root.community({id: {{community.id}}})", ng-repeat="community in home.most_used" style="border-color: #cccccc;")
-        .container-fluid.text-center
-          img.white(ng-src='{{community.icon}}')
-          b.text-red {{community.name}}
-      br(clear="all")
-  h2.text-center.text-red
-    p Beliebteste Projekte
-  .container
-    .col-sm-3.container.well(ng-repeat="project in home.featured" ng-class="{'col-sm-offset-1': $index}", style="border-color: #cccccc;")
+  h2 Neue Projekte
+  .row.display-flex
+    .col-md-3.container.well.white.border-grey(ng-repeat="project in home.featured" ng-class="{'col-md-offset-1': $index%3}")
       .container-fluid.clickable.text-center(ui-sref="root.project({id: {{project.id}}})" data-toggle="tooltip" data-placement="bottom" title="{{project.goal}}" class="project-tooltip")
         img(ng-src='{{project.image.url}}', ng-hide='!project.image')
         hr
+        p.text-red - {{project.typus}} -
         b.text-red {{project.name}}
+        .row
+          .col-sm-6
+            span {{project.author.name}}
+          .col-sm-6
+            span {{project.likes.length}} Likes
+    br(clear="all")
+.container
+  hr.border-grey
+.container
+  h2 Beliebte Communities
+  .container
+    //Popular Communities
+    .row.display-flex
+      .col-md-2(ng-repeat="community in home.most_used")
+        .col-md-10.col-md-offset-1.well.clickable.highlight.border-grey(ui-sref="root.community({id: {{community.id}}})")
+          center
+            img(ng-src='{{community.icon}}')
+            b.text-red {{community.name}}
+      br(clear="all")
+  br(clear="all")
+
+.container.abstand
+  h2 Finden Sie Projekte aller Art
+  .row.display-flex(style="text-align: justify;")
+    .col-md-4
+      .col-md-10.well.white.border-grey.clickable(ui-sref="root.browseprojects({project_type: 'Showcase'})")
+        img(src="assets/images/Showcase.jpg")
+        h3.text-center.text-red Showroom
+        p Text 1
+    .col-md-4
+      .col-md-10.col-md-offset-1.well.white.border-grey.clickable(ui-sref="root.browseprojects({project_type: 'Open Innovation'})")
+        img(src="assets/images/openinnovation.jpg")
+        h3.text-center.text-red Open Innovation
+        p Text 2
+    .col-md-4
+      .col-md-10.col-md-offset-2.well.white.border-grey.clickable(ui-sref="root.browseprojects({project_type: 'Anleitung'})")
+        img(src="assets/images/HowTo.jpg")
+        h3.text-center.text-red How To
+        p Text 3
+  br(clear="all")
+
+.container
+  hr.border-grey
+
+.container
+  // 2. Slide
+  h2 Partner in Innovation
+  .row.display-flex.border-grey
+    .col-md-5.justify
+      p Auf der Open Innovation Plattform können Gründer, StartUps und junge Unternehmen Ihre Herausforderungen und Fragestellungen für ihr Innovationsprojekt der Community vorstellen. Zudem sollen Ideen ausgetauscht werden und kreative Lösungen von Studenten und Gründungsinteressierten präsentiert werden. 
+      br
+      p Auch Institute oder junge Unternehmen, die bereits ein Produkt entwickelt haben, können Ihre Innovation hier veröffentlichen und somit neue Kooperationspartner gewinnen und Projektvorschläge erhalten.  
+    .col-md-7
+      img(src="assets/images/clapping_cropped.jpg", style="max-width: 100%;")
+  br(clear="all")
+
+.container-fluid.blue.text-white.abstand
+  .container
+    h2 Solving Problems Together
+    p Produktanpassungen oder Neuentwicklungen - teile einfach Probleme, Wünsche oder Bedarf mit der Community.
+    .row.display-flex(style="margin-top: 20px;")
+      .col-md-4
+        center
+          img(src="/assets/images/icons/color/flag.png", style="max-width: 25%;")
+        b.text-center Da habe ich dauernd Probleme….
+      .col-md-4
+        center
+          img(src="/assets/images/icons/color/stopwatch.png", style="max-width: 25%;")
+        b.text-center Kann man doch besser machen….
+      .col-md-4
+        center
+          img(src="/assets/images/icons/color/idea.png", style="max-width: 25%;")
+        b.text-center Warum gibt es nicht diese Lösung…?
+    br
+    center
+      button.btn.btn-primary.btn-lg(style="margin-top: 30px;") Jetzt Probleme mit Open Innovation angehen
     br(clear="all")
 
-  .row
-    //Artikel
-    .col-sm-3.well.white
-      img(src="assets/images/gvlogo.jpg")
-      h3.text-center.text-red Artikel 1
-      h5 Description of Artikel 1
-    .col-sm-3.col-sm-offset-1.well.white
-      img(src="assets/images/gvlogo.jpg")
-      h3.text-center.text-red Artikel 2
-      h5 Description of Artikel 2
-    .col-sm-3.col-sm-offset-1.well.white
-      img(src="assets/images/gvlogo.jpg")
-      h3.text-center.text-red Artikel 3
-      h5 Description of Artikel 3
-  div
-    //Freundliche Mitarbeiterbilder
+.container.abstand
+  h2 Artikel
+  .row.display-flex(style="text-align: justify;")
+    .col-md-4
+      .col-md-10.well.white.border-grey.clickable(ui-sref="root.geschaeftsmodelle")
+        img(src="assets/images/geschaeftsmodelle.jpg")
+        h3.text-center.text-red Geschäftsmodelle 4.0
+        p Viele Innovationen im Rahmen von Industrie 4.0 entstehen derzeit. Neue Geschäftsmodelle bilden dabei die Grundlage. 
+    .col-md-4
+      .col-md-10.col-md-offset-1.well.white.border-grey.clickable(ui-sref="root.openinnovation")
+        img(src="assets/images/open_innovation.jpg")
+        h3.text-center.text-red Open Innovation
+        p In diesem Artikel zeigen wir Euch, warum Innovation gerade heute so wichtig ist und welche Vorteile man dadurch erreicht.
+    .col-md-4
+      .col-md-10.col-md-offset-2.well.white.border-grey.clickable(ui-sref="root.fablab")
+        img(src="assets/images/fablab.jpg")
+        h3.text-center.text-red FabLab Lübeck
+        p Schneller Einstieg in neue Technologien wie 3D Druck. Entwerfe Deine Prototypen gemeinsam mit der Community.
+  br(clear="all")
+.container
+  hr.border-grey
+.container
+  h2 Your Innovation Team
+  br
+  span Wir unterstützen Eure innovativen Ideen gemeinsam mit unseren Netzwerkpartnern aus Lübeck und ganz Schleswig-Holstein. 
+  br
+  span Nehmt einfach Kontakt mit uns auf – Wir freuen uns über Euer Feedback.
+  br
+  .row.display-flex
+    .col-md-4
+      .row
+        .col-md-4
+          img(src="/assets/images/people/DSC_1317.jpg", style="border:2px solid #b2b8cf")
+        .col-md-8
+          b Bjarne Andersen
+          br
+          span FabLab Lübeck
+          br
+          span Support On
+          ul
+            li 3D-Druck
+            li Med. Engineering
+            li Maker Maker
+    .col-md-4
+      .row
+        .col-md-4
+          img(src="/assets/images/people/DSC_1318.jpg", style="border:2px solid #b2b8cf")
+        .col-md-8
+          b Niclas Apitz
+          br
+          span TechnikZentrum Lübeck
+          br
+          span Support On
+          ul
+            li Business Development
+            li E-Commerce
+            li Get International
+    .col-md-4
+      .row
+        .col-md-4
+          img(src="/assets/images/people/DSC_1333.jpg", style="border:2px solid #b2b8cf")
+        .col-md-8
+          b Tobias Braun
+          br
+          span Unitransferklinik Lübeck
+          br
+          span Support On
+          ul
+            li Software Development
+            li Software Engineering
+            li Cloud Computing
+  br
+  .row.display-flex
+    .col-md-4
+      .row
+        .col-md-4
+          img(src="/assets/images/people/DSC_1333.jpg", style="border:2px solid #b2b8cf")
+        .col-md-8
+          b Nils Eckardt
+          br
+          span Unitransferklinik Lübeck
+          br
+          span Support On
+          ul
+            li Life Science
+            li Industry 4.0
+            li MedTec
+    .col-md-4
+      .row
+        .col-md-4
+          img(src="/assets/images/people/DSC_1329.jpg", style="border:2px solid #b2b8cf")
+        .col-md-8
+          b Phillip Kiefer
+          br
+          span Technikzentrum Lübeck
+          br
+          span Support On
+          ul
+            li 3D-Druck
+            li Smart Production
+            li Design Thinking
+    .col-md-4
+      .row
+        .col-md-4
+          img(src="/assets/images/people/DSC_1313.jpg", style="border:2px solid #b2b8cf")
+        .col-md-8
+          b Natascha Koch
+          br
+          span FabLab Lübeck
+          br
+          span Support On
+          ul
+            li Med. Informatics
+            li DIY
+            li Software Development
+  br
+  .row.display-flex
+    .col-md-4
+      .row
+        .col-md-4
+          img(src="/assets/images/people/DSC_1335.jpg", style="border:2px solid #b2b8cf")
+        .col-md-8
+          b Patrick Liebmann
+          br
+          span TechnikZentrum Lübeck
+          br
+          span Support On
+          ul
+            li Games & Gadgets
+            li Consulting
+            li FabLab
+    .col-md-4
+      .row
+        .col-md-4
+          img(src="/assets/images/people/DSC_1342.jpg", style="border:2px solid #b2b8cf")
+        .col-md-8
+          b Prof. Jörg-Uwe Meyer
+          br
+          span MT2IT
+          br
+          span Support On
+          ul
+            li Health 4.0
+            li Smart Apps
+            li IoT
+    .col-md-4
+      .row
+        .col-md-4
+          img(src="/assets/images/people/DSC_1333.jpg", style="border:2px solid #b2b8cf")
+        .col-md-8
+          b Martin Mildner
+          br
+          span Universität Lübeck
+          br
+          span Support On
+          ul
+            li Geschäftsmodelle
+            li Consulting
+            li Logistik 4.0
+
+.container
+  hr.border-grey(style="margin-top: 100px; margin-bottom: 10px;")         
+.carousel.slide#sponsor-carousel(data-ride="carousel" style="margin-bottom: 20px;")
+  .carousel-inner(role="listbox")
+    .item.row.active
+      .col-sm-2.col-sm-offset-2
+        img(src="/assets/images/partners/scaled/00 - TZL.jpg", alt="Technikzentrum Lübeck")
+      .col-sm-2
+        img(src="/assets/images/partners/scaled/01 - BioMedTec.jpg", alt="BioMedTec Campus")
+      .col-sm-2
+        img(src="/assets/images/partners/scaled/02 - UzL.jpg", alt="UKSH")
+      .col-sm-2
+        img(src="/assets/images/partners/scaled/03 - GruenderCube.jpg", alt="GründerCube")
+    .item.row
+      .col-sm-2.col-sm-offset-2
+        img(src="/assets/images/partners/scaled/04 - WTSH.jpg", alt="WTSH")
+      .col-sm-2
+        img(src="/assets/images/partners/scaled/05 - FHLuebeck.jpg", alt="FH Lübeck")
+      .col-sm-2
+        img(src="/assets/images/partners/scaled/06 - CAU.jpg", alt="CAU Kiel")
+      .col-sm-2
+        img(src="/assets/images/partners/scaled/07 - CBB.jpg", alt="CBB")
+    .item.row
+      .col-sm-2.col-sm-offset-2
+        img(src="/assets/images/partners/scaled/08 - EUF.jpg", alt="EUF")
+      .col-sm-2
+        img(src="/assets/images/partners/scaled/09 - FHKiel.jpg", alt="FH Kiel")
+      .col-sm-2
+        img(src="/assets/images/partners/scaled/10 - FuE.jpg", alt="F\&E Zentrum")
+      .col-sm-2
+        img(src="/assets/images/partners/scaled/11 - FH Flensburg.jpg", alt="FH Flensburg")
+  a.left.carousel-control(href="#sponsor-carousel", role="button", data-slide="prev")
+    span.icon-prev.fa.fa-chevron-left.blue
+  a.right.carousel-control(href="#sponsor-carousel", role="button", data-slide="next")
+    span.icon-next.fa.fa-chevron-right.blue
