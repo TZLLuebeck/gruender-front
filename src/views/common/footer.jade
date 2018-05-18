@@ -13,14 +13,17 @@
     h5 Telefon: +49 451 2903-0
     h5 Telefax: +49 451 2903-333
     span.h5 E-Mail: 
-    a.h5(href="mailto:info@gruenderviertel.de") info@gruenderviertel.de
+    a.h5.whitelink(href="mailto:info@gruenderviertel.de") info@gruenderviertel.de
     br
-    a.h5(href="http://www.gruenderviertel.de") www.gruenderviertel.de
+    a.h5.whitelink(href="http://www.gruenderviertel.de") www.gruenderviertel.de
     br
   .col-sm-4.text-white
     h4
       b Informationen
-    h5.clickable(ui-sref='root.impressum') Impressum
-    h5.clickable(ui-sref='root.datenschutz') Datenschutz
-    h5.clickable(ui-sref='root.agb') Nutzungsbedingungen
-    h5.clickable(ui-sref='root.kontakt') Kontakt
+    a.h5.clickable.whitelink(ui-sref='root.impressum', target="_blank") Impressum
+    br
+    a.h5.clickable.whitelink(ui-sref='root.datenschutz', target="_blank") Datenschutz
+    br
+    a.h5.clickable.whitelink(ui-sref='root.nutzungsbedingungen', target="_blank") Nutzungsbedingungen
+    br
+    a.h5.clickable.whitelink(ui-sref='root.kontakt', target="_blank") Kontakt

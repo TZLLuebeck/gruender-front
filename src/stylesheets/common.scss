@@ -9,7 +9,7 @@ h1 {
   font-size: 400% !important;
 }
 
-p, div {
+p, div, a {
     font-family: 'Open Sans', sans-serif;
 }
 
@@ -93,6 +93,10 @@ img {
   text-align: justify;
 }
 
+.frame {
+  border: 2px solid #b2b8cf;
+}
+
 .row.display-flex {
   display: flex;
   flex-wrap: wrap;
@@ -107,6 +111,20 @@ img {
     color: #ffffff;
 }
 
+.selected {
+  background-color: #1b355c;
+  color: #ffffff;
+}
+
+.selected:hover {
+  background-color: #1b355c;
+  color: #ffffff;
+}
+
+label {
+  font-weight: normal;
+}
+
 ol {
   counter-reset: item
 }
@@ -119,7 +137,21 @@ ol>li:before {
 }
 
 .abstand {
-  margin-top: 25px;
+  margin-top: 50px;
+}
+
+.abstand-bottom {
+  padding-bottom: 20px;
+}
+
+.no-padding {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.no-margin {
+  margin-top: 0px;
+  margin-bottom: 0px;
 }
 
 .image-container {

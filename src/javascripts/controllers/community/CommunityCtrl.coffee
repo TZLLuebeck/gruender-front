@@ -40,6 +40,8 @@ angular.module('gruenderviertel').controller 'CommunityCtrl', (instance, Communi
     Community.post_discussion(@community.id, message).then (response) =>
       @discussion_form = {}
       response.comments = []
+      response.created = new Date(Date.parse(response.created_at)).toLocaleString('de-DE')
+      response.updated = new Date(Date.parse(response.updated_at)).toLocaleString('de-DE')
       @discussions.push(response)
     , (error) ->
       console.log('CommunityCtrl.startDiscussion Error')

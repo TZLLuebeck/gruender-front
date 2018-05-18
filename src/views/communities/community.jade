@@ -30,8 +30,8 @@
     hr
   .container.white
     h2 Diskussionen
-    .well.border-grey(ng-repeat= "discussion in community.discussions")
-      .container
+    .well.border-grey.container-fluid(ng-repeat= "discussion in community.discussions")
+      .container-fluid
         a.anchor(id="d-{{discussion.author}}-{{discussion.id}}")
         .row
           b.h3(style="margin-top:0px; margin-bottom:0px;") {{discussion.title}}
@@ -39,27 +39,33 @@
           a.clickable.text-blue(ui-sref="root.profile({id: discussion.user_id})", target="_blank") {{discussion.author}}
           span &nbsp;- Verfasst am 
           span {{discussion.created}}
-        .container
+        br
+        .row
           p {{discussion.content}}
-      hr(style="border-color: #cccccc;")
-      div(ng-repeat="comment in discussion.comments")
+        .row(ng-if="discussion.user_id == activeUser.id")
+          a.clickable(ng-click="community.editDiscussion(discussion.id)") Diskussion Bearbeiten
+      hr.border-grey
+      .container-fluid(ng-repeat="comment in discussion.comments")
         a.anchor(id="c-{{comment.author}}-{{comment.id}}")
         .row
           a.clickable.text-blue(ui-sref="root.profile({id: comment.user_id})", target="_blank") {{comment.author}}
           span &nbsp;- Verfasst am 
           span {{comment.created}}
-        p {{comment.content}}
+        .row
+          p {{comment.content}}
+        .row(ng-if="comment.user_id == activeUser.id")
+          a.clickable(ng-click="community.editComment(comment.id)") Kommentar Bearbeiten
       form.abstand(name="commentForm", novalidate)
-        textarea(ng-model="community.comment_form.content[$index]", style="width: 40%; resize: vertical;")
+        textarea(ng-disabled="!activeUser", ng-model="community.comment_form.content[$index]", style="width: 40%; resize: vertical;")
         br
-        button.btn(ng-click="community.comment(discussion.id, $index)") Kommentieren
+        button.btn(ng-disabled="!activeUser", ng-click="community.comment(discussion.id, $index)") Kommentieren
 
     h3(ng-hide="community.discussions.length") Noch keine Diskussionen.
 
     form.abstand(name="discussionForm", novalidate)
-      input(type="text", ng-model="community.discussion_form.title", required, placeholder="Diskussionstitel")
+      input(ng-disabled="!activeUser", type="text", ng-model="community.discussion_form.title", required, placeholder="Diskussionstitel")
       br
-      textarea(type="text", ng-model="community.discussion_form.content", required, style="width: 70%; resize: vertical;")
+      textarea(ng-disabled="!activeUser", type="text", ng-model="community.discussion_form.content", required, style="width: 70%; resize: vertical;")
       br
-      button(ng-click="community.startDiscussion()") Diskussion eröffnen.
+      button.btn(ng-disabled="!activeUser", ng-click="community.startDiscussion()") Diskussion eröffnen.
 

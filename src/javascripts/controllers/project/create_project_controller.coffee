@@ -12,6 +12,8 @@ angular.module('gruenderviertel').controller 'CreateProjectCtrl', (Project, Comm
   Community.get_all().then (response) =>
     @tag_list = angular.copy(response)
 
+  @problemPlaceholder = "Beschreibe kurz: Welches Problem hast du gelöst oder möchtest du lösen?"
+
   @selectTag = (community) =>
     i = @tag_list.indexOf(community)
     e = @tag_list[i]
@@ -41,12 +43,20 @@ angular.module('gruenderviertel').controller 'CreateProjectCtrl', (Project, Comm
     @form.project.status = "Published"
 
     Project.createProject(@form.project).then (response) ->
-      $state.go('root.project', {id: response.id})
+      $state.go('root.project', {'id': response.id})
 
   @charLimit = () =>
     if @form.project.goal
       @pitch_characters = 200 - @form.project.goal.length
     else
       @pitch_characters = 200
+
+  @changeTypus = (typus) =>
+    if typus == "Open Innovation"
+      @problemPlaceholder = "Die Problematik bei Open Innovation-Projekten kann im nächsten Abschnitt mit mehr Details beschrieben werden."
+    else
+      @problemPlaceholder = "Beschreibe kurz: Welches Problem hast du gelöst oder möchtest du lösen?"
+      
+    @form.project.typus = typus
 
   this

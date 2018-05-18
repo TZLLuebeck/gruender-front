@@ -18,15 +18,28 @@ angular.module('gruenderviertel').run ($q, PermRoleStore, User) ->
       defer.reject
     defer.promise
 
-  PermRoleStore.defineRole 'admin', (stateParams) ->
+  PermRoleStore.defineRole 'administrative', (stateParams) ->
     defer = $q.defer()
-    User.getRoles().then (roles) ->
-      if !roles
+    User.getRole().then (role) ->
+      if !role
         defer.reject()
-      if 'admin' in roles
+      if role = 'admin' || role = 'data'
         defer.resolve()
       else
         defer.reject()
     , -> #not logged in
       defer.reject()
     defer.promise
+
+  PermRoleStore.defineRole 'admin', (stateParams) ->
+    defer = $q.defer()
+    User.getRole().then (role) ->
+      if !role
+        defer.reject()
+      if role = 'admin' || role = 'data'
+        defer.resolve()
+      else
+        defer.reject()
+    , -> #not logged in
+      defer.reject()
+    defer.promise    

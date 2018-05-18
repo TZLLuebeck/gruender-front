@@ -29,6 +29,12 @@ angular.module('gruenderviertel').controller 'ProfileEditCtrl', (User, $state, $
       @predit_in_progress = false
       console.log('preditistrationCtrl.preditister Error')
 
+   @deleteAccount = () ->
+    User.deleteUser(@form.user.id).then (response) =>
+      $state.go('root.home')
+    , (error) =>
+      console.log('profileEdit.deleteAccount Error')
+
 
   @init()
 

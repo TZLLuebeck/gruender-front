@@ -63,8 +63,8 @@ img(src="/assets/images/aufhaenger.svg" style="width: 100%;")
   .container
     //Popular Communities
     .row.display-flex
-      .col-md-2(ng-repeat="community in home.most_used")
-        .col-md-10.col-md-offset-1.well.clickable.highlight.border-grey(ui-sref="root.community({id: {{community.id}}})")
+      .col-md-3(ng-repeat="community in home.most_used")
+        .col-md-8.col-md-offset-2.well.clickable.highlight.border-grey(ui-sref="root.community({id: {{community.id}}})")
           center
             img(ng-src='{{community.icon}}')
             b.text-red {{community.name}}
@@ -78,17 +78,17 @@ img(src="/assets/images/aufhaenger.svg" style="width: 100%;")
       .col-md-10.well.white.border-grey.clickable(ui-sref="root.browseprojects({project_type: 'Showcase'})")
         img(src="assets/images/Showcase.jpg")
         h3.text-center.text-red Showroom
-        p Text 1
+        p Neue Ideen, kreative Projekte und innovative Geschäftsideen werden hier vorgestellt und präsentiert. 
     .col-md-4
       .col-md-10.col-md-offset-1.well.white.border-grey.clickable(ui-sref="root.browseprojects({project_type: 'Open Innovation'})")
         img(src="assets/images/openinnovation.jpg")
         h3.text-center.text-red Open Innovation
-        p Text 2
+        p Gemeinsam mit Gründern, StartUps und Unternehmen neue Kooperationsprojekte starten.
     .col-md-4
       .col-md-10.col-md-offset-2.well.white.border-grey.clickable(ui-sref="root.browseprojects({project_type: 'Anleitung'})")
         img(src="assets/images/HowTo.jpg")
         h3.text-center.text-red How To
-        p Text 3
+        p Schritt für Schritt Tutorials von Projekten - als Anleitung oder zum Nachbauen - findest Du hier. 
   br(clear="all")
 
 .container
@@ -103,7 +103,7 @@ img(src="/assets/images/aufhaenger.svg" style="width: 100%;")
       br
       p Auch Institute oder junge Unternehmen, die bereits ein Produkt entwickelt haben, können Ihre Innovation hier veröffentlichen und somit neue Kooperationspartner gewinnen und Projektvorschläge erhalten.  
     .col-md-7
-      img(src="assets/images/clapping_cropped.jpg", style="max-width: 100%;")
+      img.frame(src="assets/images/clapping_cropped.jpg", style="max-width: 100%;")
   br(clear="all")
 
 .container-fluid.blue.text-white.abstand
@@ -160,7 +160,7 @@ img(src="/assets/images/aufhaenger.svg" style="width: 100%;")
     .col-md-4
       .row
         .col-md-4
-          img(src="/assets/images/people/DSC_1317.jpg", style="border:2px solid #b2b8cf")
+          img.frame(src="/assets/images/people/DSC_1317.jpg")
         .col-md-8
           b Bjarne Andersen
           br
@@ -174,7 +174,7 @@ img(src="/assets/images/aufhaenger.svg" style="width: 100%;")
     .col-md-4
       .row
         .col-md-4
-          img(src="/assets/images/people/DSC_1318.jpg", style="border:2px solid #b2b8cf")
+          img.frame(src="/assets/images/people/DSC_1318.jpg")
         .col-md-8
           b Niclas Apitz
           br
@@ -188,7 +188,7 @@ img(src="/assets/images/aufhaenger.svg" style="width: 100%;")
     .col-md-4
       .row
         .col-md-4
-          img(src="/assets/images/people/DSC_1333.jpg", style="border:2px solid #b2b8cf")
+          img.frame(src="/assets/images/people/DSC_2053.jpg")
         .col-md-8
           b Tobias Braun
           br
@@ -204,7 +204,7 @@ img(src="/assets/images/aufhaenger.svg" style="width: 100%;")
     .col-md-4
       .row
         .col-md-4
-          img(src="/assets/images/people/DSC_1333.jpg", style="border:2px solid #b2b8cf")
+          img.frame(src="/assets/images/people/DSC_2051.jpg")
         .col-md-8
           b Nils Eckardt
           br
@@ -218,7 +218,7 @@ img(src="/assets/images/aufhaenger.svg" style="width: 100%;")
     .col-md-4
       .row
         .col-md-4
-          img(src="/assets/images/people/DSC_1329.jpg", style="border:2px solid #b2b8cf")
+          img.frame(src="/assets/images/people/DSC_1329.jpg")
         .col-md-8
           b Phillip Kiefer
           br
@@ -232,7 +232,7 @@ img(src="/assets/images/aufhaenger.svg" style="width: 100%;")
     .col-md-4
       .row
         .col-md-4
-          img(src="/assets/images/people/DSC_1313.jpg", style="border:2px solid #b2b8cf")
+          img.frame(src="/assets/images/people/DSC_1313.jpg")
         .col-md-8
           b Natascha Koch
           br
@@ -248,7 +248,7 @@ img(src="/assets/images/aufhaenger.svg" style="width: 100%;")
     .col-md-4
       .row
         .col-md-4
-          img(src="/assets/images/people/DSC_1335.jpg", style="border:2px solid #b2b8cf")
+          img.frame(src="/assets/images/people/DSC_1335.jpg")
         .col-md-8
           b Patrick Liebmann
           br
@@ -262,7 +262,7 @@ img(src="/assets/images/aufhaenger.svg" style="width: 100%;")
     .col-md-4
       .row
         .col-md-4
-          img(src="/assets/images/people/DSC_1342.jpg", style="border:2px solid #b2b8cf")
+          img.frame(src="/assets/images/people/DSC_1342.jpg")
         .col-md-8
           b Prof. Jörg-Uwe Meyer
           br
@@ -276,7 +276,7 @@ img(src="/assets/images/aufhaenger.svg" style="width: 100%;")
     .col-md-4
       .row
         .col-md-4
-          img(src="/assets/images/people/DSC_1333.jpg", style="border:2px solid #b2b8cf")
+          img.frame(src="/assets/images/people/DSC_2079.jpg")
         .col-md-8
           b Martin Mildner
           br
@@ -287,7 +287,22 @@ img(src="/assets/images/aufhaenger.svg" style="width: 100%;")
             li Geschäftsmodelle
             li Consulting
             li Logistik 4.0
-
+  br
+  .row.display-flex
+    .col-md-4
+      .row
+        .col-md-4
+          img.frame(src="/assets/images/people/DSC_2062.jpg")
+        .col-md-8
+          b Janek Schmidt 
+          br
+          span Technikzentrum Lübeck
+          br
+          span Support On
+          ul
+            li Environment
+            li Sustainability
+            li Datenschutz
 .container
   hr.border-grey(style="margin-top: 100px; margin-bottom: 10px;")         
 .carousel.slide#sponsor-carousel(data-ride="carousel" style="margin-bottom: 20px;")

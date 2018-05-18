@@ -28,20 +28,28 @@ nav.navbar.navbar-inverse.navbar-fixed-top(role="navigation")
         li.clickable(ui-sref="root.createproject") 
           button.btn.btn-primary.navbar-btn.text-white Neues Projekt
       ul.nav.navbar-nav.navbar-right
-        li.dropdown(ng-show="nav.isAuthenticated")
-          a.dropdown-toggle(ng-show="nav.admin" href="#", data-toggle="dropdown", role="button") Administration
-          ul.dropdown-menu
+        li.dropdown.highlight(ng-if="activeUser.role == 'admin'")
+          a.dropdown-toggle(href="#", data-toggle="dropdown", role="button") Administration
+          ul.dropdown-menu.border-grey
             li
-              a(ui-sref="root.admin.admin_users") Nutzer
+              a.clickable.hightlight(ui-sref="root.admin.admin_users") Nutzer
             li
-              a(ui-sref="root.admin.admin_projects") Projekte
+              a.clickable.hightlight(ui-sref="root.admin.admin_projects") Projekte
             li
-              a(ui-sref="root.admin.admin_communities") Communities
+              a.clickable.hightlight(ui-sref="root.admin.admin_communities") Communities
             li
-              a(ui-sref="root.admin.reports")
-        li.clickable(ui-sref="root.communityoverview") 
+              a.clickable.hightlight(ui-sref="root.admin.reports") Reports
+        li.clickable.highlight(ui-sref="root.communityoverview")
           a.text-blue Communities
-        
+        li.dropdown.highlight(ng-show="nav.isAuthenticated")
+          a.dropdown-toggle(href="#", data-toggle="dropdown", role="button") Projekte
+          ul.dropdown-menu.border-grey
+            li.clickable.hightlight
+              a(ui-sref="root.browse_projects({'project_type': 'Showcase'})") Showcase
+            li.clickable.hightlight
+              a(ui-sref="root.browse_projects({'project_type': 'Anleitung'})") Anleitungen
+            li.clickable.hightlight
+              a(ui-sref="root.browse_projects({'project_type': 'Open Innovation'})") Open Innovation
 
 .modal.fade#login_modal
   .modal-dialog
@@ -65,6 +73,6 @@ nav.navbar.navbar-inverse.navbar-fixed-top(role="navigation")
               br(clear="all")
               button.btn.btn-large.red.text-white(ui-sref='root.register', data-dismiss="modal") Neuen Account Anlegen
               br
-              h5.text-red.clickable(ui-sref="forgot_password", data-dismiss="modal") Passwort vergessen?
+              h5.text-red.clickable(ui-sref="root.passwordrecovery", data-dismiss="modal") Passwort vergessen?
       .modal-footer
         button.btn.btn-default(type="button", data-dismiss="modal") Schließen

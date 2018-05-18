@@ -1,0 +1,7 @@
+.container(ng-hide="message.sent")
+  h3 Write private message.
+  input.form-control(placeholder="Accountname des Empfängers")
+  textarea.form-control(placeholder="Nachricht")
+  button.btn.btn-info() Abschicken
+.container(ng-show="message.sent")
+  h4 Nachricht erfolgreich versandt.

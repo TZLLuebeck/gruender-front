@@ -25,6 +25,7 @@ angular.module('gruenderviertel').service 'User', (baseREST, $q, $http, Rails, $
     }).then (response) =>
       console.log(response.data.data)
       @user = response.data.data.user
+      $rootScope.activeUser = @user
       TokenContainer.set(response.data.data.token)
       @unauthorized = false
       defer.resolve(@user)
@@ -40,6 +41,7 @@ angular.module('gruenderviertel').service 'User', (baseREST, $q, $http, Rails, $
     packet.data.password = form.password
     packet.post().then (response) =>
       @user = response.data.user
+      $rootScope.activeUser = @user
       TokenContainer.set(response.data.token)
       @unauthorized = false
       defer.resolve(@user)
@@ -85,6 +87,7 @@ angular.module('gruenderviertel').service 'User', (baseREST, $q, $http, Rails, $
       packet.get().then (response) =>
         @unauthorized = false
         @user = response.data
+        $rootScope.activeUser = @user
         @deferreds.me.resolve(response.data)
         delete @deferreds.me
       , (error) =>
@@ -112,6 +115,14 @@ angular.module('gruenderviertel').service 'User', (baseREST, $q, $http, Rails, $
       defer.resolve(response.data)
     , (error) ->
       defer.reject(error)
+    defer.promise
+
+  getRole = () =>
+    defer = $q.defer()
+    if $rootScope.activeUser
+      defer.resolve($rootScope.activeUser.role)
+    else
+      defer.reject()
     defer.promise
 
   # UPDATE
@@ -164,6 +175,7 @@ angular.module('gruenderviertel').service 'User', (baseREST, $q, $http, Rails, $
     packet.remove().then (response) =>
       TokenContainer.deleteToken()
       @user = null
+      $rootScope.activeUser = null
       console.log(@user)
       @unauthorized = true
       $rootScope.$broadcast('user:stateChanged')
@@ -200,3 +212,4 @@ angular.module('gruenderviertel').service 'User', (baseREST, $q, $http, Rails, $
   deleteUser: deleteUser
   createUser: createUser
   isAuthenticated: isAuthenticated
+  getRole: getRole

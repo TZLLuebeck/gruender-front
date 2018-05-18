@@ -80,6 +80,18 @@ angular.module('gruenderviertel').service 'Project', (baseREST, $q, Upload) ->
       defer.reject(error)
     defer.promise
 
+  getMore = (id) ->
+    defer = $q.defer()
+    packet = baseREST.one('projects').one('more')
+    params = {current: id}
+    packet.customGET("", params).then (response) ->
+      console.log('got more')
+      defer.resolve(response.data)
+    , (error) ->
+      console.log('Project.getMore Error')
+      defer.reject(error)
+    defer.promise
+
   #UPDATE
 
   editProject = (project) ->
@@ -118,3 +130,4 @@ angular.module('gruenderviertel').service 'Project', (baseREST, $q, Upload) ->
   editProject: editProject
   removeProject: removeProject
   getFeatured: getFeatured
+  getMore: getMore

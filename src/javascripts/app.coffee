@@ -28,4 +28,7 @@ app.run (User, TokenContainer, $rootScope, $state, $stateParams, Rails, $transit
       $anchorScroll()
     else
       $document.body.scrollTop = $document.documentElement.scrollTop = 0
+
+  $rootScope.$on '$stateChangeError', ($state) ->
+    $state.go('root.home')
   

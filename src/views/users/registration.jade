@@ -57,7 +57,7 @@
       .container#Branchen(ng-show="reg.state == 3")
         h2 Welche Branchen interessieren Dich?
         p Du kannst mehrere Branchen auswählen und diese jederzeit anpassen.
-        .row.display-flex
+        .row.display-flex.abstand
           .col-md-5.well.clickable.border-grey(ng-repeat="community in reg.community_list | filter: {typus: 'Branche'}", style="max-height: 50px; margin-bottom: 5px; max-width: 80%;", ng-click="reg.selectTag(community)", ng-class="{blue: community.selected, 'col-md-offset-1': $index%2}")
             center(style="position: relative; top: -20px; max-height: inherit;")
               img.col-md-2(ng-class="{white: community.selected}", ng-src='{{community.icon}}' style="border-radius: 10px; height: 50px;")
@@ -68,7 +68,7 @@
       .container#Themen(ng-show="reg.state == 4")
         h2 Welche Themen interessieren Dich?
         p Du kannst mehrere Themen auswählen und diese jederzeit anpassen.
-        .row.display-flex
+        .row.display-flex.abstand
           .col-md-5.well.clickable.border-grey(ng-repeat="community in reg.community_list | filter: {typus: 'Thema'}", style="max-height: 50px; margin-bottom: 5px; max-width: 80%;", ng-click="reg.selectTag(community)", ng-class="{blue: community.selected, 'col-md-offset-1': $index%2}")
             center(style="position: relative; top: -20px; max-height: inherit;")
               img.col-md-2(ng-class="{white: community.selected}", ng-src='{{community.icon}}' style="border-radius: 10px; height: 50px;")
@@ -165,16 +165,16 @@
               input(name="agb" type="checkbox", ng-model="reg.read_agb")
               b
                 span  Ich habe die 
-                a.clickable(data-toggle="modal", data-target="#registrations_modal_agb") Nutzungsbedingungen
+                a.clickable(ui-sref="root.nutzungsbedingungen" target="_blank") Nutzungsbedingungen
                 span  und die 
-                a.clickable(data-toggle="modal", data-target="#registrations_modal_datenschutz") Datenschutzerklärung
+                a.clickable(ui-sref="root.datenschutz" target="_blank") Datenschutzerklärung
                 span  gelesen und akzeptiere sie.
 
-      .container(style="margin-top: 25px;")
-        .col-sm-1.col-sm-offset-4
+      .container.no-padding(style="margin-top: 25px;")
+        .col-sm-1.col-sm-offset-4.no-padding
           center
             button.btn.btn-lg.btn-info(ng-click="reg.goBack()", scrolltop, ng-disabled="reg.state == 1") Zurück
-        .col-sm-1.col-sm-offset-2
+        .col-sm-1.col-sm-offset-2.no-padding
           center
             button.btn.btn-lg.btn-info(ng-click="reg.proceed()", ng-hide="reg.state == 5", scrolltop) Weiter
             button.btn.btn-lg.btn-info(ng-click="reg.register()", ng-show="reg.state == 5", ng-disabled="regForm.$invalid || reg.reg_in_progress || !reg.read_agb") Registrieren

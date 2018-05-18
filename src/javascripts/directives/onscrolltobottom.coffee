@@ -3,7 +3,7 @@ angular.module('gruenderviertel').directive 'onScrollToBottom', ($document, $win
     restrict: 'A',
     link: (scope, element, attrs) ->
       $document.bind "scroll", () =>
-        if $window.pageYOffset + $window.innerHeight >= $document.height()
+        if $window.pageYOffset + $window.innerHeight >= element.height()
           scope.$apply(attrs.onScrollToBottom)
       scope.$on '$destroy', () -> 
         $document.unbind 'scroll'

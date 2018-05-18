@@ -12,6 +12,7 @@
         br
         p.h4 {{project.project.likes.length}} Likes
       hr
+      a(ng-click="project.edit()", ng-show="project.project.user_id == activeUser.id") Projekt bearbeiten.
       a(href="#Overview") Übersicht
       a(href="#Ziel") Ziel
       a(href="#Problem") Problem
@@ -58,20 +59,41 @@
       //br(clear="all")
       hr(style="border-color: #b2b8cf;")
       a.anchor#Attachment
-      .well(ng-show="project.project.attachment.url")
+      div(ng-show="project.project.attachment.url")
         h3.text-red Anhang
         a(href="{{project.project.attachment.url}}")
-    hr(style="border-color: #b2b8cf;")
-    h2 Kommentare
-    .col-sm-6.col-sm-offset-4(ng-repeat="comment in project.project.comments", style="margin-top: 10px;")
-      a.anchor(id="c-{{comment.author}}-{{comment.id}}")
+        hr.border-grey
+      h3 Weitere Projekte
       .row
-        a.clickable.text-blue(ui-sref="root.profile({id: comment.user_id})", target="_blank") {{comment.author}}
-        span &nbsp;- Verfasst am 
-        span {{comment.created}}
-      p {{comment.content}}
-    br(clear="all")
-    center
-      textarea(ng-model="project.comment", style="width: 50%; resize: vertical;")
-      br
-      button.btn(ng-click="project.addComment()") Kommentieren
+        .col-md-3
+          .col-md-10.col-md-offset-1
+            span {{project.moreProjects[0].name}}
+        .col-md-3
+          .col-md-10.col-md-offset-1
+            span {{project.moreProjects[1].name}}
+        .col-md-3
+          .col-md-10.col-md-offset-1
+            span {{project.moreProjects[2].name}}
+        .col-md-3
+          .col-md-10.col-md-offset-1
+            span {{project.otherProject.name}}
+
+      hr.border-grey
+
+  
+      h3 Kommentare
+      .col-sm-8(ng-repeat="comment in project.project.comments", style="margin-top: 10px;")
+        a.anchor(id="c-{{comment.author}}-{{comment.id}}")
+        .row
+          a.clickable.text-blue(ui-sref="root.profile({id: comment.user_id})", target="_blank") {{comment.author}}
+          span &nbsp;- Verfasst am 
+          span {{comment.created}}
+        .row
+          p {{comment.content}}
+        .row(ng-if="comment.user_id == activeUser.id")
+          a.clickable(ng-click="project.editComment(comment.id)") Kommentar Bearbeiten
+      br(clear="all")
+      center
+        textarea(ng-model="project.comment", style="width: 50%; resize: vertical;")
+        br
+        button.btn(ng-click="project.addComment()") Kommentieren

@@ -149,9 +149,17 @@ angular.module('gruenderviertel').config ($stateProvider, $urlRouterProvider, $l
     url: '/recover'
     views:
       'body@':
-        templateUrl: 'assets/views/users/recovery.html'
+        templateUrl: 'assets/views/users/password_recovery.html'
         controller: 'RecoveryCtrl'
         controllerAs: 'recovery'
+
+  .state 'root.pmwrite',
+    url: '/pm_verfassen'
+    views:
+      'body@':
+        templateUrl: 'assets/views/users/newpm.html'
+        controller: 'PMWriteCtrl'
+        controllerAs: 'message'
 
   ##################################
   #
@@ -317,6 +325,18 @@ angular.module('gruenderviertel').config ($stateProvider, $urlRouterProvider, $l
    views:
     'body@':
       templateUrl: 'assets/views/singletons/datenschutz.html'
+
+  .state 'root.impressum',
+    url: '/Impressum'
+    views:
+      'body@':
+        templateUrl: 'assets/views/singletons/impressum.html'
+
+  .state 'root.nutzungsbedingungen',
+    url: '/Nutzungsbedingungen'
+    views: 
+      'body@':
+        templateUrl: 'assets/views/singletons/agb.html'
 
   .state 'root.fablab',
    url: '/FabLab_Luebeck'

@@ -71,3 +71,18 @@
 [ N 2017-09-22 14:35:26.4245 6909/T4 Ser/Server.h:531 ]: [UstRouter] Shutdown finished
 [ N 2017-09-22 14:35:26.4247 6909/T1 age/Ust/UstRouterMain.cpp:531 ]: Passenger UstRouter shutdown finished
 [ N 2017-09-22 14:35:26.4548 6903/T1 age/Cor/CoreMain.cpp:1068 ]: Passenger core shutdown finished
+[ N 2018-05-07 12:45:37.4401 2927/T1 age/Wat/WatchdogMain.cpp:1258 ]: Starting Passenger watchdog...
+[ N 2018-05-07 12:45:37.4828 2930/T1 age/Cor/CoreMain.cpp:1242 ]: Starting Passenger core...
+[ N 2018-05-07 12:45:37.4839 2930/T1 age/Cor/CoreMain.cpp:252 ]: Passenger core running in multi-application mode.
+[ N 2018-05-07 12:45:37.5285 2930/T1 age/Cor/CoreMain.cpp:977 ]: Passenger core online, PID 2930
+2018/05/07 12:45:39 [error] 2944#0: *4 "/home/tobias/projekte/webdev/gruender/gruender-front/public/index.html" is not found (2: No such file or directory), client: 127.0.0.1, server: _, request: "HEAD / HTTP/1.1", host: "0.0.0.0"
+[ N 2018-05-07 12:45:40.0364 2930/T5 age/Cor/SecurityUpdateChecker.h:517 ]: Security update check: no update found (next check in 24 hours)
+2018/05/07 12:49:43 [error] 2944#0: *9 open() "/home/tobias/projekte/webdev/gruender/gruender-front/public/registrierung" failed (2: No such file or directory), client: 127.0.0.1, server: _, request: "GET /registrierung HTTP/1.1", host: "localhost:3000"
+
+[ N 2018-05-07 12:49:50.8480 2930/T7 age/Cor/CoreMain.cpp:616 ]: Signal received. Gracefully shutting down... (send signal 2 more time(s) to force shutdown)
+[ N 2018-05-07 12:49:50.8481 2930/T1 age/Cor/CoreMain.cpp:1154 ]: Received command to shutdown gracefully. Waiting until all clients have disconnected...
+[ N 2018-05-07 12:49:50.8484 2930/T9 Ser/Server.h:903 ]: [ApiServer] Freed 0 spare client objects
+[ N 2018-05-07 12:49:50.8484 2930/T9 Ser/Server.h:559 ]: [ApiServer] Shutdown finished
+[ N 2018-05-07 12:49:50.8484 2930/T7 Ser/Server.h:903 ]: [ServerThr.1] Freed 0 spare client objects
+[ N 2018-05-07 12:49:50.8484 2930/T7 Ser/Server.h:559 ]: [ServerThr.1] Shutdown finished
+[ N 2018-05-07 12:49:50.8700 2930/T1 age/Cor/CoreMain.cpp:1227 ]: Passenger core shutdown finished

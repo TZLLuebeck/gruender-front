@@ -2,7 +2,7 @@
 .sidenav {
   width: 180px; /* Set the width of the sidebar */
   position: fixed; /* Fixed Sidebar (stay in place on scroll) */
-  z-index: -1; /* Stay on top */
+  z-index: 1; /* Stay on top */
   height: 100%;
   background-color: #b2b8cf;
   border-color: #ffffff;

@@ -1,12 +1,18 @@
-angular.module('gruenderviertel').controller 'ProjectCtrl', (instance, Project, $state, $window, $anchorScroll, $location) ->
+angular.module('gruenderviertel').controller 'ProjectCtrl', (User, instance, Project, $state, $window, $anchorScroll, $location) ->
 
   @project = instance
   @comment = ""
+  @moreProjects = []
+  @user = User
 
   @init = () =>
+    console.log(@project.user_id)
+    console.log(@user.user)
+
     for c in @project.comments
       c.created = new Date(Date.parse(c.created_at)).toLocaleString('de-DE')
       c.updated = new Date(Date.parse(c.updated_at)).toLocaleString('de-DE')
+    @getOtherProjects()
 
   @viewCommunity = (cid) ->
     url = $state.href('root.community', {id: cid})
@@ -34,6 +40,15 @@ angular.module('gruenderviertel').controller 'ProjectCtrl', (instance, Project, 
       @project.likes--
     , (error) ->
       console.log("project.dislike error")
+
+  @getOtherProjects = () =>
+    Project.getMore(@project.id).then (response) =>
+      console.log(response)
+      @similarProjects = response.similar
+      @otherProject = response.other
+    , (error) =>
+      @moreProjects = []
+      console.log("Project.getMore: Error")
 
   @init()
 
