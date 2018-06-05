@@ -1,83 +1,48 @@
-.container-fluid.grey(style="margin-right: 0px; margin-left: 0px;")
+.container-fluid.grey(anchormove)
   .container.white
-    form(name="createForm", novalidate, enctype="multipart/form-data")
-      .container.white(ng-show="edit.step == 1")
-        a.anchor#Overview
-        h2.text-blue.text-center Projektname
-        center
-          input(ng-model="edit.form.project.name", style="font-weight: bold; width: 100%; font-size: 32px; text-align: center;")
+    .col-lg-11
+      a.anchor#Overview
+      center
+        h3.text-red - {{project.project.typus}} -
+        input.form-control#newProject_name(ng-model="edit.form.project.name", style="width: 100%;", placeholder="Der Titel deines Projektes")
         br
-        center
-          label.text-blue(for="editProject_cover_image") Coverbild (*)
-          input#editProject_cover_image(type="file", ngf-select, ng-model="edit.form.project.attachment" name="image" accept="image/*" ngf-max-size="1MB")
-        br
-        center
-          button.btn.btn-lg(data-toggle="modal", data-target="#tagging_modal") Themen
-        hr
-        center
-          select.form-control(ng-model="edit.form.project.typus")
-            option(value="Problemstellung") Problemstellung
-            option(value="Showcase") Showcase
-            option(value="Anleitung") Anleitung
+        a.blue.text-white.label.clickable(ng-repeat="tag in project.project.tags", style="margin-left: 5px;", ui-sref="root.community({id: tag.id})" target="_blank") {{tag.name}}
+      br
+      center
+        input#newProject_cover_image(type="file", ngf-select, ng-model="edit.form.project.image" name="image" accept="image/*" ngf-max-size="1MB")
+        label(for="newProject_cover_image") Hier kannst du dein Titelbild ändern. Max. 1MB.
 
-        a.anchor#Ziel
-        h2.text-blue.text-center Ziel
-        textarea(ng-model="edit.form.project.goal", style="width: 100%; resize: none;", rows="2")
-        br(clear="all")
-        hr
-        a.anchor#Problem
-        h2.text-blue.text-center Problem
-        textarea(ng-model="edit.form.project.problem", style="width: 100%;")
-      .container.white(ng-show="edit.step == 2")
-        .container-fluid.white(summernote, style="margin-top: 20px;")
-          a.anchor#Solution
-          center
-            h2.text-blue Lösung
-            p Beschreiben Sie die Details ihres Projektes oder Problems.
-          div#summernote
-      .container.white(ng-show="edit.step == 3")
-        a.anchor#Coop
-        h2.text-blue.text-center Kooperationswunsch
-        center
-          label(for="editProject_coop_check") Ich möchte mit anderen Nutzern kooperieren.
-          input#editProject_coop_check(type="checkbox" ng-model="edit.form.project.coop")
-        textarea(ng-disabled="!edit.form.project.coop" ng-model="edit.form.project.cooptext", style="width: 100%;")
-        br(clear="all")
-        hr
-        a.anchor#Attachment
-        .well.white
-          h3.text-blue.text-center Anhang (*.pdf, Max. 1MB)
-          center
-            input(type="file", ngf-select, ng-model="edit.form.project.attachment" name="attachment" accept="application/pdf" ngf-max-size="1MB")
-    .container.white
-      .container-fluid(style="margin-top: 10px;")
-        .col-sm-1.col-sm-offset-4
-          center
-            button.btn.btn-lg.btn-primary(ng-click="edit.goBack()", scrolltop, ng-disabled="edit.step == 1") Zurück
-        .col-sm-1.col-sm-offset-2
-          center
-            button.btn.btn-lg.btn-primary(ng-click="edit.proceed()", ng-hide="edit.step == 3", scrolltop) Weiter
-            button.btn.btn-lg.btn-primary(ng-click="edit.createProject()", ng-show="edit.step == 3", ng-disabled="createForm.$invalid || edit.in_progress") Einreichen
+      a.anchor#Ziel
+      h2.text-blue Pitch
+      hr.border-grey
+      textarea#newProject_goal(ng-keyup="create.charLimit()", ng-change="create.charLimit()", ng-model="edit.form.project.goal", style="width: 100%; resize: none;", rows="2", maxlength="200", placeholder="Eine kurze Beschreibung des Projektziels; was willst du erreichen?")
+      label(for="newProject_goal") {{create.pitch_characters}} verbleibend.
+      br(clear="all")
 
-.modal.fade#tagging_modal
-  .modal-dialog
-    .modal-content
-      center.modal-body
-        h3.text-red Branchen
-        .row.display-flex
-          .col-sm-6.well.clickable(ng-repeat="community in edit.tag_list | filter: {typus: 'Branche'}", style="max-height: 50px; margin-top: 0px; max-width= 80%;", ng-click="edit.selectTag(community)", ng-class="{blue: community.selected}")
-            center(style="position: relative; top: -20px; max-height: inherit;")
-              img.col-sm-4(ng-class="{white: community.selected}", ng-src='{{community.icon}}')
-              p.col-sm-8(ng-class="{'text-red': !community.selected, 'text-white': community.selected}") {{community.name}}
-            br(clear="all")
+      a.anchor#Problem
+      div(ng-show="edit.form.project.typus != 'Open Innovation'")
+        h2.text-blue Problem
+        hr.border-grey
+        textarea#newProject_problem(ng-disabled="edit.form.project.typus == 'Open Innovation'", ng-model="edit.form.project.problem", style="width: 100%; min-height: 10em; resize: vertical;", placeholder="{{create.problemPlaceholder}}")
         br(clear="all")
-        hr
-        h3.text-red Themen
-        .row.display-flex
-          .col-sm-6.well.clickable(ng-repeat="community in edit.tag_list | filter: {typus: 'Thema'}", style="max-height: 50px; margin-top: 0px; max-width= 80%;", ng-click="edit.selectTag(community)", ng-class="{blue: community.selected}")
-            center(style="position: relative; top: -20px; max-height: inherit;")
-              img.col-sm-4(ng-class="{white: community.selected}", ng-src='{{community.icon}}')
-              p.col-sm-8(ng-class="{'text-red': !community.selected, 'text-white': community.selected}") {{community.name}}
-            br(clear="all")
-      .modal-footer
-        button.btn.btn-default(type="button", data-dismiss="modal") Schließen
+
+      a.anchor#Solution
+      div(summernote)
+        h2.text-blue Lösung
+        hr.border-grey
+        div#summernote(style="margin-top: 20px;")
+      br(clear="all")
+      a.anchor#Coop
+      //h2.text-blue.text-center(ng-show="project.project.coop") Kooperationswunsch
+      //hr(style="border-color: #b2b8cf;")
+      //p {{project.project.coop_type}}
+      //br(clear="all")
+      hr(style="border-color: #b2b8cf;")
+      a.anchor#Attachment
+      div(ng-hide="project.project.attachment.url")
+        h3.text-red Anhang anfügen
+        center
+          input#editProject_attachment(type="file", ngf-select, ng-model="edit.form.project.attachment" name="attachment" accept="application/pdf" ngf-max-size="2MB")
+          label(for="editProject_attachment") Hier kannst Du noch ein PDF mit zusätzlichen Informationen anhängen. (max. 2MB)
+      center
+        button.btn.btn-lg.btn-info(ng-click="edit.editProject()") Speichern

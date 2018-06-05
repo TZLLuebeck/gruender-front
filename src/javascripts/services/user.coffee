@@ -44,7 +44,18 @@ angular.module('gruenderviertel').service 'User', (baseREST, $q, $http, Rails, $
       $rootScope.activeUser = @user
       TokenContainer.set(response.data.token)
       @unauthorized = false
+      $rootScope.$broadcast('event:newEvents')
       defer.resolve(@user)
+    , (error) =>
+      defer.reject(error)
+    defer.promise
+
+  writeMessage = (receiver, content) =>
+    defer = $q.defer()
+    packet = baseREST.one('users').one('pm')
+    packet.data = {receiver: receiver, content: content}
+    packet.post().then (response) =>
+      defer.resolve(response)
     , (error) =>
       defer.reject(error)
     defer.promise
@@ -97,7 +108,7 @@ angular.module('gruenderviertel').service 'User', (baseREST, $q, $http, Rails, $
 
   getNewEvents = () =>
     defer = $q.defer()
-    packet = baseRest.one('events').one('new')
+    packet = baseREST.one('events').one('new')
     packet.get().then (response) =>
       if response.data > 0
         $rootScope.$broadcast('event:newEvents')
@@ -189,11 +200,10 @@ angular.module('gruenderviertel').service 'User', (baseREST, $q, $http, Rails, $
     packet = baseREST.one('users')
     packet.id = id
     packet.remove().then (response) =>
-      if response.status == 401
-        @unauthorized = true
-        defer.reject(response.data)
-      else
-        defer.resolve()
+      defer.resolve()
+    , (error) =>
+      @unauthorized = true
+      defer.reject(response.data)
     defer.promise
 
 
@@ -207,9 +217,12 @@ angular.module('gruenderviertel').service 'User', (baseREST, $q, $http, Rails, $
   currentUser: currentUser
   updateUser: updateUser
   resetPassword: resetPassword
+  getEvents: getEvents
+  getNewEvents: getNewEvents
   login: login
   logout: logout
   deleteUser: deleteUser
   createUser: createUser
   isAuthenticated: isAuthenticated
   getRole: getRole
+  writeMessage: writeMessage

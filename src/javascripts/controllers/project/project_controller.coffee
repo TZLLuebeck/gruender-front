@@ -44,8 +44,7 @@ angular.module('gruenderviertel').controller 'ProjectCtrl', (User, instance, Pro
   @getOtherProjects = () =>
     Project.getMore(@project.id).then (response) =>
       console.log(response)
-      @similarProjects = response.similar
-      @otherProject = response.other
+      @moreProjects = response
     , (error) =>
       @moreProjects = []
       console.log("Project.getMore: Error")

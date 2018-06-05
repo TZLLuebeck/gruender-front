@@ -48,8 +48,8 @@ img(src="/assets/images/aufhaenger.svg" style="width: 100%;")
       .container-fluid.clickable.text-center(ui-sref="root.project({id: {{project.id}}})" data-toggle="tooltip" data-placement="bottom" title="{{project.goal}}" class="project-tooltip")
         img(ng-src='{{project.image.url}}', ng-hide='!project.image')
         hr
-        p.text-red - {{project.typus}} -
-        b.text-red {{project.name}}
+        p - {{project.typus}} -
+        b {{project.name}}
         .row
           .col-sm-6
             span {{project.author.name}}
@@ -66,8 +66,8 @@ img(src="/assets/images/aufhaenger.svg" style="width: 100%;")
       .col-md-3(ng-repeat="community in home.most_used")
         .col-md-8.col-md-offset-2.well.clickable.highlight.border-grey(ui-sref="root.community({id: {{community.id}}})")
           center
-            img(ng-src='{{community.icon}}')
-            b.text-red {{community.name}}
+            img.white(ng-src='{{community.icon}}')
+            b {{community.name}}
       br(clear="all")
   br(clear="all")
 
@@ -77,17 +77,17 @@ img(src="/assets/images/aufhaenger.svg" style="width: 100%;")
     .col-md-4
       .col-md-10.well.white.border-grey.clickable(ui-sref="root.browseprojects({project_type: 'Showcase'})")
         img(src="assets/images/Showcase.jpg")
-        h3.text-center.text-red Showroom
+        h3.text-center Showroom
         p Neue Ideen, kreative Projekte und innovative Geschäftsideen werden hier vorgestellt und präsentiert. 
     .col-md-4
       .col-md-10.col-md-offset-1.well.white.border-grey.clickable(ui-sref="root.browseprojects({project_type: 'Open Innovation'})")
         img(src="assets/images/openinnovation.jpg")
-        h3.text-center.text-red Open Innovation
+        h3.text-center Open Innovation
         p Gemeinsam mit Gründern, StartUps und Unternehmen neue Kooperationsprojekte starten.
     .col-md-4
       .col-md-10.col-md-offset-2.well.white.border-grey.clickable(ui-sref="root.browseprojects({project_type: 'Anleitung'})")
         img(src="assets/images/HowTo.jpg")
-        h3.text-center.text-red How To
+        h3.text-center How To
         p Schritt für Schritt Tutorials von Projekten - als Anleitung oder zum Nachbauen - findest Du hier. 
   br(clear="all")
 
@@ -134,17 +134,17 @@ img(src="/assets/images/aufhaenger.svg" style="width: 100%;")
     .col-md-4
       .col-md-10.well.white.border-grey.clickable(ui-sref="root.geschaeftsmodelle")
         img(src="assets/images/geschaeftsmodelle.jpg")
-        h3.text-center.text-red Geschäftsmodelle 4.0
+        h3.text-center Geschäftsmodelle 4.0
         p Viele Innovationen im Rahmen von Industrie 4.0 entstehen derzeit. Neue Geschäftsmodelle bilden dabei die Grundlage. 
     .col-md-4
       .col-md-10.col-md-offset-1.well.white.border-grey.clickable(ui-sref="root.openinnovation")
         img(src="assets/images/open_innovation.jpg")
-        h3.text-center.text-red Open Innovation
+        h3.text-center Open Innovation
         p In diesem Artikel zeigen wir Euch, warum Innovation gerade heute so wichtig ist und welche Vorteile man dadurch erreicht.
     .col-md-4
       .col-md-10.col-md-offset-2.well.white.border-grey.clickable(ui-sref="root.fablab")
         img(src="assets/images/fablab.jpg")
-        h3.text-center.text-red FabLab Lübeck
+        h3.text-center FabLab Lübeck
         p Schneller Einstieg in neue Technologien wie 3D Druck. Entwerfe Deine Prototypen gemeinsam mit der Community.
   br(clear="all")
 .container

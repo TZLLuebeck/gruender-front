@@ -13,6 +13,14 @@ p, div, a {
     font-family: 'Open Sans', sans-serif;
 }
 
+hr {
+  border-color: #b2b8cf;
+}
+
+.list-group-item {
+  padding: 5px 10px;
+}
+
 .clickable {
   cursor: pointer;
 }
@@ -164,7 +172,7 @@ ol>li:before {
 
 .bottom-right {
     position: absolute;
-    top: 60%;
+    top: 40%;
     left: 75%;
 }
 

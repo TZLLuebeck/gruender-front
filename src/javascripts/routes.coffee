@@ -208,7 +208,26 @@ angular.module('gruenderviertel').config ($stateProvider, $urlRouterProvider, $l
         controller: 'EditProjectCtrl'
         controllerAs: 'edit'
 
-
+  .state 'root.browseprojects',
+    url: '/projekte/:category'
+    views:
+      'body@':
+        templateUrl: 'assets/views/projects/filter.html'
+        controller: 'ProjectFilterCtrl'
+        controllerAs: 'filter'
+    params:
+      category: null
+    resolve:
+      projects: ($stateParams, Helper, Project) ->
+        category = $stateParams.category
+        if category != null
+          Project.getByCategory(category).then (response) ->
+            return response
+          , (error) ->
+            Helper.goBack()
+        else
+          Helper.goBack()
+          return null
 
 
   ##################################

@@ -6,7 +6,16 @@ angular.module('gruenderviertel').controller 'ProfileEditCtrl', (User, $state, $
   @predit_in_progress = false
 
   @init = () =>
-
+    console.log(@form.user)
+    delete @form.user.comments
+    delete @form.user.projects
+    delete @form.user.events
+    delete @form.user.posts
+    delete @form.user.sent
+    delete @form.user.received
+    delete @form.user.logo
+    console.log(@form.user)
+    console.log("ProfileEditCtrl Init")
 
   @goBack = () =>
     if @state <= 0
@@ -27,13 +36,13 @@ angular.module('gruenderviertel').controller 'ProfileEditCtrl', (User, $state, $
       @predit_in_progress = false
     , (error) =>
       @predit_in_progress = false
-      console.log('preditistrationCtrl.preditister Error')
+      console.log('profileEditCtrl.saveEdit Error')
 
    @deleteAccount = () ->
     User.deleteUser(@form.user.id).then (response) =>
       $state.go('root.home')
     , (error) =>
-      console.log('profileEdit.deleteAccount Error')
+      console.log('profileEditCtrl.deleteAccount Error')
 
 
   @init()

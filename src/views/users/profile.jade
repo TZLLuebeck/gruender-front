@@ -1,44 +1,49 @@
-.container.abstand
-  .col-lg-2
-    img(ng-src='{{profile.user.logo.url}}')
-  .col-lg-8
-    .row
-      h2.text-red {{profile.user.username}}
-    hr
-    .row(ng-show='profile.user.description')
-      h4 {{profile.user.description}}
-  .col-lg-2
-    button.btn.btn-lg.btn-warning(ui-sref="root.profile.editprofile({id: {{profile.user.id}}})", ng-if="profile.user.id == activeUser.id") Profil Bearbeiten
-  hr
+.container-fluid.grey
+  .container.white.no-padding
+    .container.no-padding.abstand
+      .col-lg-2
+        img.frame(ng-src='{{profile.user.logo.url}}')
+      .col-lg-8
+        .row
+          h2 {{profile.user.username}}
+          h4.text-right {{profile.user.web}}
+        hr
+        .row(ng-show='profile.user.description')
+          h4.text-left {{profile.user.description}}
+      .col-lg-2
+        button.btn.btn-lg.btn-warning(ui-sref="root.profile.editprofile({id: {{profile.user.id}}})", ng-if="profile.user.id == activeUser.id") Profil Bearbeiten
+      hr
 
-  .container
-    h4.text-red.text-center Neue Ereignisse
-    ul.list-group
-      li.list-group-item.clickable(ng-repeat='event in profile.events | filter: {read: false}')
-        a {{event.event_type}}
-      li.list-group-item(ng-hide='profile.events.length') Keine neuen Ereignisse.
-
-  .container
-    .col-lg-6
-      h4.text-red.text-center Meine Projekte
-      //Projects Here
-      ul.list-group
-        li.list-group-item.clickable(ng-repeat='project in profile.my_projects')
-          a(ui-sref='root.project({id: {{project.id}}})') {{project.name}}
-        li.list-group-item(ng-hide='profile.my_projects.length') Noch keine Projekte.
-    .col-lg-6
-      h4.text-red.text-center Meine Diskussionen
-      .row
-        // Discussions Here
-        ul.list-group
-          li.list-group-item.clickable(ng-repeat='discussion in profile.my_discussions')
-            a(ui-sref='root.community({id: {{discussion.community_id}}, "#": "d-{{discussion.author}}-{{discussion.id}}"})') {{discussion.title}}
-          li.list-group-item(ng-hide='profile.my_discussions.length') Noch keine Diskussionen.
-      h4.text-red.text-center Meine Kommentare
-      .row
-        // Comments Here
-        ul.list-group
-          li.list-group-item.clickable(ng-repeat='comment in profile.my_comments')
-            a(ng-click='profile.goToComment(comment)') {{comment.content}}
-          li.list-group-item(ng-hide='profile.my_comments.length') Noch keine Kommentare.
-  br(clear="all")
+    .container
+      .col-lg-5
+        h4.text-center Ereignisse
+        .row.border-grey.well(style="overflow: scroll; height: 200px;")
+          ul.list-group
+            li.list-group-item.clickable.highlight(ng-repeat='event in profile.my_events | filter: {read: false}', ng-click="profile.visit_event(event)")
+              span {{event.message}}
+            li.list-group-item(ng-hide='profile.my_events.length') Noch keine Ereignisse.
+        h4.text-center Meine Diskussionen
+        .row.border-grey.well(style="overflow: scroll; height: 200px;")
+          // Discussions Here
+          ul.list-group
+            li.list-group-item.clickable.highlight(ng-repeat='discussion in profile.my_discussions', ui-sref='root.community({id: {{discussion.community_id}}, "#": "d-{{discussion.author}}-{{discussion.id}}"})')
+              span {{discussion.title | limitTo: 40}}
+                span(ng-if="comment.content.length > 50") ...
+            li.list-group-item(ng-hide='profile.my_discussions.length') Noch keine Diskussionen.
+        h4.text-center Meine Kommentare
+        .row.border-grey.well(style="overflow: scroll; height: 200px;")
+          // Comments Here
+          ul.list-group
+            li.list-group-item.clickable.highlight(ng-repeat='comment in profile.my_comments', ng-click='profile.goToComment(comment)')
+              span {{comment.content | limitTo : 40}}
+                span(ng-if="comment.content.length > 50") ...
+            li.list-group-item(ng-hide='profile.my_comments.length') Noch keine Kommentare.
+      .col-lg-6.col-lg-offset-1
+        h4.text-center Meine Projekte    
+        .border-grey.well(style="overflow: scroll; height: 600px;")
+          ul.list-group
+            li.list-group-item.clickable.highlight(ng-repeat='project in profile.my_projects', ui-sref='root.project({id: {{project.id}}})')
+              span {{project.name}}
+            li.list-group-item(ng-hide='profile.my_projects.length') Noch keine Projekte.
+             
+    br(clear="all")

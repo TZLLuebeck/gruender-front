@@ -69,6 +69,16 @@ angular.module('gruenderviertel').service 'Project', (baseREST, $q, Upload) ->
       defer.reject(error)
     defer.promise
 
+  getByCategory = (category) ->
+    defer = $q.defer()
+    packet = baseREST.one('projects').one('category')
+    params = {category: category}
+    packet.customGET("", params).then (response) ->
+      defer.resolve(response.data)
+    , (error) ->
+      defer.reject(error)
+    defer.promise
+
   getFeatured = () ->
     defer = $q.defer()
     packet = baseREST.one('projects').one('featured')
@@ -131,3 +141,4 @@ angular.module('gruenderviertel').service 'Project', (baseREST, $q, Upload) ->
   removeProject: removeProject
   getFeatured: getFeatured
   getMore: getMore
+  getByCategory: getByCategory

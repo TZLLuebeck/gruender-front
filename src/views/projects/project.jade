@@ -12,7 +12,7 @@
         br
         p.h4 {{project.project.likes.length}} Likes
       hr
-      a(ng-click="project.edit()", ng-show="project.project.user_id == activeUser.id") Projekt bearbeiten.
+      a(ui-sref="root.project.editproject", ng-show="project.project.user_id == activeUser.id") Projekt bearbeiten.
       a(href="#Overview") Übersicht
       a(href="#Ziel") Ziel
       a(href="#Problem") Problem
@@ -20,7 +20,7 @@
       a(href="#Coop", ng-show="project.project.coop") Kooperation
       a(href="#Attachment", ng-show="project.project.attachment.url") Anhang
 
-    .col-lg-11
+    .container-fluid
       a.anchor#Overview
       center
         h3.text-red - {{project.project.typus}} -
@@ -64,22 +64,36 @@
         a(href="{{project.project.attachment.url}}")
         hr.border-grey
       h3 Weitere Projekte
-      .row
-        .col-md-3
-          .col-md-10.col-md-offset-1
-            span {{project.moreProjects[0].name}}
-        .col-md-3
-          .col-md-10.col-md-offset-1
-            span {{project.moreProjects[1].name}}
-        .col-md-3
-          .col-md-10.col-md-offset-1
-            span {{project.moreProjects[2].name}}
-        .col-md-3
-          .col-md-10.col-md-offset-1
-            span {{project.otherProject.name}}
-
+      .row.display-flex
+        .col-md-3(ng-if="project.moreProjects.similar[0]")
+          .col-md-10.col-md-offset-1.well.border-grey.highlight.clickable(ui-sref="root.project({id: {{project.moreProjects.similar[0].id}}})")
+            center
+              img(ng-src="{{project.moreProjects.similar[0].image.url}}")
+              hr
+              b {{project.moreProjects.similar[0].name}}
+              br(clear="all")
+        .col-md-3(ng-if="project.moreProjects.similar[1]")
+          .col-md-10.col-md-offset-1.well.border-grey.highlight.clickable(ui-sref="root.project({id: {{project.moreProjects.similar[1].id}}})")
+            center
+              img(ng-src="{{project.moreProjects.similar[1].image.url}}")
+              hr
+              b {{project.moreProjects.similar[1].name}}        
+              br(clear="all")
+        .col-md-3(ng-if="project.moreProjects.similar[2]")
+          .col-md-10.col-md-offset-1.well.border-grey.highlight.clickable(ui-sref="root.project({id: {{project.moreProjects.similar[2].id}}})")
+            center
+              img(ng-src="{{project.moreProjects.similar[2].image.url}}")
+              hr
+              b {{project.moreProjects.similar[2].name}}        
+              br(clear="all")
+        .col-md-3(ng-if="project.moreProjects.other[0]")
+          .col-md-10.col-md-offset-1.well.border-grey.highlight.clickable(ui-sref="root.project({id: {{project.moreProjects.other[0].id}}})")
+            center
+              img(ng-src="{{project.moreProjects.other[0].image.url}}")
+              hr
+              b {{project.moreProjects.other[0].name}}
+              br(clear="all")
       hr.border-grey
-
   
       h3 Kommentare
       .col-sm-8(ng-repeat="comment in project.project.comments", style="margin-top: 10px;")

@@ -1,10 +1,10 @@
-angular.module('gruenderviertel').controller 'NavCtrl', (User, $rootScope, $state, TokenContainer) ->
+angular.module('gruenderviertel').controller 'NavCtrl', (User, Event, $rootScope, $state, TokenContainer) ->
 
   @isAuthenticated = false
   @form = {}
   @admin = false
   @username = "default"
-  @newEvents = 0
+  @newEvents = []
 
   $rootScope.$on 'user:stateChanged', (e, state, params) =>
     console.log("NavCtrl user:StateChanged")
@@ -12,18 +12,21 @@ angular.module('gruenderviertel').controller 'NavCtrl', (User, $rootScope, $stat
     @setUsername()
     @isAdmin()
 
-  $rootScope.$on 'event:newEvents', (e, state, params) =>
-    console.log("NavCtrl event:newEvents")
-    @newEvents = User.newEvents
+  @getNewEvents = () =>
+    User.getNewEvents().then (response) =>
+      console.log(response)
+      @newEvents = response
+    , (error) ->
+      console.log("NavCtrl.init Error")
 
-  @init = () ->
+  @init = () ->    
     @setLoggedIn(TokenContainer.get())
     @setUsername()
     @isAdmin()
+    if @isAuthenticated
+      @getNewEvents()
     console.log("NavCtrl Initialized")
 
-  ##################
-  # Active Functions
   @login = () ->
     User.login(@form).then (response) ->
       $rootScope.$broadcast('user:stateChanged')
@@ -35,8 +38,6 @@ angular.module('gruenderviertel').controller 'NavCtrl', (User, $rootScope, $stat
       $state.go('root.home')
 
 
-  ###################
-  # Passive Functions
   @setUsername = () =>
     if @isAuthenticated
       User.currentUser().then (response) =>
