@@ -21,11 +21,13 @@
     hr
   .container.white
     h2 Projekte
-    .col-md-3.well.clickable.border-grey.white.highlight(ng-repeat="project in community.projects", ui-sref="root.project({id: {{project.id}}})", data-toggle="tooltip" data-placement="bottom" title="{{project.goal}}" class="project-tooltip")
-      center
-        img(ng-src="{{project.image.url}}")
-        hr
-        b {{project.name}}
+    .col-md-4(ng-repeat="project in community.projects", ui-sref="root.project({id: {{project.id}}})", data-toggle="tooltip" data-placement="bottom" title="{{project.goal}}" class="project-tooltip", style="height: 300px;")
+      .col-md-10.well.clickable.border-grey.white.highlight(style="height: inherit;")
+        center
+          img(ng-src="{{project.image.url}}", style="max-height: 200px;")
+          .align-bottom
+            hr
+            b {{project.name}}
     br(clear="all")
     hr
   .container.white

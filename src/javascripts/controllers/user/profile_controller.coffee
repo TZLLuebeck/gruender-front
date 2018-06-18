@@ -1,6 +1,6 @@
-angular.module('gruenderviertel').controller 'ProfileCtrl', (instance, $state) ->
+angular.module('gruenderviertel').controller 'ProfileCtrl', (instance, $state, $rootScope) ->
 
-  @user = instance
+  @user = $rootScope.activeUser
   @my_projects = angular.copy(@user.projects)
   @my_comments = angular.copy(@user.comments)
   @my_discussions = angular.copy(@user.posts)

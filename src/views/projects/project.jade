@@ -1,24 +1,20 @@
 .container-fluid.grey(anchormove)
   .container.white
-    nav(aria-label="breadcrumb")
-      ul.breadcrumb
-        li.breadcrumb-item Home
-        li.breadcrumb-item Projekt
-        li.breadcrumb-item.active {{project.project.name}}
-
-    .sidenav.blue.text-white
-      .text-center
-        button.btn.white.text-red(ng-click="project.like()") Like
+    .sidenav.blue
+      .text-center.abstand
+        button.btn.btn-primary.blue.text-white(ng-click="project.like()") Good Idea!
         br
-        p.h4 {{project.project.likes.length}} Likes
+        p.text-blue {{project.project.likes.size}} mögen diese Idee.
       hr
-      a(ui-sref="root.project.editproject", ng-show="project.project.user_id == activeUser.id") Projekt bearbeiten.
-      a(href="#Overview") Übersicht
-      a(href="#Ziel") Ziel
-      a(href="#Problem") Problem
-      a(href="#Solution", ng-show="project.project.solution") Lösung
-      a(href="#Coop", ng-show="project.project.coop") Kooperation
-      a(href="#Attachment", ng-show="project.project.attachment.url") Anhang
+      .abstand 
+        center
+          button.btn.btn-default(ui-sref="root.project.editproject", ng-show="project.project.user_id == activeUser.id") Projekt bearbeiten.
+        //a(href="#Overview") Übersicht
+        //a(href="#Ziel") Ziel
+        //a(href="#Problem") Problem
+        //a(href="#Solution", ng-show="project.project.solution") Lösung
+        //a(href="#Coop", ng-show="project.project.coop") Kooperation
+        //a(href="#Attachment", ng-show="project.project.attachment.url") Anhang
 
     .container-fluid
       a.anchor#Overview
@@ -30,7 +26,7 @@
           span Projekt von 
           a.clickable(ui-sref="root.profile({id: project.project.user_id})", target="_blank") {{project.project.author.name}}
           span(ng-hide="!project.project.author.url") &nbsp;- 
-          a(href="{{project.project.author.url}}", ng-hide="!project.project.author.url") {{project.project.author.url}}
+          a(href="http://{{project.project.author.url}}", target="_blank", ng-hide="!project.project.author.url") {{project.project.author.url}}
         br
         a.blue.text-white.label.clickable(ng-repeat="tag in project.project.tags", style="margin-left: 5px;", ui-sref="root.community({id: tag.id})" target="_blank") {{tag.name}}
       br
@@ -61,7 +57,7 @@
       a.anchor#Attachment
       div(ng-show="project.project.attachment.url")
         h3.text-red Anhang
-        a(href="{{project.project.attachment.url}}")
+        a(href="{{project.project.attachment.url}}" target="_blank") {{project.project.attachment.url}}
         hr.border-grey
       h3 Weitere Projekte
       .row.display-flex
