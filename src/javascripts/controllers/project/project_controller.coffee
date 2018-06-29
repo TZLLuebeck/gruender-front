@@ -4,10 +4,12 @@ angular.module('gruenderviertel').controller 'ProjectCtrl', (User, instance, Pro
   @comment = ""
   @moreProjects = []
   @user = User
+  @likes = @project.likes
+  @liked = false
 
   @init = () =>
-    console.log(@project.user_id)
-    console.log(@user.user)
+    console.log("Projekt:")
+    console.log(@project)
 
     for c in @project.comments
       c.created = new Date(Date.parse(c.created_at)).toLocaleString('de-DE')
@@ -30,16 +32,21 @@ angular.module('gruenderviertel').controller 'ProjectCtrl', (User, instance, Pro
 
   @like = () =>
     Project.like(@project.id).then (response) =>
-      @project.likes++
+      if response
+        @project.liked = true
+        @likes++
+      else
+        @project.liked = false
+        @likes--
     , (error) ->
       console.log("project.like error")
 
+  @getFileName = () =>
+    if @project.attachment.url
+      path = @project.attachment.url.split("/")
+      return path[path.length-1]
 
-  @unlike = () =>
-    Project.unlike(@project.id).then (response) =>
-      @project.likes--
-    , (error) ->
-      console.log("project.dislike error")
+    return ""
 
   @getOtherProjects = () =>
     Project.getMore(@project.id).then (response) =>

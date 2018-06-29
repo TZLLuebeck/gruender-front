@@ -2,9 +2,10 @@
   .container.white
     .sidenav.blue
       .text-center.abstand
-        button.btn.btn-primary.blue.text-white(ng-click="project.like()") Good Idea!
+        button.btn.btn-primary.blue.text-white(ng-click="project.like()", ng-hide="project.project.liked") Good Idea!
+        button.btn.btn-primary.blue.text-white(ng-click="project.like()", ng-show="project.project.liked") Eher nicht.
         br
-        p.text-blue {{project.project.likes.size}} mögen diese Idee.
+        p.text-blue {{project.likes}} mögen diese Idee.
       hr
       .abstand 
         center
@@ -55,9 +56,9 @@
       //br(clear="all")
       hr(style="border-color: #b2b8cf;")
       a.anchor#Attachment
-      div(ng-show="project.project.attachment.url")
+      div(ng-if="project.project.attachment.url")
         h3.text-red Anhang
-        a(href="{{project.project.attachment.url}}" target="_blank") {{project.project.attachment.url}}
+        a(href="{{project.project.attachment.url}}" target="_blank") {{project.getFileName()}}
         hr.border-grey
       h3 Weitere Projekte
       .row.display-flex

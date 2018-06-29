@@ -22,13 +22,13 @@ nav.navbar.navbar-inverse.navbar-fixed-top(role="navigation")
               a#navbar_a_logout.text-white.clickable(ng-click="nav.logout()") Abmelden
       ul.nav.navbar-nav.navbar-right(ng-show="nav.isAuthenticated")
         li.dropdown
-          .clickable.image-container.dropdown-toggle(style="border-radius: 50%; width: 30px; height: 30px; margin-right: 15px; margin-top: 10px;", ng-class="{'white': nav.newEvents.length <= 0, 'grey': nav.newEvents.length > 0}", href="#", data-toggle="dropdown", role="button")
+          .clickable.image-container.dropdown-toggle(style="border-radius: 50%; width: 30px; height: 30px; margin-right: 15px; margin-top: 10px;", ng-class="{'white': nav.decodedEvents.length <= 0, 'grey': nav.decodedEvents.length > 0}", href="#", data-toggle="dropdown", role="button")
             img(src="/assets/images/icons/alarm.svg")
-            div.bottom-right.blue.text-white {{nav.newEvents.length}}
+            div.bottom-right.blue.text-white {{nav.decodedEvents.length}}
           ul.dropdown-menu.border-grey
-            li.highlight(ng-repeat="e in nav.newEvents")
-              span.clickable {{e.trigger_type}} {{e.target_type}}
-            li(ng-show="nav.newEvents.length == 0")
+            li.highlight.wide(ng-repeat="e in nav.decodedEvents", ng-click="nav.visit_event(e)") 
+              span.clickable {{e.message}}
+            li.wide(ng-show="nav.decodedEvents.length == 0")
               span Keine neuen Ereignisse.
 
         li.clickable(ui-sref="root.createproject") 
@@ -63,7 +63,7 @@ nav.navbar.navbar-inverse.navbar-fixed-top(role="navigation")
       .modal-body
         .container-fluid
           center.text-blue
-            b Melden Sie sich hier an:
+            b Melden dich hier an:
           form(role="login" name="loginForm", novalidate)
             .form-group
               input#login_input_email.form-control(name="username", type="text" ng-minlength="2", ng-model="nav.form.username", required, maxlength="30", placeholder="Accountname")
@@ -75,7 +75,7 @@ nav.navbar.navbar-inverse.navbar-fixed-top(role="navigation")
           hr
           .col-4-offset-4
             center.text-blue
-              b Oder registrieren sie sich hier:
+              b Oder registriere dich hier:
               br(clear="all")
               button.btn.btn-large.btn-primary.blue.text-white(ui-sref='root.register', data-dismiss="modal") Neuen Account Anlegen
               br

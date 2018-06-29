@@ -43,7 +43,15 @@ angular.module('gruenderviertel').controller 'CreateProjectCtrl', (Project, Comm
     @form.project.status = "Published"
 
     Project.createProject(@form.project).then (response) ->
-      $state.go('root.project', {'id': response.id})
+      console.log("-------------------------")
+      console.log(response)
+      console.log("-------------------------")
+
+      $state.transitionTo('root.project', {
+        id: response.id
+        }, {
+          reload : true
+        });
 
   @charLimit = () =>
     if @form.project.goal

@@ -1,10 +1,13 @@
 angular.module('gruenderviertel').controller 'NavCtrl', (User, Event, $rootScope, $state, TokenContainer) ->
 
+
+  @user = $rootScope.activeUser
   @isAuthenticated = false
   @form = {}
   @admin = false
   @username = "default"
-  @newEvents = []
+  #@newEvents = @user.events
+  @decodedEvents = []
 
   $rootScope.$on 'user:stateChanged', (e, state, params) =>
     console.log("NavCtrl user:StateChanged")
@@ -19,12 +22,6 @@ angular.module('gruenderviertel').controller 'NavCtrl', (User, Event, $rootScope
     , (error) ->
       console.log("NavCtrl.init Error")
 
-  @init = () ->    
-    @setLoggedIn(TokenContainer.get())
-    @setUsername()
-    @isAdmin()
-    if @isAuthenticated
-      @getNewEvents()
     console.log("NavCtrl Initialized")
 
   @login = () ->
@@ -60,6 +57,46 @@ angular.module('gruenderviertel').controller 'NavCtrl', (User, Event, $rootScope
         @admin = false
     else
       @admin = false
+
+  @decodeEvents = (user) =>
+    decodedEvents = []
+    for e in user.events
+      if e.trigger_type == "Comment"
+        if e.target_type == "Project"
+          e.message = "Neuer Kommentar für Projekt"
+          for p in user.projects
+            if p.id == e.target_id
+              e.message += ": " + p.name
+              break
+        else if e.target_type == "Post"
+          e.message = "Neuer Kommentar für Diskussion"
+          for d in user.posts
+            if d.id == e.target_id
+              e.community_id = d.community_id
+              e.message += ": " + d.title
+              break
+        else
+          e.message = "Neues Ereignis."
+      else
+        e.message = "Neues Ereignis."
+      decodedEvents.push(e)
+
+    return decodedEvents
+
+  @visit_event = (e) =>
+    console.log(e)
+    if e.target_type == "Project"
+      $state.go('root.project', {'id': e.target_id})
+    else
+      $state.go('root.community', {'id': e.community_id})
+
+  @init = () ->    
+    @setLoggedIn(TokenContainer.get())
+    @setUsername()
+    @isAdmin()
+    if @isAuthenticated
+    #  @getNewEvents()
+      @decodedEvents = @decodeEvents(@user)
 
   @init()
 

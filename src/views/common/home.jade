@@ -44,17 +44,18 @@ img(src="/assets/images/aufhaenger.svg" style="width: 100%;")
 .container(tooltips)
   h2 Neue Projekte
   .row.display-flex
-    .col-md-3.container.well.white.border-grey(ng-repeat="project in home.featured" ng-class="{'col-md-offset-1': $index%3}")
-      .container-fluid.clickable.text-center(ui-sref="root.project({id: {{project.id}}})" data-toggle="tooltip" data-placement="bottom" title="{{project.goal}}" class="project-tooltip")
-        img(ng-src='{{project.image.url}}', ng-hide='!project.image')
-        hr
-        p - {{project.typus}} -
-        b {{project.name}}
-        .row
-          .col-sm-6
-            span {{project.author.name}}
-          .col-sm-6
-            span {{project.likes.length}} Likes
+    .col-md-3.container.clickable.text-center.well.white.border-grey.highlight(ng-repeat="project in home.featured" ng-class="{'col-md-offset-1': $index%3}", ui-sref="root.project({id: {{project.id}}})" data-toggle="tooltip" data-placement="bottom" title="{{project.goal}}" class="project-tooltip", style="height: 350px;")
+      div(style="height: inherit;")
+        img.align-center(ng-src='{{project.image.url}}', ng-hide='!project.image', style="max-height: 200px;")
+        .align-bottom
+          hr
+          p - {{project.typus}} -
+          b {{project.name}}
+          .row
+            .col-sm-6
+              span {{project.author.name}}
+            .col-sm-6
+              span {{project.likes.length}} Likes
     br(clear="all")
 .container
   hr.border-grey
@@ -166,7 +167,8 @@ img(src="/assets/images/aufhaenger.svg" style="width: 100%;")
           br
           span FabLab Lübeck
           br
-          span Support On 
+          span Support On
+          ul.no-indent 
             li 3D-Druck
             li Med. Engineering
             li Maker Maker
@@ -180,7 +182,7 @@ img(src="/assets/images/aufhaenger.svg" style="width: 100%;")
           span Technikzentrum Lübeck
           br
           span Support On
-          ul
+          ul.no-indent
             li Business Development
             li E-Commerce
             li Get International
@@ -194,7 +196,7 @@ img(src="/assets/images/aufhaenger.svg" style="width: 100%;")
           span Unitransferklinik Lübeck
           br
           span Support On
-          ul
+          ul.no-indent
             li Software Development
             li Software Engineering
             li Cloud Computing
@@ -210,7 +212,7 @@ img(src="/assets/images/aufhaenger.svg" style="width: 100%;")
           span Unitransferklinik Lübeck
           br
           span Support On
-          ul
+          ul.no-indent
             li Life Science
             li Industry 4.0
             li MedTec
@@ -224,7 +226,7 @@ img(src="/assets/images/aufhaenger.svg" style="width: 100%;")
           span Technikzentrum Lübeck
           br
           span Support On
-          ul
+          ul.no-indent
             li 3D-Druck
             li Smart Production
             li Design Thinking
@@ -238,7 +240,7 @@ img(src="/assets/images/aufhaenger.svg" style="width: 100%;")
           span FabLab Lübeck
           br
           span Support On
-          ul
+          ul.no-indent
             li Med. Informatics
             li DIY
             li Software Development
@@ -254,7 +256,7 @@ img(src="/assets/images/aufhaenger.svg" style="width: 100%;")
           span Technikzentrum Lübeck
           br
           span Support On
-          ul
+          ul.no-indent
             li Games & Gadgets
             li Consulting
             li FabLab
@@ -268,7 +270,7 @@ img(src="/assets/images/aufhaenger.svg" style="width: 100%;")
           span MT2IT
           br
           span Support On
-          ul
+          ul.no-indent
             li Health 4.0
             li Smart Apps
             li IoT
@@ -282,7 +284,7 @@ img(src="/assets/images/aufhaenger.svg" style="width: 100%;")
           span Universität Lübeck
           br
           span Support On
-          ul
+          ul.no-indent
             li Geschäftsmodelle
             li Consulting
             li Logistik 4.0
@@ -298,7 +300,7 @@ img(src="/assets/images/aufhaenger.svg" style="width: 100%;")
           span Technikzentrum Lübeck
           br
           span Support On
-          ul
+          ul.no-indent
             li Environment
             li Sustainability
             li Datenschutz
