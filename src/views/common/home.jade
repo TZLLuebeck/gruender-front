@@ -3,10 +3,10 @@
 img(src="/assets/images/aufhaenger.svg" style="width: 100%;")
 .jumbotron.blue.text-white(ng-hide="home.isAuthenticated")
   .row
-    .col-md-6
-      h1 Jetzt anmelden!
-      h3 Präsentiert Eure Projekte und Ideen.
-    .col-md-3.col-md-offset-2.well.blue(ng-hide="home.isAuthenticated")
+    .col-md-4.col-md-offset-2
+      h1.text-right Jetzt registrieren!
+      h3.text-right Präsentiert Eure Projekte und Ideen.
+    .col-md-3.col-md-offset-1.well.blue(ng-hide="home.isAuthenticated")
       form(role="register" name="regForm", novalidate)
         .form-group
           input#reg_input_fullname.form-control(name="full_name", type="text", ng-model="home.form.name", required, placeholder="Vor- & Nachname")
@@ -73,7 +73,7 @@ img(src="/assets/images/aufhaenger.svg" style="width: 100%;")
   br(clear="all")
 
 .container.abstand
-  h2 Finden Sie Projekte aller Art
+  h2 Entdecke Projekte aller Art
   .row.display-flex(style="text-align: justify;")
     .col-md-4
       .col-md-10.well.white.border-grey.clickable(ui-sref="root.browseprojects({project_type: 'Showcase'})")
@@ -84,7 +84,7 @@ img(src="/assets/images/aufhaenger.svg" style="width: 100%;")
       .col-md-10.col-md-offset-1.well.white.border-grey.clickable(ui-sref="root.browseprojects({project_type: 'Open Innovation'})")
         img(src="assets/images/openinnovation.jpg")
         h3.text-center Open Innovation
-        p Gemeinsam mit Gründern, StartUps und Unternehmen neue Kooperationsprojekte starten.
+        p Gemeinsam mit Gründern, StartUps, Instituten und Unternehmen neue Kooperationsprojekte starten.
     .col-md-4
       .col-md-10.col-md-offset-2.well.white.border-grey.clickable(ui-sref="root.browseprojects({project_type: 'Anleitung'})")
         img(src="assets/images/HowTo.jpg")
@@ -108,8 +108,8 @@ img(src="/assets/images/aufhaenger.svg" style="width: 100%;")
   br(clear="all")
 
 .container-fluid.blue.text-white.abstand
-  .container
-    h2 Solving Problems Together
+  .container.abstand.abstand-bottom
+    h2 Gemeinsam Probleme lösen.
     p Produktanpassungen oder Neuentwicklungen - teile einfach Probleme, Wünsche oder Bedarf mit der Community.
     .row.display-flex(style="margin-top: 20px;")
       .col-md-4
@@ -126,7 +126,7 @@ img(src="/assets/images/aufhaenger.svg" style="width: 100%;")
         b.text-center Warum gibt es nicht diese Lösung…?
     br
     center
-      button.btn.btn-primary.btn-lg(style="margin-top: 30px;") Jetzt Probleme mit Open Innovation angehen
+      button.btn.btn-primary.btn-lg(style="margin-top: 30px;", ui-sref="root.newproject") Jetzt Probleme mit Open Innovation angehen
     br(clear="all")
 
 .container.abstand
@@ -151,7 +151,7 @@ img(src="/assets/images/aufhaenger.svg" style="width: 100%;")
 .container
   hr.border-grey
 .container
-  h2 Your Innovation Team
+  h2 Dein Team für Innovationen
   br
   span Wir unterstützen Eure innovativen Ideen gemeinsam mit unseren Netzwerkpartnern aus Lübeck und ganz Schleswig-Holstein. 
   br
@@ -263,6 +263,20 @@ img(src="/assets/images/aufhaenger.svg" style="width: 100%;")
     .col-md-4
       .row
         .col-md-4
+          img.frame(src="/assets/images/people/DSC_2087.jpg")
+        .col-md-8
+          b Sandra Meiers 
+          br
+          span Technikzentrum Lübeck
+          br
+          span Support On
+          ul.no-indent
+            li Bildung
+            li Werbung und Marketing
+            li Suchmaschinen und SEO
+    .col-md-4
+      .row
+        .col-md-4
           img.frame(src="/assets/images/people/DSC_1342.jpg")
         .col-md-8
           b Prof. Jörg-Uwe Meyer
@@ -274,6 +288,8 @@ img(src="/assets/images/aufhaenger.svg" style="width: 100%;")
             li Health 4.0
             li Smart Apps
             li IoT
+  br
+  .row.display-flex
     .col-md-4
       .row
         .col-md-4
@@ -288,8 +304,6 @@ img(src="/assets/images/aufhaenger.svg" style="width: 100%;")
             li Geschäftsmodelle
             li Consulting
             li Logistik 4.0
-  br
-  .row.display-flex
     .col-md-4
       .row
         .col-md-4
@@ -304,6 +318,7 @@ img(src="/assets/images/aufhaenger.svg" style="width: 100%;")
             li Environment
             li Sustainability
             li Datenschutz
+
 .container
   hr.border-grey(style="margin-top: 100px; margin-bottom: 10px;")         
 .carousel.slide#sponsor-carousel(data-ride="carousel" style="margin-bottom: 20px;")

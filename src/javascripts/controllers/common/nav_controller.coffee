@@ -65,7 +65,7 @@ angular.module('gruenderviertel').controller 'NavCtrl', (User, Event, $rootScope
         if e.target_type == "Project"
           e.message = "Neuer Kommentar für Projekt"
           for p in user.projects
-            if p.id == e.target_id
+            if p.id == e.target_id 
               e.message += ": " + p.name
               break
         else if e.target_type == "Post"

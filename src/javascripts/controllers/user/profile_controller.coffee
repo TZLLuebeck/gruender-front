@@ -4,6 +4,8 @@ angular.module('gruenderviertel').controller 'ProfileCtrl', (instance, $state, $
   @my_projects = angular.copy(@user.projects)
   @my_comments = angular.copy(@user.comments)
   @my_discussions = angular.copy(@user.posts)
+
+  console.log(@user)
   
   @decodeEvents = (events) =>
     decodedEvents = []
@@ -19,7 +21,7 @@ angular.module('gruenderviertel').controller 'ProfileCtrl', (instance, $state, $
           e.message = "Neuer Kommentar für Diskussion"
           for d in @my_discussions
             if d.id == e.target_id
-              e.community_id = d.community_id
+              e.community_id = d.community_id  
               e.message += ": " + d.title
               break
         else

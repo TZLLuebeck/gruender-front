@@ -6,7 +6,7 @@ angular.module('gruenderviertel').factory 'tokenInterceptor', (TokenContainer, R
 
   request: (config) ->
     # Send AccessToken only to our API
-    if config.url.indexOf("/api/v1/") == 0
+    if config.url.indexOf("/api/v1/") == 0 || config.url.indexOf("/oauth/") == 0
       token = TokenContainer.get()
       if token
         config.headers['Authorization'] = "Bearer #{token}"
