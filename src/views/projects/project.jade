@@ -12,7 +12,7 @@
           span(ng-hide="!project.project.author.url") &nbsp;- 
           a(href="http://{{project.project.author.url}}", target="_blank", ng-hide="!project.project.author.url") {{project.project.author.url}}
         br
-        a.blue.text-white.label.clickable(ng-repeat="tag in project.project.tags", style="margin-left: 5px;", ui-sref="root.community({id: tag.id})" target="_blank") {{tag.name}}
+        a.blue.text-white.label.clickable(ng-repeat="tag in project.project.tags", ui-sref="root.community({id: tag.id})" target="_blank") {{tag.name}}
       br
       center
         img(ng-src='{{project.project.image.url}}', ng-hide='!project.project.image')
@@ -45,37 +45,33 @@
         hr.border-grey
       h3 Weitere Projekte
       .row.display-flex
-        .col-md-3(ng-if="project.moreProjects.similar[0]")
-          .col-md-10.col-md-offset-1.well.border-grey.highlight.clickable(ui-sref="root.project({id: {{project.moreProjects.similar[0].id}}})")
-            center
-              img(ng-src="{{project.moreProjects.similar[0].image.url}}")
-              hr
-              b {{project.moreProjects.similar[0].name}}
-              br(clear="all")
-        .col-md-3(ng-if="project.moreProjects.similar[1]")
-          .col-md-10.col-md-offset-1.well.border-grey.highlight.clickable(ui-sref="root.project({id: {{project.moreProjects.similar[1].id}}})")
-            center
-              img(ng-src="{{project.moreProjects.similar[1].image.url}}")
-              hr
-              b {{project.moreProjects.similar[1].name}}        
-              br(clear="all")
-        .col-md-3(ng-if="project.moreProjects.similar[2]")
-          .col-md-10.col-md-offset-1.well.border-grey.highlight.clickable(ui-sref="root.project({id: {{project.moreProjects.similar[2].id}}})")
-            center
-              img(ng-src="{{project.moreProjects.similar[2].image.url}}")
-              hr
-              b {{project.moreProjects.similar[2].name}}        
-              br(clear="all")
-        .col-md-3(ng-if="project.moreProjects.other[0]")
-          .col-md-10.col-md-offset-1.well.border-grey.highlight.clickable(ui-sref="root.project({id: {{project.moreProjects.other[0].id}}})")
-            center
-              img(ng-src="{{project.moreProjects.other[0].image.url}}")
-              hr
-              b {{project.moreProjects.other[0].name}}
-              br(clear="all")
+        .col-xs-10.col-xs-offset-1.col-sm-5.col-md-2.container.clickable.text-center.well.white.border-grey.highlight(ng-repeat="project in project.moreProjects.similar" ui-sref="root.project({id: {{project.id}}})" data-toggle="tooltip" data-placement="bottom" title="{{project.goal}}" class="project-tooltip")
+          div
+            img.frame.image(ng-src='{{project.image.url}}', ng-hide='!project.image')
+          div
+            hr
+            p - {{project.typus}} -
+            h4.truncate {{project.name}}
+            .row
+              .col-xs-6
+                span {{project.author.name}}
+              .col-xs-6
+                span {{project.likes.length}} Likes
+        .col-xs-10.col-xs-offset-1.col-sm-5.col-md-2.container.clickable.text-center.well.white.border-grey.highlight(ng-repeat="project in project.moreProjects.other" ui-sref="root.project({id: {{project.id}}})" data-toggle="tooltip" data-placement="bottom" title="{{project.goal}}" class="project-tooltip")
+          div
+            img.frame.image(ng-src='{{project.image.url}}', ng-hide='!project.image')
+          div
+            hr
+            p - {{project.typus}} -
+            h4.truncate {{project.name}}
+            .row
+              .col-xs-6
+                span {{project.author.name}}
+              .col-xs-6
+                span {{project.likes.length}} Likes
       hr.border-grey
     .sidenav.blue
-      .text-center.abstand
+      center.abstand
         button.btn.btn-primary.blue.text-white(ng-click="project.like()", ng-hide="project.project.liked") Good Idea!
         button.btn.btn-primary.blue.text-white(ng-click="project.like()", ng-show="project.project.liked") Eher nicht.
         br
@@ -84,12 +80,6 @@
       .abstand 
         center
           button.btn.btn-default(ui-sref="root.project.editproject", ng-show="project.project.user_id == activeUser.id") Projekt bearbeiten.
-        //a(href="#Overview") Übersicht
-        //a(href="#Ziel") Ziel
-        //a(href="#Problem") Problem
-        //a(href="#Solution", ng-show="project.project.solution") Lösung
-        //a(href="#Coop", ng-show="project.project.coop") Kooperation
-        //a(href="#Attachment", ng-show="project.project.attachment.url") Anhang
     .container-fluid
       h3 Kommentare
       .col-sm-8(ng-repeat="comment in project.project.comments", style="margin-top: 10px;")

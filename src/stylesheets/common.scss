@@ -138,8 +138,12 @@ img {
   color: #ffffff;
 }
 
-label {
+.label {
   font-weight: normal;
+  margin-left: .5%;
+  margin-right: .5%;
+  margin-top: 2%;
+  display:inline-block;
 }
 
 ol {
@@ -173,6 +177,11 @@ ol>li:before {
 .no-padding {
   padding-left: 0px;
   padding-right: 0px;
+}
+
+.no-padding.at-all {
+  padding-top: 0px;
+  padding-bottom: 0px;
 }
 
 .no-margin {
@@ -240,7 +249,7 @@ ul.no-bullet {
 }
 
 .truncate {
-  width: inherit;
+  max-width: inherit;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

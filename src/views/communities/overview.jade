@@ -8,7 +8,7 @@
       .col-xs-10.col-xs-offset-1.col-sm-4.col-xs-offset-0.col-md-2.white.well.clickable.highlight.border-grey.no-padding(ng-repeat="community in coc.list | filter: {typus: 'Branche'}" style="margin-left:5px; margin-right:5px;")
         .container-fluid.clickable.text-center(ui-sref="root.community({id: {{community.id}}})")
           .container-fluid.well.white
-            img.white(ng-src='{{community.icon}}')
+            img.white.image(ng-src='{{community.icon}}')
           b.h5 {{community.name}}
       br(clear="all")
 
@@ -19,6 +19,6 @@
       .col-xs-10.col-xs-offset-1.col-sm-4.col-xs-offset-0.col-md-2.white.well.clickable.highlight.border-grey.no-padding(ng-repeat="community in coc.list | filter: {typus: 'Thema'}" style="margin-left:5px; margin-right:5px;")
         .container-fluid.clickable.text-center(ui-sref="root.community({id: {{community.id}}})")
           .container-fluid.well.white
-            img.white(ng-src='{{community.icon}}')
+            img.white.image(ng-src='{{community.icon}}')
           b.h5 {{community.name}}
       br(clear="all")

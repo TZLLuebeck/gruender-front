@@ -65,10 +65,10 @@ img.visible-desktop(src="/assets/images/aufhaenger.svg" style="width: 100%;")
     //Popular Communities
     .row.display-flex
       .col-xs-12.col-sm-6.col-md-3(ng-repeat="community in home.most_used")
-        .col-xs-8.col-xs-offset-2.well.clickable.highlight.border-grey.no-padding(ui-sref="root.community({id: {{community.id}}})")
+        .col-xs-8.col-xs-offset-2.well.clickable.highlight.border-grey.no-padding.text-center(ui-sref="root.community({id: {{community.id}}})")
           div.abstand-side
             img.white.image.smooth-edge-5(ng-src='{{community.icon}}')
-          .text-center
+          div
             b.community {{community.name}}
       br(clear="all")
   br(clear="all")

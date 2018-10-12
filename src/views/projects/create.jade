@@ -35,21 +35,23 @@
 
       .container.abstand(ng-show="create.step == 2")
         h3 Branchen
-        .row.display-flex
-          .col-md-5.well.clickable.border-grey(ng-repeat="community in create.tag_list | filter: {typus: 'Branche'}", style="max-height: 50px; margin-top: 0px; max-width: 80%;", ng-click="create.selectTag(community)", ng-class="{blue: community.selected, 'col-md-offset-1': $index%2}")
-            center(style="position: relative; top: -20px; max-height: inherit;")
-              img.col-md-2(ng-class="{white: community.selected}", ng-src='{{community.icon}}' style="border-radius: 10px; height: 50px;")
-              h4.col-md-9(ng-class="{'text-red': !community.selected, 'text-white': community.selected}", style="vertical-align: middle;") {{community.name}}
+        .row.abstand
+          .col-xs-12.col-md-5.well.no-padding.at-all.clickable.border-grey(ng-repeat="community in reg.community_list | filter: {typus: 'Branche'}", style="max-height: 55px; margin-bottom: 5px; max-width: 80%;", ng-click="reg.selectTag(community)", ng-class="{blue: community.selected, 'col-md-offset-1': $index%2}")
+            .col-xs-4.col-md-2
+              img.image.smooth-edge-5(ng-class="{white: community.selected}", ng-src='{{community.icon}}' style="height: 50px;")
+            .col-xs-8.col-md-10
+              h4(ng-class="{'text-red': !community.selected, 'text-white': community.selected}", style="vertical-align: middle;") {{community.name}}
             br(clear="all")
         br(clear="all")
 
       .container.abstand(ng-show="create.step == 3")
         h3 Themen
-        .row.display-flex
-          .col-md-5.well.clickable.border-grey(ng-repeat="community in create.tag_list | filter: {typus: 'Thema'}", style="max-height: 50px; margin-top: 0px; max-width: 80%;", ng-click="create.selectTag(community)", ng-class="{blue: community.selected, 'col-md-offset-1': $index%2}")
-            center(style="position: relative; top: -20px; max-height: inherit;")
-              img.col-md-2(ng-class="{white: community.selected}", ng-src='{{community.icon}}' style="border-radius: 10px; height: 50px;")
-              h4.col-md-9(ng-class="{'text-red': !community.selected, 'text-white': community.selected}", style="vertical-align: middle;") {{community.name}}
+        .row.abstand
+          .col-xs-12.col-md-5.well.no-padding.at-all.clickable.border-grey(ng-repeat="community in reg.community_list | filter: {typus: 'Thema'}", style="max-height: 55px; margin-bottom: 5px; max-width: 80%;", ng-click="reg.selectTag(community)", ng-class="{blue: community.selected, 'col-md-offset-1': $index%2}")
+            .col-xs-4.col-md-2
+              img.image.smooth-edge-5(ng-class="{white: community.selected}", ng-src='{{community.icon}}' style="height: 50px;")
+            .col-xs-8.col-md-10
+              h4(ng-class="{'text-red': !community.selected, 'text-white': community.selected}", style="vertical-align: middle;") {{community.name}}
             br(clear="all")
         br(clear="all")
       

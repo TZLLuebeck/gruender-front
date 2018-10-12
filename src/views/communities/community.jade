@@ -21,18 +21,18 @@
     hr
   .container.white
     h2 Projekte
-    .col-xs-10.col-xs-offset-1.col-sm-5.col-md-3.container.clickable.text-center.well.white.border-grey.highlight.project-icon(ng-repeat="project in community.projects" ng-class="{'col-sm-offset-0': !($index%2), 'col-md-offset-1': !($index%2) && $index%3, 'col-md-offset-0': !($index%3)}" ui-sref="root.project({id: {{project.id}}})" data-toggle="tooltip" data-placement="bottom" title="{{project.goal}}" class="project-tooltip")
-      div(style="height: inherit;")
-        img.align-center(ng-src='{{project.image.url}}', ng-hide='!project.image', style="max-height: 200px;")
-        .align-bottom
-          hr
-          p - {{project.typus}} -
-          b {{project.name}}
-          .row
-            .col-xs-6
-              span {{project.author.name}}
-            .col-xs-6
-              span {{project.likes.length}} Likes
+    .col-xs-10.col-xs-offset-1.col-sm-5.col-md-3.container.clickable.text-center.well.white.border-grey.highlight(ng-repeat="project in community.projects" ng-class="{'col-sm-offset-0': !($index%2), 'col-md-offset-1': !($index%2) && $index%3, 'col-md-offset-0': !($index%3)}" ui-sref="root.project({id: {{project.id}}})" data-toggle="tooltip" data-placement="bottom" title="{{project.goal}}" class="project-tooltip")
+      div
+        img.image(ng-src='{{project.image.url}}', ng-hide='!project.image', style="max-height: 200px;")
+      div
+        hr
+        p - {{project.typus}} -
+        b {{project.name}}
+        .row
+          .col-xs-6
+            span {{project.author.name}}
+          .col-xs-6
+            span {{project.likes.length}} Likes
     br(clear="all")
     hr
   .container.white
