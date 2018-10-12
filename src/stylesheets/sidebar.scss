@@ -4,8 +4,9 @@
   position: fixed; /* Fixed Sidebar (stay in place on scroll) */
   z-index: 1; /* Stay on top */
 
-  background-color: #b2b8cf;
-  border-color: #ffffff;
+  background-color: rgba(0,0,0,0);
+  
+  top: 0;
   right: 0;
   overflow-x: hidden; /* Disable horizontal scroll */
   padding-top: 20px;
@@ -33,8 +34,14 @@
   padding: 0px 10px;
 }
 
+@media screen and (max-width: 1630px){
+  .sidenav {position: static; }
+}
+
+
 /* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
 @media screen and (max-height: 450px) {
   .sidenav {padding-top: 15px;}
   .sidenav a {font-size: 18px;}
+
 } 

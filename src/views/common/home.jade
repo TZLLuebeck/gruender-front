@@ -1,6 +1,6 @@
 
 //Opening Header
-img(src="/assets/images/aufhaenger.svg" style="width: 100%;")
+img.visible-desktop(src="/assets/images/aufhaenger.svg" style="width: 100%;")
 .jumbotron.blue.text-white(ng-hide="home.isAuthenticated")
   .row
     .col-md-4.col-md-offset-2
@@ -23,17 +23,17 @@ img(src="/assets/images/aufhaenger.svg" style="width: 100%;")
 .container(style="margin-top: 50px;")
   // 1. Slide
   .row.display-flex
-    .col-md-4
+    .col-xs-12.col-sm-4
       center(style="margin-bottom: 10px;")
         img(src="/assets/images/icons/color/user.png", style="max-width: 25%;")
       b.text-center Find new parters
       p.text-center Neue Impulse für Produkte und Services durch Innovationspartner und unsere Community. 
-    .col-md-4
+    .col-xs-12.col-sm-4
       center(style="margin-bottom: 10px;")
         img(src="/assets/images/icons/color/search.png", style="max-width: 25%;")
       b.text-center Discover creative ideas
       p.text-center Außergewöhnliche Ideen, kreative Lösungen und dazugehörige How-To´s werden hier vorgestellt. 
-    .col-md-4
+    .col-xs-12.col-sm-4
       center(style="margin-bottom: 10px;")
         img(src="/assets/images/icons/color/like.png", style="max-width: 25%;")
       b.text-center Explore great products
@@ -44,18 +44,18 @@ img(src="/assets/images/aufhaenger.svg" style="width: 100%;")
 .container(tooltips)
   h2 Neue Projekte
   .row.display-flex
-    .col-md-3.container.clickable.text-center.well.white.border-grey.highlight(ng-repeat="project in home.featured" ng-class="{'col-md-offset-1': $index%3}", ui-sref="root.project({id: {{project.id}}})" data-toggle="tooltip" data-placement="bottom" title="{{project.goal}}" class="project-tooltip", style="height: 350px;")
-      div(style="height: inherit;")
-        img.align-center(ng-src='{{project.image.url}}', ng-hide='!project.image', style="max-height: 200px;")
-        .align-bottom
-          hr
-          p - {{project.typus}} -
-          b {{project.name}}
-          .row
-            .col-sm-6
-              span {{project.author.name}}
-            .col-sm-6
-              span {{project.likes.length}} Likes
+    .col-xs-10.col-xs-offset-1.col-sm-5.col-md-3.container.clickable.text-center.well.white.border-grey.highlight(ng-repeat="project in home.featured" ng-class="{'col-sm-offset-0': !($index%2), 'col-md-offset-1': !($index%2) && $index%3, 'col-md-offset-0': !($index%3)}" ui-sref="root.project({id: {{project.id}}})" data-toggle="tooltip" data-placement="bottom" title="{{project.goal}}" class="project-tooltip")
+      div
+        img.frame.image(ng-src='{{project.image.url}}', ng-hide='!project.image')
+      div
+        hr
+        p - {{project.typus}} -
+        h4.truncate {{project.name}}
+        .row
+          .col-xs-6
+            span {{project.author.name}}
+          .col-xs-6
+            span {{project.likes.length}} Likes
     br(clear="all")
 .container
   hr.border-grey
@@ -64,29 +64,30 @@ img(src="/assets/images/aufhaenger.svg" style="width: 100%;")
   .container
     //Popular Communities
     .row.display-flex
-      .col-md-3(ng-repeat="community in home.most_used")
-        .col-md-8.col-md-offset-2.well.clickable.highlight.border-grey(ui-sref="root.community({id: {{community.id}}})")
-          center
-            img.white(ng-src='{{community.icon}}')
-            b {{community.name}}
+      .col-xs-12.col-sm-6.col-md-3(ng-repeat="community in home.most_used")
+        .col-xs-8.col-xs-offset-2.well.clickable.highlight.border-grey.no-padding(ui-sref="root.community({id: {{community.id}}})")
+          div.abstand-side
+            img.white.image.smooth-edge-5(ng-src='{{community.icon}}')
+          .text-center
+            b.community {{community.name}}
       br(clear="all")
   br(clear="all")
 
 .container.abstand
   h2 Entdecke Projekte aller Art
   .row.display-flex(style="text-align: justify;")
-    .col-md-4
-      .col-md-10.well.white.border-grey.clickable(ui-sref="root.browseprojects({project_type: 'Showcase'})")
+    .col-xs-10.col-xs-offset-1.col-sm-4.col-sm-offset-0
+      .col-sm-10.well.white.border-grey.clickable(ui-sref="root.browseprojects({category: 'Showcase'})")
         img(src="assets/images/Showcase.jpg")
         h3.text-center Showroom
         p Neue Ideen, kreative Projekte und innovative Geschäftsideen werden hier vorgestellt und präsentiert. 
-    .col-md-4
-      .col-md-10.col-md-offset-1.well.white.border-grey.clickable(ui-sref="root.browseprojects({project_type: 'Open Innovation'})")
+    .col-xs-10.col-xs-offset-1.col-sm-4.col-sm-offset-0
+      .col-sm-10.col-sm-offset-1.well.white.border-grey.clickable(ui-sref="root.browseprojects({category: 'Open Innovation'})")
         img(src="assets/images/openinnovation.jpg")
         h3.text-center Open Innovation
         p Gemeinsam mit Gründern, StartUps, Instituten und Unternehmen neue Kooperationsprojekte starten.
-    .col-md-4
-      .col-md-10.col-md-offset-2.well.white.border-grey.clickable(ui-sref="root.browseprojects({project_type: 'Anleitung'})")
+    .col-xs-10.col-xs-offset-1.col-sm-4.col-sm-offset-0
+      .col-sm-10.col-sm-offset-2.well.white.border-grey.clickable(ui-sref="root.browseprojects({category: 'Anleitung'})")
         img(src="assets/images/HowTo.jpg")
         h3.text-center How To
         p Schritt für Schritt Tutorials von Projekten - als Anleitung oder zum Nachbauen - findest Du hier. 
@@ -99,11 +100,11 @@ img(src="/assets/images/aufhaenger.svg" style="width: 100%;")
   // 2. Slide
   h2 Partner in Innovation
   .row.display-flex.border-grey
-    .col-md-5.justify
+    .col-sm-5.justify
       p Auf der Open Innovation Plattform können Gründer, StartUps und junge Unternehmen Ihre Herausforderungen und Fragestellungen für ihr Innovationsprojekt der Community vorstellen. Zudem sollen Ideen ausgetauscht werden und kreative Lösungen von Studenten und Gründungsinteressierten präsentiert werden. 
       br
       p Auch Institute oder junge Unternehmen, die bereits ein Produkt entwickelt haben, können Ihre Innovation hier veröffentlichen und somit neue Kooperationspartner gewinnen und Projektvorschläge erhalten.  
-    .col-md-7
+    .col-sm-7
       img.frame(src="assets/images/clapping_cropped.jpg", style="max-width: 100%;")
   br(clear="all")
 
@@ -112,21 +113,21 @@ img(src="/assets/images/aufhaenger.svg" style="width: 100%;")
     h2 Gemeinsam Probleme lösen.
     p Produktanpassungen oder Neuentwicklungen - teile einfach Probleme, Wünsche oder Bedarf mit der Community.
     .row.display-flex(style="margin-top: 20px;")
-      .col-md-4
+      .col-xs-12.col-sm-4
         center
           img(src="/assets/images/icons/color/flag.png", style="max-width: 25%;")
         b.text-center Da habe ich dauernd Probleme….
-      .col-md-4
+      .col-xs-12.col-sm-4
         center
           img(src="/assets/images/icons/color/stopwatch.png", style="max-width: 25%;")
         b.text-center Kann man doch besser machen….
-      .col-md-4
+      .col-xs-12.col-sm-4
         center
           img(src="/assets/images/icons/color/idea.png", style="max-width: 25%;")
         b.text-center Warum gibt es nicht diese Lösung…?
     br
     center
-      button.btn.btn-primary.btn-lg(style="margin-top: 30px;", ui-sref="root.newproject") Jetzt Probleme mit Open Innovation angehen
+      button.btn.btn-primary.btn-lg.abstand(ui-sref="root.createproject") Jetzt Probleme anpacken
     br(clear="all")
 
 .container.abstand
@@ -157,12 +158,12 @@ img(src="/assets/images/aufhaenger.svg" style="width: 100%;")
   br
   span Nehmt einfach Kontakt mit uns auf – Wir freuen uns über Euer Feedback.
   br
-  .row.display-flex.abstand
-    .col-md-4
+  .row.display-flex
+    .col-xs-12.col-sm-6.col-md-4.abstand
       .row
-        .col-md-4
+        .col-xs-4
           img.frame(src="/assets/images/people/DSC_1317.jpg")
-        .col-md-8
+        .col-xs-8
           b Bjarne Andersen
           br
           span FabLab Lübeck
@@ -172,11 +173,11 @@ img(src="/assets/images/aufhaenger.svg" style="width: 100%;")
             li 3D-Druck
             li Med. Engineering
             li Maker Maker
-    .col-md-4
+    .col-xs-12.col-sm-6.col-md-4.abstand
       .row
-        .col-md-4
+        .col-xs-4
           img.frame(src="/assets/images/people/DSC_1318.jpg")
-        .col-md-8
+        .col-xs-8
           b Niclas Apitz
           br
           span Technikzentrum Lübeck
@@ -186,11 +187,11 @@ img(src="/assets/images/aufhaenger.svg" style="width: 100%;")
             li Business Development
             li E-Commerce
             li Get International
-    .col-md-4
+    .col-xs-12.col-sm-6.col-md-4.abstand
       .row
-        .col-md-4
+        .col-xs-4
           img.frame(src="/assets/images/people/DSC_2053.jpg")
-        .col-md-8
+        .col-xs-8
           b Tobias Braun
           br
           span Unitransferklinik Lübeck
@@ -200,13 +201,11 @@ img(src="/assets/images/aufhaenger.svg" style="width: 100%;")
             li Software Development
             li Software Engineering
             li Cloud Computing
-  br
-  .row.display-flex
-    .col-md-4
+    .col-xs-12.col-sm-6.col-md-4.abstand
       .row
-        .col-md-4
+        .col-xs-4
           img.frame(src="/assets/images/people/DSC_2051.jpg")
-        .col-md-8
+        .col-xs-8
           b Nils Eckardt
           br
           span Unitransferklinik Lübeck
@@ -216,11 +215,11 @@ img(src="/assets/images/aufhaenger.svg" style="width: 100%;")
             li Life Science
             li Industry 4.0
             li MedTec
-    .col-md-4
+    .col-xs-12.col-sm-6.col-md-4.abstand
       .row
-        .col-md-4
+        .col-xs-4
           img.frame(src="/assets/images/people/DSC_1329.jpg")
-        .col-md-8
+        .col-xs-8
           b Phillip Kiefer
           br
           span Technikzentrum Lübeck
@@ -230,11 +229,11 @@ img(src="/assets/images/aufhaenger.svg" style="width: 100%;")
             li 3D-Druck
             li Smart Production
             li Design Thinking
-    .col-md-4
+    .col-xs-12.col-sm-6.col-md-4.abstand
       .row
-        .col-md-4
+        .col-xs-4
           img.frame(src="/assets/images/people/DSC_1313.jpg")
-        .col-md-8
+        .col-xs-8
           b Natascha Koch
           br
           span FabLab Lübeck
@@ -244,13 +243,11 @@ img(src="/assets/images/aufhaenger.svg" style="width: 100%;")
             li Med. Informatics
             li DIY
             li Software Development
-  br
-  .row.display-flex
-    .col-md-4
+    .col-xs-12.col-sm-6.col-md-4.abstand
       .row
-        .col-md-4
+        .col-xs-4
           img.frame(src="/assets/images/people/DSC_1335.jpg")
-        .col-md-8
+        .col-xs-8
           b Patrick Liebmann
           br
           span Technikzentrum Lübeck
@@ -260,11 +257,11 @@ img(src="/assets/images/aufhaenger.svg" style="width: 100%;")
             li Games & Gadgets
             li Consulting
             li FabLab
-    .col-md-4
+    .col-xs-12.col-sm-6.col-md-4.abstand
       .row
-        .col-md-4
+        .col-xs-4
           img.frame(src="/assets/images/people/DSC_2087.jpg")
-        .col-md-8
+        .col-xs-8
           b Sandra Meiers 
           br
           span Technikzentrum Lübeck
@@ -274,11 +271,11 @@ img(src="/assets/images/aufhaenger.svg" style="width: 100%;")
             li Bildung
             li Werbung und Marketing
             li Suchmaschinen und SEO
-    .col-md-4
+    .col-xs-12.col-sm-6.col-md-4.abstand
       .row
-        .col-md-4
+        .col-xs-4
           img.frame(src="/assets/images/people/DSC_1342.jpg")
-        .col-md-8
+        .col-xs-8
           b Prof. Jörg-Uwe Meyer
           br
           span MT2IT
@@ -288,13 +285,11 @@ img(src="/assets/images/aufhaenger.svg" style="width: 100%;")
             li Health 4.0
             li Smart Apps
             li IoT
-  br
-  .row.display-flex
-    .col-md-4
+    .col-xs-12.col-sm-6.col-md-4.abstand
       .row
-        .col-md-4
+        .col-xs-4
           img.frame(src="/assets/images/people/DSC_2079.jpg")
-        .col-md-8
+        .col-xs-8
           b Martin Mildner
           br
           span Universität Lübeck
@@ -304,11 +299,11 @@ img(src="/assets/images/aufhaenger.svg" style="width: 100%;")
             li Geschäftsmodelle
             li Consulting
             li Logistik 4.0
-    .col-md-4
+    .col-xs-12.col-sm-6.col-md-4.abstand
       .row
-        .col-md-4
+        .col-xs-4
           img.frame(src="/assets/images/people/DSC_2062.jpg")
-        .col-md-8
+        .col-xs-8
           b Janek Schmidt 
           br
           span Technikzentrum Lübeck

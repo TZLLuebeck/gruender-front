@@ -1,9 +1,17 @@
 .container-fluid.grey
-	.container.white
-		h2 {{filter.category}}
-		hr
-		.row.display-flex
-			.col-lg-3.well.border-grey.clickable.highlight(ng-repeat="project in filter.projects", ui-sref="root.project({'id': {{project.id}}})")
-				img(ng-src="{{project.image.url}}")
-				hr
-				p {{project.name}}
+  .container.white.abstand-bottom
+    h2 {{filter.category}}
+    hr
+    .col-xs-10.col-xs-offset-1.col-sm-5.col-md-12.col-md-offset-0.container.clickable.text-center.well.white.border-grey.highlight(ng-repeat="project in filter.projects" ng-class="{'col-sm-offset-0': !($index%2)}" ui-sref="root.project({id: {{project.id}}})" data-toggle="tooltip" data-placement="bottom" title="{{project.goal}}" class="project-tooltip")
+      .row(style="height: inherit;")
+        .col-xs-12.col-md-3
+          img.image.frame.white(ng-src='{{project.image.url}}', ng-hide='!project.image')
+        hr.hidden-md.hidden-lg
+        .col-xs-12.col-md-9
+          p - {{project.typus}} -
+          h4.truncate {{project.name}}
+          .col-xs-12
+            .col-xs-2.col-xs-offset-8
+              span {{project.author.name}}
+            .col-xs-2
+              span {{project.likes.length}} Likes

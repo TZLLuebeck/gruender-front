@@ -30,5 +30,7 @@ app.run (User, TokenContainer, $rootScope, $state, $stateParams, Rails, $transit
       document.body.scrollTop = document.documentElement.scrollTop = 0
 
   $transitions.onError {}, ($state) ->
-    $state.go('root.home')
+    $state.transitionTo('root.home', {
+          reload : true
+        });
   

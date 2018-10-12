@@ -1,5 +1,6 @@
-angular.module("gruenderviertel").controller 'ProjectFilterCtrl', (projects) ->
+angular.module("gruenderviertel").controller 'ProjectFilterCtrl', (projects, $stateParams) ->
 
+  @category = $stateParams.category
   @projects = projects
 
   this

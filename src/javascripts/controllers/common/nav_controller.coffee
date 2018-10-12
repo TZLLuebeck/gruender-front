@@ -97,6 +97,8 @@ angular.module('gruenderviertel').controller 'NavCtrl', (User, Event, $rootScope
     if @isAuthenticated
     #  @getNewEvents()
       @decodedEvents = @decodeEvents(@user)
+    $('.nav a').on('click', () ->  
+      $('.nav-collapse').collapse('hide'))
 
   @init()
 

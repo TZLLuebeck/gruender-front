@@ -1,22 +1,5 @@
 .container-fluid.grey(anchormove)
   .container.white
-    .sidenav.blue
-      .text-center.abstand
-        button.btn.btn-primary.blue.text-white(ng-click="project.like()", ng-hide="project.project.liked") Good Idea!
-        button.btn.btn-primary.blue.text-white(ng-click="project.like()", ng-show="project.project.liked") Eher nicht.
-        br
-        p.text-blue {{project.likes}} mögen diese Idee.
-      hr
-      .abstand 
-        center
-          button.btn.btn-default(ui-sref="root.project.editproject", ng-show="project.project.user_id == activeUser.id") Projekt bearbeiten.
-        //a(href="#Overview") Übersicht
-        //a(href="#Ziel") Ziel
-        //a(href="#Problem") Problem
-        //a(href="#Solution", ng-show="project.project.solution") Lösung
-        //a(href="#Coop", ng-show="project.project.coop") Kooperation
-        //a(href="#Attachment", ng-show="project.project.attachment.url") Anhang
-
     .container-fluid
       a.anchor#Overview
       center
@@ -91,7 +74,23 @@
               b {{project.moreProjects.other[0].name}}
               br(clear="all")
       hr.border-grey
-  
+    .sidenav.blue
+      .text-center.abstand
+        button.btn.btn-primary.blue.text-white(ng-click="project.like()", ng-hide="project.project.liked") Good Idea!
+        button.btn.btn-primary.blue.text-white(ng-click="project.like()", ng-show="project.project.liked") Eher nicht.
+        br
+        p.text-blue {{project.likes}} mögen diese Idee.
+      hr
+      .abstand 
+        center
+          button.btn.btn-default(ui-sref="root.project.editproject", ng-show="project.project.user_id == activeUser.id") Projekt bearbeiten.
+        //a(href="#Overview") Übersicht
+        //a(href="#Ziel") Ziel
+        //a(href="#Problem") Problem
+        //a(href="#Solution", ng-show="project.project.solution") Lösung
+        //a(href="#Coop", ng-show="project.project.coop") Kooperation
+        //a(href="#Attachment", ng-show="project.project.attachment.url") Anhang
+    .container-fluid
       h3 Kommentare
       .col-sm-8(ng-repeat="comment in project.project.comments", style="margin-top: 10px;")
         a.anchor(id="c-{{comment.author}}-{{comment.id}}")

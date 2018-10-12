@@ -4,7 +4,6 @@ h1, h2, h3, h4, h5, h6 {
   font-family: 'Open Sans', sans-serif;
 }
 
-
 h1 {
   font-size: 400% !important;
 }
@@ -107,6 +106,14 @@ img {
   border: 2px solid #b2b8cf;
 }
 
+.smooth-edge-5 {
+  border-radius: 5px;
+}
+
+.smooth-edge-10 {
+  border-radius: 10px;
+}
+
 .row.display-flex {
   display: flex;
   flex-wrap: wrap;
@@ -158,6 +165,11 @@ ol>li:before {
   padding-bottom: 20px;
 }
 
+.abstand-side {
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
 .no-padding {
   padding-left: 0px;
   padding-right: 0px;
@@ -200,10 +212,9 @@ ol>li:before {
 }
 
 .align-center {
-  position: absolute;
-  bottom: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
 }
 
 ul.no-indent {
@@ -213,4 +224,24 @@ ul.no-indent {
 
 ul.no-bullet {
   list-style-type: none;
+}
+
+.project-icon{
+  height: 350px;
+}
+
+.image {
+  display: table-cell;
+  vertical-align:middle;
+  text-align:center;
+  max-height: 200px;
+  width: auto;
+  height: auto;
+}
+
+.truncate {
+  width: inherit;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
