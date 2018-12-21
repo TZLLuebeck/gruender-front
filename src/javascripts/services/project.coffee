@@ -109,13 +109,25 @@ angular.module('gruenderviertel').service 'Project', (baseREST, $q, Upload) ->
     Upload.upload({
       url: '/api/v1/projects/'
       data: {data: project}
-      arrayKey: '[]'
+      arrayKey: '[]',
+      method: 'PUT'
       }).then (response) =>
       defer.resolve(response.data.data)
     , (error) =>
       defer.reject(error)
     defer.promise
 
+  editComment = (id, newText) ->
+    defer = $q.defer()
+    packet = baseREST.one('projects').one('comment')
+    packet.id = id
+    data = {}
+    data.content = newText
+    packet.customPUT(data).then (response) ->
+      defer.resolve(response.data)
+    , (error) ->
+      defer.reject(error)
+    defer.promise
 
   #DELETE
 
@@ -138,6 +150,7 @@ angular.module('gruenderviertel').service 'Project', (baseREST, $q, Upload) ->
   getAll: getAll
   getOne: getOne
   editProject: editProject
+  editComment: editComment
   removeProject: removeProject
   getFeatured: getFeatured
   getMore: getMore

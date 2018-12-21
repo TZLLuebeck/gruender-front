@@ -59,6 +59,53 @@ angular.module('gruenderviertel').controller 'CommunityCtrl', (instance, Communi
     , (error) ->
       console.log('CommunityCtrl.comment Error')
 
+  @showEdit = (author, id) ->
+    $("#c-body-"+author+"-"+id).addClass("ng-hide")
+    $("#c-edit-"+author+"-"+id).removeClass("ng-hide")
+
+  @abortEdit = (author, id) ->
+    $("#c-body-"+author+"-"+id).removeClass("ng-hide")
+    $("#c-edit-"+author+"-"+id).addClass("ng-hide")
+
+  @editComment = (author, id) =>
+    text = $("#c-edit-body-"+author+"-"+id).val()
+    Community.editComment(id, text).then (response) =>
+      response.updated = new Date(Date.parse(response.updated_at)).toLocaleString('de-DE')
+      
+      for discussion in @discussions
+        for comment in discussion.comments
+          if comment.id == id
+            comment.content = angular.copy(response.content)
+            comment.updated = angular.copy(response.updated)
+
+      $("#c-body-"+author+"-"+id).removeClass("ng-hide")
+      $("#c-edit-"+author+"-"+id).addClass("ng-hide")
+    , (error) ->
+      console.log("Comment edit Error")
+
+
+  @showDEdit = (author, id) ->
+    $("#d-body-"+author+"-"+id).addClass("ng-hide")
+    $("#d-edit-"+author+"-"+id).removeClass("ng-hide")
+
+  @abortDEdit = (author, id) ->
+    $("#d-body-"+author+"-"+id).removeClass("ng-hide")
+    $("#d-edit-"+author+"-"+id).addClass("ng-hide")
+
+  @editDiscussion = (author, id) =>
+    text = $("#d-edit-body-"+author+"-"+id).val()
+    Community.editDiscussion(id, text).then (response) =>
+      response.updated = new Date(Date.parse(response.updated_at)).toLocaleString('de-DE')
+      for discussion in @discussions
+        if discussion.id == id
+          discussion.content = angular.copy(response.content)
+          discussion.updated = angular.copy(response.updated)
+
+      $("#d-body-"+author+"-"+id).removeClass("ng-hide")
+      $("#d-edit-"+author+"-"+id).addClass("ng-hide")
+    , (error) ->
+      console.log("Comment edit Error")
+
   @init()      
 
   this

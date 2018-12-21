@@ -1,4 +1,4 @@
-angular.module('gruenderviertel').controller 'ProfileEditCtrl', (User, $state, $stateParams, instance) ->
+angular.module('gruenderviertel').controller 'ProfileEditCtrl', (User, TokenContainer, $state, $stateParams, instance, $rootScope) ->
 
   @state = 1
   @form = {}
@@ -6,7 +6,6 @@ angular.module('gruenderviertel').controller 'ProfileEditCtrl', (User, $state, $
   @predit_in_progress = false
 
   @init = () =>
-    console.log(@form.user)
     delete @form.user.comments
     delete @form.user.projects
     delete @form.user.events
@@ -31,15 +30,23 @@ angular.module('gruenderviertel').controller 'ProfileEditCtrl', (User, $state, $
     @predit_in_progress = true
     
     User.updateUser(@form.user).then (response) =>
-      User.user = response
-      $state.go('root.profile')
+      User.user = angular.copy(response)
+      $rootScope.activeUser = angular.copy(response)
+      $state.go('root.profile', undefined, { reload: true })
       @predit_in_progress = false
     , (error) =>
       @predit_in_progress = false
       console.log('profileEditCtrl.saveEdit Error')
 
    @deleteAccount = () ->
-    User.deleteUser(@form.user.id).then (response) =>
+    data = {}
+    data.id = @form.user.id
+    data.current_password = @form.user.current_password
+    User.deleteUser(data).then (response) =>
+      $("#deletion_modal").modal('toggle')
+      TokenContainer.deleteToken()
+      User.logoutLocal()
+      
       $state.go('root.home')
     , (error) =>
       console.log('profileEditCtrl.deleteAccount Error')

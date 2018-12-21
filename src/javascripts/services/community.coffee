@@ -104,6 +104,30 @@ angular.module('gruenderviertel').service 'Community', ($q, $rootScope, $state, 
 
   #UPDATE
 
+  editDiscussion = (id, newText) ->
+    defer = $q.defer()
+    packet = baseREST.one('communities').one('post')
+    packet.id = id
+    data = {}
+    data.content = newText
+    packet.customPUT(data).then (response) ->
+      defer.resolve(response.data)
+    , (error) ->
+      defer.reject(error)
+    defer.promise
+
+  editComment = (id, newText) ->
+    defer = $q.defer()
+    packet = baseREST.one('communities').one('comment')
+    packet.id = id
+    data = {}
+    data.content = newText
+    packet.customPUT(data).then (response) ->
+      defer.resolve(response.data)
+    , (error) ->
+      defer.reject(error)
+    defer.promise
+
   #DELETE
 
   leave_community = (id) ->
@@ -124,5 +148,7 @@ angular.module('gruenderviertel').service 'Community', ($q, $rootScope, $state, 
   get_all: get_all
   getMostUsed: getMostUsed
   preloadTags: preloadTags
+  editDiscussion: editDiscussion
+  editComment: editComment
   returnCommunity: returnCommunity
   leave_community: leave_community

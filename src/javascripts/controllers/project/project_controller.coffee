@@ -56,6 +56,27 @@ angular.module('gruenderviertel').controller 'ProjectCtrl', (User, instance, Pro
       @moreProjects = []
       console.log("Project.getMore: Error")
 
+  @showEdit = (author, id) ->
+    $("#c-body-"+author+"-"+id).addClass("ng-hide")
+    $("#c-edit-"+author+"-"+id).removeClass("ng-hide")
+
+  @abortEdit = (author, id) ->
+    $("#c-body-"+author+"-"+id).removeClass("ng-hide")
+    $("#c-edit-"+author+"-"+id).addClass("ng-hide")
+
+  @editComment = (author, id) =>
+    text = $("#c-edit-body-"+author+"-"+id).val()
+    Project.editComment(id, text).then (response) =>
+      response.updated = new Date(Date.parse(response.updated_at)).toLocaleString('de-DE')
+      
+      for comment in @project.comments
+        if comment.id == id
+          comment = angular.copy(response)
+      $("#c-body-"+author+"-"+id).removeClass("ng-hide")
+      $("#c-edit-"+author+"-"+id).addClass("ng-hide")
+    , (error) ->
+      console.log("Comment edit Error")
+
   @init()
 
   this

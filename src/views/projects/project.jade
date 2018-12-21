@@ -88,12 +88,22 @@
           a.clickable.text-blue(ui-sref="root.profile({id: comment.user_id})", target="_blank") {{comment.author}}
           span &nbsp;- Verfasst am 
           span {{comment.created}}
-        .row
-          p {{comment.content}}
-        .row(ng-if="comment.user_id == activeUser.id")
-          a.clickable(ng-click="project.editComment(comment.id)") Kommentar Bearbeiten
+          span(ng-if="comment.updated != comment.created") , zuletzt bearbeitet am 
+          span(ng-if="comment.updated != comment.created") {{comment.updated}}
+        div(id="c-body-{{comment.author}}-{{comment.id}}")  
+          .row
+            p {{comment.content}}
+          .row(ng-if="comment.user_id == activeUser.id")
+            a.clickable(ng-click="project.showEdit(comment.author, comment.id)") Kommentar Bearbeiten
+        form.ng-hide(id="c-edit-{{comment.author}}-{{comment.id}}")
+          .form-group(ng-if="comment.user_id == activeUser.id")
+            textarea.form-control(id="c-edit-body-{{comment.author}}-{{comment.id}}") {{comment.content}}
+          .form-group(ng-if="comment.user_id == activeUser.id")
+            button.form-control(ng-click="project.editComment(comment.author, comment.id)") Speichern
+            button.form-control(ng-click="project.abortEdit(comment.author, comment.id)") Abbrechen
+
       br(clear="all")
       center
         textarea(ng-model="project.comment", style="width: 50%; resize: vertical;")
         br
-        button.btn(ng-click="project.addComment()") Kommentieren
+        button.btn(ng-disabled="!project.comment", ng-click="project.addComment()") Kommentieren

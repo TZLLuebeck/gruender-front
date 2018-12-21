@@ -1,9 +1,14 @@
 angular.module('gruenderviertel').controller 'ProfileCtrl', (instance, $state, $rootScope) ->
 
-  @user = $rootScope.activeUser
+  console.log("Looking at profile instance")
+  console.log(instance)
+  #@user = $rootScope.activeUser
+  @user = instance
   @my_projects = angular.copy(@user.projects)
   @my_comments = angular.copy(@user.comments)
   @my_discussions = angular.copy(@user.posts)
+
+  @myPage = false
 
   console.log(@user)
   
@@ -48,8 +53,9 @@ angular.module('gruenderviertel').controller 'ProfileCtrl', (instance, $state, $
       console.log(comment)
       $state.go('root.community', {'id': comment.grandparent_id,'#': "c-"+comment.author+"-"+comment.id })
 
-  
-  @my_events = @decodeEvents(@user.events)
-
+  if(@user.id == $rootScope.activeUser.id)
+    if @user.events
+      @my_events = @decodeEvents(@user.events)
+    @myPage = true
 
   this

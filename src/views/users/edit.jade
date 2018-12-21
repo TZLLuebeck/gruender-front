@@ -12,7 +12,7 @@
             input#predit_input_fullname.form-control(name="full_name", type="text", ng-model="edit.form.user.name")
         .form-group
           .row.col-lg-offset-2.col-lg-8
-            label(for="predit_input_email") Email
+            label(for="predit_input_email") E-Mail
             input#predit_input_email.form-control(name="email", type="email", ng-model="edit.form.user.email")
         .form-group
           .row.col-lg-offset-2.col-lg-8
@@ -39,7 +39,7 @@
               input.form-control(name="web", type="text" ng-minlength="7", ng-model="edit.form.user.web")  
           br(clear="all")
           .row.col-lg-offset-2.col-lg-8
-            label(for="predit_input_fon") Fon
+            label(for="predit_input_fon") Telefonnummer
             input#predit_input_fon.form-control(name="fon", type="text" ng-minlength="2", ng-model="edit.form.user.fon", maxlength="30")
           br(clear="all")
           .row.col-lg-offset-2.col-lg-8
@@ -60,7 +60,7 @@
           button.btn.btn-lg.btn-primary(ng-click="edit.proceed()", ng-hide="edit.state == 2", scrolltop) Weiter
           button.btn.btn-lg.btn-primary(ng-click="edit.saveEdit()", ng-show="edit.state == 2", ng-disabled="preditForm.$invalid || edit.predit_in_progress") Speichern
       .col-lg-1.col-lg-offset-2
-        button.btn.btn-danger(data-toggle="modal", data-target="#deletion_modal") Account Löschen
+        button.btn.btn-danger(ng-disabled="preditForm.currentpassword.$invalid", data-toggle="modal", data-target="#deletion_modal") Account Löschen
       br(clear="all")
 
 .modal.fade#deletion_modal
@@ -75,5 +75,5 @@
           li Ihr Accountname sowie Inhalte von Diskussionen und Kommentaren, die Sie erstellt haben.
           li Ihr Accountname in privaten Nachrichten, welche Sie versandt haben.
         .modal-footer
-        button.btn.btn-danger(type="button", ng-click="edit.deleteAccount()") Löschen
+        button.btn.btn-danger(type="button", ng-disabled="preditForm.currentpassword.$invalid", ng-click="edit.deleteAccount()") Löschen
         button.btn.btn-default(type="button", data-dismiss="modal") Abbrechen

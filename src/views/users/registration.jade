@@ -5,55 +5,63 @@
       h3.text-red Schritt {{reg.state}}/5
 
   .container.white(style="padding-bottom: 30px;")
-    form(role="register" name="regForm", novalidate)
+    form(role="register" name="regForm1", novalidate)
       .container#start(ng-show="reg.state == 1")
         .form-group
-          .row.col-sm-offset-2.col-sm-8
+          .row.col-sm-offset-2.col-sm-8.form-group(ng-class="{ 'has-error': regForm1.full_name.$invalid }")
             label(for="reg_input_fullname") Vor- & Nachname*
             input#reg_input_fullname.form-control(name="full_name", type="text", ng-model="reg.form.user.name", required)
-          .row.col-sm-offset-2.col-sm-8(style="margin-top: 15px;")
-            label(for="reg_input_email") Email*
+          .row.col-sm-offset-2.col-sm-8.form-group(style="margin-top: 15px;", ng-class="{ 'has-error': regForm1.email.$invalid }")
+            label(for="reg_input_email") E-Mail*
             input#reg_input_email.form-control(name="email", type="email", ng-model="reg.form.user.email", required)
-          .row.col-sm-offset-2.col-sm-8(style="margin-top: 15px;")
+            p#emailHelpBlock.form-text.bg-danger(ng-show="regForm1.email.$invalid") Es muss eine valide Addresse im format xx@yy.zz angegeben werden.
+          .row.col-sm-offset-2.col-sm-8.form-group(style="margin-top: 15px;", ng-class="{ 'has-error': regForm1.password.$invalid }")
             label(for="reg_input_password") Passwort*
-            input#reg_input_password.form-control(name="password", type="password" ng-minlength="8", ng-model="reg.form.user.password", required, maxlength="30")
-          .row.col-sm-offset-2.col-sm-8(style="margin-top: 15px;")
+            input#reg_input_password.form-control(name="password", type="password", aria-describedby="passwordHelpBlock", ng-minlength="8", ng-model="reg.form.user.password", required, maxlength="30") 
+            p#passwordHelpBlock.form-text.bg-danger(ng-show="regForm1.password.$invalid") Dein Passwort muss zwischen 8 und 30 Zeichen haben.
+          .row.col-sm-offset-2.col-sm-8.form-group#reg_group_password-confirmation(style="margin-top: 15px;", ng-class="{ 'has-error': regForm1.password_confirmation.$invalid || !reg.confirmation }")
             label(for="reg_input_password_confirmation") Passwort bestätigen*
-            input#reg_input_password_confirmation.form-control(name="password_confirmation", type="password" ng-minlength="8", ng-model="reg.form.user.password_confirmation", required, maxlength="30")
-
+            input#reg_input_password_confirmation.form-control(name="password_confirmation", type="password", aria-describedby="passwordRepeatHelpBlock", ng-minlength="8", ng-model="reg.form.user.password_confirmation", required, maxlength="30")
+            p#passwordHelpBlock.form-text.bg-danger(ng-show="regForm1.password_confirmation.$invalid || !reg.confirmation") Die Passwörter müssen übereinstimmen.
+    form(role="register" name="regForm2", novalidate)
       .container#account(ng-show="reg.state == 2")
         .form-group
-          .row.col-sm-offset-2.col-sm-8
+          .row.col-sm-offset-2.col-sm-8.form-group(ng-class="{ 'has-error': regForm2.username.$invalid || reg.taken }")
             label(for="reg_input_username") Username*
             input#reg_input_username.form-control(name="username", type="text" ng-minlength="2", ng-model="reg.form.user.username", required, maxlength="30")
+            p#usernameHelpBlock.form-text.bg-danger(ng-show="regForm2.username.$invalid") Dein Accountname muss zwischen 2 und 30 Zeichen haben.
+            p#usernameTakenHelpBlock.form-text.bg-danger(ng-show="reg.taken") Dieser Accountname ist bereits in Benutzung.
           br(clear="all")
           .row.col-sm-offset-2.col-sm-8(style="margin-top: 15px;")
             label(for="reg_input_location") Ort*
-            input#reg_input_location.form-control(name="ort", type="text" ng-minlength="2", ng-model="reg.form.user.location", required, maxlength="30")
+            input#reg_input_location.form-control(name="ort", type="text", ng-model="reg.form.user.location", required, maxlength="40")
           br(clear="all")
           .row.col-sm-offset-2.col-sm-8(style="margin-top: 15px;")
-            label(for="reg_input_bio") Über uns*
+            label(for="reg_input_bio") Über mich/uns*
             textarea#reg_input_bio.form-control(ng-keyup="reg.charLimit()", ng-change="reg.charLimit()", name="bio", type="text", maxlength="200", ng-model="reg.form.user.description", required)
             label(for=reg_input_bio) {{reg.bio_characters}} verbleibend.
           br(clear="all")
-          .row.col-sm-offset-2.col-sm-8(style="margin-top: 15px;")
-            label(for="reg_input_web") Webseite*
+          .row.col-sm-offset-2.col-sm-8.form-group(style="margin-top: 15px;", ng-class="{ 'has-error': regForm2.web.$invalid }")
+            label(for="reg_input_web") Webseite
             .input-group#reg_input_web
-              span.input-group-addon http://
-              input.form-control(name="web", type="text" ng-minlength="7", ng-model="reg.form.user.web", required)  
+              span.input-group-addon http(s)://
+              input.form-control(name="web", type="url" ng-minlength="7", ng-model="reg.form.user.web")
+            p#webHelpBlock.form-text Wenn du eine Webseite hast, kannst du hier die URL angeben.  
           br(clear="all")
-          .row.col-sm-offset-2.col-sm-8(style="margin-top: 15px;")
+          .row.col-sm-offset-2.col-sm-8.form-group(style="margin-top: 15px;", ng-class="{ 'has-error': regForm2.fon.$invalid }")
             label(for="reg_input_fon") Telefonnummer
-            input#reg_input_fon.form-control(name="fon", type="text" ng-minlength="2", ng-model="reg.form.user.fon", maxlength="30")
+            input#reg_input_fon.form-control(name="fon", type="tel" ng-minlength="2", ng-model="reg.form.user.fon", maxlength="30")
           br(clear="all")
-          .row.col-sm-offset-2.col-sm-8(style="margin-top: 15px;")
+          .row.col-sm-offset-2.col-sm-8.form-group(style="margin-top: 15px;", ng-class="{ 'has-error': regForm2.image.$invalid}")
             label(for="reg_input_picture") Profilbild
-            input#reg_input_picture(type="file", ngf-select, ng-model="reg.form.user.logo" name="image" accept="image/*" ngf-max-size="1MB")
+            .input-group
+              input#reg_input_picture.form-control-file(type="file", ngf-select, ng-model="reg.form.user.logo" name="image" accept="image/png, image/jpeg" ngf-max-size="1MB")
+              .input-group-btn
+                button.btn.btn-default(ng-click="reg.resetFile()") Reset
+            p#profilHelpBlock.form-text.bg-danger(ng-show="regForm2.image.$invalid") Du kannst für dein Profilbild eine PNG oder JPG mit max 1MB Größe wählen.
+
           br(clear="all")
-
-
-
-
+    form(role="register" name="regForm3", novalidate)
       .container#Branchen(ng-show="reg.state == 3")
         h2 Welche Branchen interessieren Dich?
         p Du kannst mehrere Branchen auswählen und diese jederzeit anpassen.
@@ -78,32 +86,6 @@
             br(clear="all")
         br(clear="all")
 
-
-      //.container#meta(ng-show="reg.state == 3")
-        .container-fluid
-          h2 Welche Branchen interessieren Dich?
-          p Du kannst mehrere Branchen auswählen und diese jederzeit anpassen.
-        .container-fluid.row.display-flex(style="margin: auto;")
-          .col-sm-2.white.well.clickable(ng-repeat="community in reg.community_list | filter: {typus: 'Branche'}", ng-click="reg.selectTag(community)", style="border-color: #b2b8cf;", ng-class="{'col-sm-offset-1': $index%4}")
-            .container-fluid.clickable.text-center(ng-class="{blue: community.selected}")
-              .container-fluid.well.white(style="margin-top: 5px;")
-                img.white(ng-src='{{community.icon}}')
-              b.h5(ng-class="{'text-white': community.selected}") {{community.name}}
-        br(clear="all")
-
-      //.container#meta(ng-show="reg.state == 4")
-        .container-fluid
-          h2 Welche Themen interessieren Dich?
-          p Du kannst mehrere Themen auswählen und diese jederzeit anpassen.
-
-        .container-fluid.row.display-flex
-          .col-sm-2.white.well.clickable(ng-repeat="community in reg.community_list | filter: {typus: 'Thema'}", ng-click="reg.selectTag(community)", style="border-color: #b2b8cf;", ng-class="{'col-sm-offset-1': $index%4}")
-            .container-fluid.clickable.text-center(ng-class="{blue: community.selected}")
-              .container-fluid.well.white(style="margin-top: 5px;")
-                img.white(ng-src='{{community.icon}}')
-              b.h5(ng-class="{'text-white': community.selected}") {{community.name}}
-        br(clear="all")
-
       .container#overview(ng-show="reg.state == 5")
         .container-fluid
           .row
@@ -120,7 +102,7 @@
               p {{reg.form.user.username}}
           .row
             .col-sm-2
-              b Email: 
+              b E-Mail: 
             .col-sm-6.col-sm-offset-2
               p {{reg.form.user.email}}
           .row
@@ -178,6 +160,6 @@
             button.btn.btn-lg.btn-info(ng-click="reg.goBack()", scrolltop, ng-disabled="reg.state == 1") Zurück
         .col-sm-1.col-sm-offset-2.no-padding
           center
-            button.btn.btn-lg.btn-info(ng-click="reg.proceed()", ng-hide="reg.state == 5", scrolltop) Weiter
-            button.btn.btn-lg.btn-info(ng-click="reg.register()", ng-show="reg.state == 5", ng-disabled="regForm.$invalid || reg.reg_in_progress || !reg.read_agb") Registrieren
+            button.btn.btn-lg.btn-info(ng-click="reg.proceed()", ng-hide="reg.state == 5", scrolltop, ng-disabled="(reg.state == 1 && (regForm1.$invalid || !reg.confirmation) ) || (reg.state == 2 && regForm2.$invalid)") Weiter
+            button.btn.btn-lg.btn-info(ng-click="reg.register()", ng-show="reg.state == 5", ng-disabled="regForm3.$invalid || reg.reg_in_progress || !reg.read_agb") Registrieren
         br(clear="all", style="margin-bottom: 25px;")

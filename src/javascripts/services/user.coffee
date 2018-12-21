@@ -168,10 +168,10 @@ angular.module('gruenderviertel').service 'User', (baseREST, $q, $http, Rails, $
 #      defer.reject(error)
 #    defer.promise
 
-  resetPassword = (accountname) =>
+  resetPassword = (email) =>
     packet = baseREST.one('users').one('reset')
     defer = $q.defer()
-    packet.data = accountname
+    packet.email = email
     packet.post().then (response) ->
       defer.resolve(response.data)
     , (error) ->
@@ -195,15 +195,22 @@ angular.module('gruenderviertel').service 'User', (baseREST, $q, $http, Rails, $
       defer.reject(error)
     defer.promise
 
-  deleteUser = (id) =>
+  logoutLocal = =>
+    @user = null
+    $rootScope.activeUser = null
+    @unauthorized = true
+    $rootScope.$broadcast('user:stateChanged')
+
+  deleteUser = (data) =>
     defer = $q.defer()
     packet = baseREST.one('users')
-    packet.id = id
+    packet.id = data.id
+    packet.current_password = data.current_password
     packet.remove().then (response) =>
       defer.resolve()
     , (error) =>
       @unauthorized = true
-      defer.reject(response.data)
+      defer.reject(error)
     defer.promise
 
 
@@ -221,6 +228,7 @@ angular.module('gruenderviertel').service 'User', (baseREST, $q, $http, Rails, $
   getNewEvents: getNewEvents
   login: login
   logout: logout
+  logoutLocal: logoutLocal
   deleteUser: deleteUser
   createUser: createUser
   isAuthenticated: isAuthenticated

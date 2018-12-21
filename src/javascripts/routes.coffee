@@ -113,10 +113,14 @@ angular.module('gruenderviertel').config ($stateProvider, $urlRouterProvider, $l
       id: null
     resolve:
       instance: ($stateParams, Helper, User) ->
+        console.log("CREATING PROFILE INSTANCE")
         id = $stateParams.id
         User.getUser(id).then (response) ->
+          console.log("profile returned")
+          console.log(response)
           return response
         , (error) ->
+          console.log("Could not get profile.")
           Helper.goBack()
           return null        
 
@@ -199,6 +203,9 @@ angular.module('gruenderviertel').config ($stateProvider, $urlRouterProvider, $l
         templateUrl: 'assets/views/projects/create.html'
         controller: 'CreateProjectCtrl'
         controllerAs: 'create'
+    permissions:
+      only: 'registered'
+      redirectTo: 'root.home'
 
   .state 'root.project.editproject',
     url: '/bearbeiten'
@@ -207,7 +214,9 @@ angular.module('gruenderviertel').config ($stateProvider, $urlRouterProvider, $l
         templateUrl: 'assets/views/projects/edit.html'
         controller: 'EditProjectCtrl'
         controllerAs: 'edit'
-
+    permissions:
+      only: 'registered'
+    
   .state 'root.browseprojects',
     url: '/projekte/:category'
     views:
@@ -374,3 +383,9 @@ angular.module('gruenderviertel').config ($stateProvider, $urlRouterProvider, $l
    views:
     'body@':
       templateUrl: 'assets/views/singletons/open_innovation.html'
+
+  .state 'root.kontakt',
+    url: '/Kontakt'
+    views:
+      'body@':
+        templateUrl: 'assets/views/singletons/kontakt.html'

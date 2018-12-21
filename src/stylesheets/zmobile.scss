@@ -1,24 +1,44 @@
-    /* Large desktop */
-    @media (min-width: 1200px) { }
-     
+    /* XL Down */
+    @media (min-width: 1200px) {
+
+    }
+    
+    /* LG */
+    @media (min-width: 980px) and (max-width: 1199px) { 
+    
+    }
+
+    /* LG Down*/
     @media (max-width: 1199px) {
       .community {
         font-size: 10pt;
       }
     }
 
-    /* Portrait tablet to landscape and desktop */
+    /* MD */
     @media (min-width: 768px) and (max-width: 979px) { 
     
     }
-     
-    /* Landscape phone to portrait tablet */
+
+    /* MD Down */
+    @media (max-width: 979px){
+
+    }
+    
+    /* SM */
+
+    @media (min-width: 481px) and (max-width: 767px) {
+
+    }
+
+
+    /* SM Down */
     @media (max-width: 767px) { 
 
 
     }
      
-    /* Landscape phones and down */
+    /* XS (Down) */
     @media (max-width: 480px) {
       h1 {
         font-size: 250% !important;

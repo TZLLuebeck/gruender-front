@@ -2,13 +2,14 @@ angular.module('gruenderviertel').controller 'RecoveryCtrl', (User) ->
 
   @finished = false
   @sent = false
-  @name = ""
+  @email = ""
+
+  console.log("RecoveryCtrl initiated.")
 
   @recoverPassword = () =>
     @sent = true
-    User.resetPassword(@name).then (response) =>
+    User.resetPassword(@email).then (response) =>
       @finished = true
-      @sent = false
     , (error) =>
       @sent = false
       console.log

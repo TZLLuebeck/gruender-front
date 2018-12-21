@@ -5,15 +5,33 @@ angular.module('gruenderviertel').controller 'RegistrationCtrl', (User, TokenCon
   @community_list = []
   @form = {}
   @form.user = {}
+  @confirmation = false
   @reg_in_progress = false
   @selected = 0
   @filter = 'Branche'
   @bio_characters = 200
 
+
+  $('#reg_input_password, #reg_input_password_confirmation').on('keyup', () =>
+    console.log($('#reg_input_password').val())
+    console.log($('#reg_input_password_confirmation').val())
+    if $('#reg_input_password').val() == $('#reg_input_password_confirmation').val()
+      @confirmation = true
+    else
+      @confirmation = false
+    console.log(@confirmation)
+  )
+
+  @resetFile = () -> 
+    @form.user.logo = undefined
+    e = $("#reg_input_picture")
+    e.wrap('<form>').closest('form').get(0).reset()
+    e.unwrap()
+    e.stopPropagation()
+    e.preventDefault()
+       
+
   @init = () =>
-
-
-
     if @user != null
       @state++ 
       @form.user = @user

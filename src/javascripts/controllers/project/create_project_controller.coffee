@@ -14,6 +14,14 @@ angular.module('gruenderviertel').controller 'CreateProjectCtrl', (Project, Comm
 
   @problemPlaceholder = "Beschreibe kurz: Welches Problem hast du gelöst oder möchtest du lösen?"
 
+  @resetFile = () ->
+    @form.project.image = undefined
+    e = $("#{}newProject_cover_image")
+    e.wrap('<form>').closest('form').get(0).reset()
+    e.unwrap()
+    e.stopPropagation()
+    e.preventDefault()
+
   @selectTag = (community) =>
     i = @tag_list.indexOf(community)
     e = @tag_list[i]

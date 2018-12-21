@@ -1,4 +1,4 @@
-angular.module('gruenderviertel').controller 'NavCtrl', (User, Event, $rootScope, $state, TokenContainer) ->
+angular.module('gruenderviertel').controller 'NavCtrl', (User, Event, $rootScope, $scope, $state, TokenContainer) ->
 
 
   @user = $rootScope.activeUser
@@ -8,6 +8,8 @@ angular.module('gruenderviertel').controller 'NavCtrl', (User, Event, $rootScope
   @username = "default"
   #@newEvents = @user.events
   @decodedEvents = []
+  @wrongPassword = false
+  @noAccount = false
 
   $rootScope.$on 'user:stateChanged', (e, state, params) =>
     console.log("NavCtrl user:StateChanged")
@@ -24,10 +26,21 @@ angular.module('gruenderviertel').controller 'NavCtrl', (User, Event, $rootScope
 
     console.log("NavCtrl Initialized")
 
-  @login = () ->
-    User.login(@form).then (response) ->
+  @login = () =>
+    @wrongPassword = false
+    @noAccount = false
+    User.login(@form).then (response) =>
+      $('#login_modal').modal('toggle');
       $rootScope.$broadcast('user:stateChanged')
-    , (error) ->
+    , (error) =>
+      console.log(error)
+      if error.data.error.name == "wrong_password"
+        console.log("Wrong Password")
+        @wrongPassword = true
+      else if error.data.error.name == "username_not_found"
+        console.log("No Account Found")
+        @noAccount = true
+
       console.log("Error during Login")
 
   @logout = () =>
