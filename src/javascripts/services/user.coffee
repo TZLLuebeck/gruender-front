@@ -60,6 +60,16 @@ angular.module('gruenderviertel').service 'User', (baseREST, $q, $http, Rails, $
       defer.reject(error)
     defer.promise
 
+  checkUsername = (username) =>
+    defer = $q.defer()
+    packet = baseREST.one('users').one('username')
+    packet.username = username
+    packet.post().then (response) =>
+      defer.resolve(response.data)
+    , (error) =>
+      defer.reject(error)
+    defer.promise
+
   # READ
 
   getAll = () ->
@@ -224,6 +234,7 @@ angular.module('gruenderviertel').service 'User', (baseREST, $q, $http, Rails, $
   currentUser: currentUser
   updateUser: updateUser
   resetPassword: resetPassword
+  checkUsername: checkUsername
   getEvents: getEvents
   getNewEvents: getNewEvents
   login: login

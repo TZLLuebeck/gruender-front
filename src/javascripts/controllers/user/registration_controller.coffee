@@ -5,7 +5,9 @@ angular.module('gruenderviertel').controller 'RegistrationCtrl', (User, TokenCon
   @community_list = []
   @form = {}
   @form.user = {}
-  @confirmation = false
+  @validation = {}
+  @validation.confirmation = false
+  @validation.username_taken = false
   @reg_in_progress = false
   @selected = 0
   @filter = 'Branche'
@@ -13,13 +15,23 @@ angular.module('gruenderviertel').controller 'RegistrationCtrl', (User, TokenCon
 
 
   $('#reg_input_password, #reg_input_password_confirmation').on('keyup', () =>
-    console.log($('#reg_input_password').val())
-    console.log($('#reg_input_password_confirmation').val())
-    if $('#reg_input_password').val() == $('#reg_input_password_confirmation').val()
-      @confirmation = true
+    console.log(@form.user.password)
+    console.log(@form.user.password_confirmation)
+    if @form.user.password == @form.user.password_confirmation
+      @validation.confirmation = true
     else
-      @confirmation = false
-    console.log(@confirmation)
+      @validation.confirmation = false
+    console.log(@validation.confirmation)
+  )
+
+  $('#reg_input_username').on( "focusout", () => 
+    User.checkUsername($('#reg_input_username').val()).then (response) =>
+      console.log("Username taken? " + response)
+      if response
+        @validation.username_taken = true
+      else
+        @validation.username_taken = false
+
   )
 
   @resetFile = () -> 

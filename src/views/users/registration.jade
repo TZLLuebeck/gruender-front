@@ -19,18 +19,18 @@
             label(for="reg_input_password") Passwort*
             input#reg_input_password.form-control(name="password", type="password", aria-describedby="passwordHelpBlock", ng-minlength="8", ng-model="reg.form.user.password", required, maxlength="30") 
             p#passwordHelpBlock.form-text.bg-danger(ng-show="regForm1.password.$invalid") Dein Passwort muss zwischen 8 und 30 Zeichen haben.
-          .row.col-sm-offset-2.col-sm-8.form-group#reg_group_password-confirmation(style="margin-top: 15px;", ng-class="{ 'has-error': regForm1.password_confirmation.$invalid || !reg.confirmation }")
+          .row.col-sm-offset-2.col-sm-8.form-group#reg_group_password-confirmation(style="margin-top: 15px;", ng-class="{ 'has-error': regForm1.password_confirmation.$invalid || !reg.validation.confirmation }")
             label(for="reg_input_password_confirmation") Passwort bestätigen*
             input#reg_input_password_confirmation.form-control(name="password_confirmation", type="password", aria-describedby="passwordRepeatHelpBlock", ng-minlength="8", ng-model="reg.form.user.password_confirmation", required, maxlength="30")
-            p#passwordHelpBlock.form-text.bg-danger(ng-show="regForm1.password_confirmation.$invalid || !reg.confirmation") Die Passwörter müssen übereinstimmen.
+            p#passwordHelpBlock.form-text.bg-danger(ng-show="regForm1.password_confirmation.$invalid || !reg.validation.confirmation") Die Passwörter müssen übereinstimmen.
     form(role="register" name="regForm2", novalidate)
       .container#account(ng-show="reg.state == 2")
         .form-group
-          .row.col-sm-offset-2.col-sm-8.form-group(ng-class="{ 'has-error': regForm2.username.$invalid || reg.taken }")
+          .row.col-sm-offset-2.col-sm-8.form-group(ng-class="{ 'has-error': regForm2.username.$invalid || reg.validation.username_taken }")
             label(for="reg_input_username") Username*
             input#reg_input_username.form-control(name="username", type="text" ng-minlength="2", ng-model="reg.form.user.username", required, maxlength="30")
             p#usernameHelpBlock.form-text.bg-danger(ng-show="regForm2.username.$invalid") Dein Accountname muss zwischen 2 und 30 Zeichen haben.
-            p#usernameTakenHelpBlock.form-text.bg-danger(ng-show="reg.taken") Dieser Accountname ist bereits in Benutzung.
+            p#usernameTakenHelpBlock.form-text.bg-danger(ng-show="reg.validation.username_taken") Dieser Accountname ist bereits in Benutzung.
           br(clear="all")
           .row.col-sm-offset-2.col-sm-8(style="margin-top: 15px;")
             label(for="reg_input_location") Ort*
@@ -160,6 +160,6 @@
             button.btn.btn-lg.btn-info(ng-click="reg.goBack()", scrolltop, ng-disabled="reg.state == 1") Zurück
         .col-sm-1.col-sm-offset-2.no-padding
           center
-            button.btn.btn-lg.btn-info(ng-click="reg.proceed()", ng-hide="reg.state == 5", scrolltop, ng-disabled="(reg.state == 1 && (regForm1.$invalid || !reg.confirmation) ) || (reg.state == 2 && regForm2.$invalid)") Weiter
+            button.btn.btn-lg.btn-info(ng-click="reg.proceed()", ng-hide="reg.state == 5", scrolltop, ng-disabled="(reg.state == 1 && (regForm1.$invalid || !reg.validation.confirmation) ) || (reg.state == 2 && (regForm2.$invalid || reg.validation.username_taken))") Weiter
             button.btn.btn-lg.btn-info(ng-click="reg.register()", ng-show="reg.state == 5", ng-disabled="regForm3.$invalid || reg.reg_in_progress || !reg.read_agb") Registrieren
         br(clear="all", style="margin-bottom: 25px;")

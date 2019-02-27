@@ -240,10 +240,11 @@ ul.no-bullet {
 }
 
 .image {
-  display: table-cell;
-  vertical-align:middle;
-  text-align:center;
+  display: block;
+  //vertical-align:middle;
+  //text-align:center;
   max-height: 200px;
+  margin: auto;
   width: auto;
   height: auto;
 }

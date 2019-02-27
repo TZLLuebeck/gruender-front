@@ -4,6 +4,7 @@ angular.module('gruenderviertel').controller 'ProfileEditCtrl', (User, TokenCont
   @form = {}
   @form.user = instance
   @predit_in_progress = false
+  @wrong_password = false
 
   @init = () =>
     delete @form.user.comments
@@ -27,6 +28,7 @@ angular.module('gruenderviertel').controller 'ProfileEditCtrl', (User, TokenCont
       @state++
 
   @saveEdit = () ->
+    @wrong_password = false
     @predit_in_progress = true
     
     User.updateUser(@form.user).then (response) =>
@@ -37,20 +39,24 @@ angular.module('gruenderviertel').controller 'ProfileEditCtrl', (User, TokenCont
     , (error) =>
       @predit_in_progress = false
       console.log('profileEditCtrl.saveEdit Error')
+      if(error.data.error.name == "wrong_password")
+        @wrong_password = true
 
    @deleteAccount = () ->
+    @wrong_password = false
+    $("#deletion_modal").modal('hide')
     data = {}
     data.id = @form.user.id
     data.current_password = @form.user.current_password
     User.deleteUser(data).then (response) =>
-      $("#deletion_modal").modal('toggle')
       TokenContainer.deleteToken()
       User.logoutLocal()
       
       $state.go('root.home')
     , (error) =>
       console.log('profileEditCtrl.deleteAccount Error')
-
+      if(error.data.error.name == "wrong_password")
+        @wrong_password = true
 
   @init()
 

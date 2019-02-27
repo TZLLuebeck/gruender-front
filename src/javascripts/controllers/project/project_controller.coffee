@@ -67,11 +67,11 @@ angular.module('gruenderviertel').controller 'ProjectCtrl', (User, instance, Pro
   @editComment = (author, id) =>
     text = $("#c-edit-body-"+author+"-"+id).val()
     Project.editComment(id, text).then (response) =>
-      response.updated = new Date(Date.parse(response.updated_at)).toLocaleString('de-DE')
       
       for comment in @project.comments
         if comment.id == id
-          comment = angular.copy(response)
+          comment.updated = new Date(Date.parse(response.updated_at)).toLocaleString('de-DE')
+          comment.content = angular.copy(response.content)
       $("#c-body-"+author+"-"+id).removeClass("ng-hide")
       $("#c-edit-"+author+"-"+id).addClass("ng-hide")
     , (error) ->

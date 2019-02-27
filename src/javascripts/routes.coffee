@@ -203,9 +203,10 @@ angular.module('gruenderviertel').config ($stateProvider, $urlRouterProvider, $l
         templateUrl: 'assets/views/projects/create.html'
         controller: 'CreateProjectCtrl'
         controllerAs: 'create'
-    permissions:
-      only: 'registered'
-      redirectTo: 'root.home'
+    data:
+      permissions:
+        except: 'anonymous',
+        redirectTo: 'root.register'
 
   .state 'root.project.editproject',
     url: '/bearbeiten'
@@ -214,8 +215,9 @@ angular.module('gruenderviertel').config ($stateProvider, $urlRouterProvider, $l
         templateUrl: 'assets/views/projects/edit.html'
         controller: 'EditProjectCtrl'
         controllerAs: 'edit'
-    permissions:
-      only: 'registered'
+    data:
+      permissions:
+        except: 'anonymous'
     
   .state 'root.browseprojects',
     url: '/projekte/:category'

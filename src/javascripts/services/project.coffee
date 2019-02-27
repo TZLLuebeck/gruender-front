@@ -112,9 +112,11 @@ angular.module('gruenderviertel').service 'Project', (baseREST, $q, Upload) ->
       arrayKey: '[]',
       method: 'PUT'
       }).then (response) =>
-      defer.resolve(response.data.data)
-    , (error) =>
-      defer.reject(error)
+        defer.resolve(response.data.data)
+        console.log(response.data)
+      , (error) =>
+        defer.reject(error)
+        console.log("Project.editProject Error")
     defer.promise
 
   editComment = (id, newText) ->
