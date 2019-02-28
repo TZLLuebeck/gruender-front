@@ -1,12 +1,32 @@
-angular.module('gruenderviertel').controller 'EditProjectCtrl', (Project, $scope, $state, $stateParams) ->
+angular.module('gruenderviertel').controller 'EditProjectCtrl', (Project, $scope, $state, $stateParams, instance) ->
 
-  @form = $scope.$parent.form
+  @form = angular.copy(instance)
+
+  delete @form.comments
+  delete @form.likes
+  delete @form.attachment
+
+  @pitch_characters = 200
+
+  @charLimit = () =>
+    if @form.goal
+      @pitch_characters = 200 - @form.goal.length
+    else
+      @pitch_characters = 200
 
   @editProject = () =>
     console.log("Saving.")
-    Project.editProject().then (response) =>
-      $state.go('root.project', '{"id": $stateParams.id}')
+    @form.solution = $('#summernote').summernote('code')
+    Project.editProject(@form).then (response) =>
+      $state.go('root.project', '{"id": $stateParams.id}', {reload: true})
     , (error) ->
       console.log("EditProjectCtrl.editProject Error")
+
+  @init = () =>
+    $("#summernote").summernote("code", @form.solution);
+    @charLimit()
+
+
+  @init()
 
   this

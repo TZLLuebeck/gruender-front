@@ -105,6 +105,14 @@ angular.module('gruenderviertel').service 'Project', (baseREST, $q, Upload) ->
   #UPDATE
 
   editProject = (project) ->
+    delete project.comments
+    delete project.likes
+    delete project.liked
+    delete project.author
+    delete project.coop
+    delete project.cooptext
+    delete project.status
+
     defer = $q.defer()
     Upload.upload({
       url: '/api/v1/projects/'
