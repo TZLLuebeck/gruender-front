@@ -16,8 +16,6 @@ angular.module('gruenderviertel').controller 'EditProjectCtrl', (Project, $scope
 
   @editProject = () =>
     console.log("Saving.")
-    #@form.solution = $('#summernote').summernote('code')
-    @form.solution = $('#tinymcearea').tinymce().getContent();
     console.log(@form.solution)
     Project.editProject(@form).then (response) =>
       $state.go('root.project', '{"id": $stateParams.id}', {reload: true})
@@ -25,11 +23,6 @@ angular.module('gruenderviertel').controller 'EditProjectCtrl', (Project, $scope
       console.log("EditProjectCtrl.editProject Error")
 
   @init = () =>
-    #$("#summernote").summernote("code", @form.solution);
-    $('#tinymcearea').html(@form.solution);
-    $('#tinymcearea').tinymce({
-      theme : "silver"
-    })
     @charLimit()
 
 

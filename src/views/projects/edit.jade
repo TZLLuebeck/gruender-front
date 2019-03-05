@@ -33,7 +33,7 @@
       div
         h2.text-blue Lösung
         hr.border-grey
-        textarea#tinymcearea
+        textarea(ui-tinymce ng-model="edit.form.solution")
       br(clear="all")
       a.anchor#Coop
       //h2.text-blue.text-center(ng-show="edit.form.coop") Kooperationswunsch

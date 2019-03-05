@@ -42,8 +42,6 @@ angular.module('gruenderviertel').controller 'CreateProjectCtrl', (Project, Comm
       @step++
 
   @createProject = () ->
-    #@form.project.solution = $('#summernote').summernote('code')
-    @form.project.solution = $('#tinymcearea').tinymce().getContent();
     @form.project.tags = []
     for c in @tag_list
       if c.selected
