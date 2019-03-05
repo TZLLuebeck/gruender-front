@@ -27,7 +27,7 @@
       .container#account(ng-show="reg.state == 2")
         .form-group
           .row.col-sm-offset-2.col-sm-8.form-group(ng-class="{ 'has-error': regForm2.username.$invalid || reg.validation.username_taken }")
-            label(for="reg_input_username") Username*
+            label(for="reg_input_username") Accountname*
             input#reg_input_username.form-control(name="username", type="text" ng-minlength="2", ng-model="reg.form.user.username", required, maxlength="30")
             p#usernameHelpBlock.form-text.bg-danger(ng-show="regForm2.username.$invalid") Dein Accountname muss zwischen 2 und 30 Zeichen haben.
             p#usernameTakenHelpBlock.form-text.bg-danger(ng-show="reg.validation.username_taken") Dieser Accountname ist bereits in Benutzung.
@@ -43,9 +43,7 @@
           br(clear="all")
           .row.col-sm-offset-2.col-sm-8.form-group(style="margin-top: 15px;", ng-class="{ 'has-error': regForm2.web.$invalid }")
             label(for="reg_input_web") Webseite
-            .input-group#reg_input_web
-              span.input-group-addon http(s)://
-              input.form-control(name="web", type="url" ng-minlength="7", ng-model="reg.form.user.web")
+            input.form-control#reg_input_web(name="web", type="url" ng-minlength="7", ng-model="reg.form.user.web")
             p#webHelpBlock.form-text Wenn du eine Webseite hast, kannst du hier die URL angeben.  
           br(clear="all")
           .row.col-sm-offset-2.col-sm-8.form-group(style="margin-top: 15px;", ng-class="{ 'has-error': regForm2.fon.$invalid }")

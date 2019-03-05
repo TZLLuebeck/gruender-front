@@ -6,12 +6,15 @@
         h3.text-red - {{edit.form.typus}} -
         input.form-control#newProject_name(ng-model="edit.form.name", style="width: 100%;", placeholder="Der Titel deines Projektes")
         br
-        a.blue.text-white.label.clickable(ng-repeat="tag in edit.form.tags", style="margin-left: 5px;", ui-sref="root.community({id: tag.id})" target="_blank") {{tag.name}}
+        //a.blue.text-white.label.clickable(ng-repeat="tag in edit.form.tags", style="margin-left: 5px;", ui-sref="root.community({id: tag.id})" target="_blank") {{tag.name}}
       br
-      center
-        input#newProject_cover_image(type="file", ngf-select, ng-model="edit.form.image" name="image" accept="image/*" ngf-max-size="1MB")
-        label(for="newProject_cover_image") Hier kannst du dein Titelbild ändern. Max. 1MB.
-
+      .row
+        .col-lg-6
+          img(ng-src='{{edit.form.image.url}}', ng-hide='!edit.form.image', style="max-height: 500px;")
+        .col-lg-6
+          input#newProject_cover_image(type="file", ngf-select, ng-model="edit.form.image" name="image" accept="image/*" ngf-max-size="1MB")
+          label(for="newProject_cover_image") Hier kannst du dein Titelbild ändern. Max. 1MB.
+      br
       a.anchor#Ziel
       h2.text-blue Pitch
       hr.border-grey
@@ -27,10 +30,10 @@
         br(clear="all")
 
       a.anchor#Solution
-      div(summernote)
+      div
         h2.text-blue Lösung
         hr.border-grey
-        div#summernote(style="margin-top: 20px;")
+        textarea#tinymcearea
       br(clear="all")
       a.anchor#Coop
       //h2.text-blue.text-center(ng-show="edit.form.coop") Kooperationswunsch

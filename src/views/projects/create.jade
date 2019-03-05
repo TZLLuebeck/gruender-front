@@ -105,7 +105,7 @@
 
 
       .container.abstand(ng-show="create.step == 5")
-        .container-fluid(summernote, style="margin-top: 20px;")
+        .container-fluid(style="margin-top: 20px;")
           a.anchor#Solution
           center
             h3.text-blue(ng-show="create.form.project.typus != 'Open Innovation'") Die Lösung
@@ -113,8 +113,8 @@
             b It's time for your story; Zeig der Community deine Projektidee mit Text & Bildern. 
             br
             b Wie kam es zu der Idee? Wie bist du vorgegangen?
-          .abstand
-            div#summernote(style="margin-top: 20px;")
+          .abstand(tinymce)
+            textarea.tinymcearea#tinymcearea
         .row
           a.anchor#Attachment
           h3.text-blue.text-center Anhang

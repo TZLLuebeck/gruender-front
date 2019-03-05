@@ -10,7 +10,7 @@
           span Projekt von 
           a.clickable(ui-sref="root.profile({id: project.project.user_id})", target="_blank") {{project.project.author.name}}
           span(ng-hide="!project.project.author.url") &nbsp;- 
-          a(href="http://{{project.project.author.url}}", target="_blank", ng-hide="!project.project.author.url") {{project.project.author.url}}
+          a(href="{{project.project.author.url}}", target="_blank", ng-hide="!project.project.author.url") {{project.project.author.url}}
         br
         a.blue.text-white.label.clickable(ng-repeat="tag in project.project.tags", ui-sref="root.community({id: tag.id})" target="_blank") {{tag.name}}
       br
