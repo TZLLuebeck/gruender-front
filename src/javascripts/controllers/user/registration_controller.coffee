@@ -1,4 +1,4 @@
-angular.module('gruenderviertel').controller 'RegistrationCtrl', (User, TokenContainer, $state, $rootScope, $stateParams, Community) ->
+angular.module('gruenderviertel').controller 'RegistrationCtrl', (User, TokenContainer, $state, $rootScope, $stateParams, Community, $scope) ->
 
   @state = 1
   @user = $stateParams.user
@@ -14,14 +14,18 @@ angular.module('gruenderviertel').controller 'RegistrationCtrl', (User, TokenCon
   @bio_characters = 200
 
 
-  $('#reg_input_password, #reg_input_password_confirmation').on('keyup', () =>
-    console.log(@form.user.password)
-    console.log(@form.user.password_confirmation)
-    if @form.user.password == @form.user.password_confirmation
-      @validation.confirmation = true
+  @checkPasswordConfirmation = (pw, pwc) ->
+    if pw == pwc
+      return true
     else
-      @validation.confirmation = false
-    console.log(@validation.confirmation)
+      return false
+
+  $('#reg_input_password, #reg_input_password_confirmation').on('keyup', () =>
+    console.log(@form.user.password + " - " + $('#reg_input_password').val())
+    console.log(@form.user.password_confirmation + " - " + $('#reg_input_password_confirmation').val())
+    @validation.confirmation = @checkPasswordConfirmation($('#reg_input_password').val(), $('#reg_input_password_confirmation').val()) 
+    $scope.$apply()
+    console.log(@validation)
   )
 
   $('#reg_input_username').on( "focusout", () => 
@@ -39,8 +43,8 @@ angular.module('gruenderviertel').controller 'RegistrationCtrl', (User, TokenCon
     e = $("#reg_input_picture")
     e.wrap('<form>').closest('form').get(0).reset()
     e.unwrap()
-    e.stopPropagation()
-    e.preventDefault()
+    #e.stopPropagation()
+    #e.preventDefault()
        
 
   @init = () =>

@@ -50,18 +50,18 @@ angular.module('gruenderviertel').config ($stateProvider, $urlRouterProvider, $l
         templateUrl: 'assets/views/common/footer.html'
     # The Resolve part of a state, if present, will try to run all given functions within it
     # and present any acquired result with the key the function is assigned to.
-    resolve: 
-      identity: (TokenContainer, User, $rootScope) ->
-        #If we have an Oauth2 token in our localstorage, then we might still be logged in.
-        #Try and retrieve our identity (if the token is not expired).
-        if TokenContainer.get()
-          console.log('Retrieving User from Token')
-          User.currentUser().then (user) ->
-            User.user = user
-            console.log('User Retrieved from Token')
-            $rootScope.$broadcast('user:stateChanged')
-          , (error) ->
-            console.log('Couldn\'t retrieve User.')
+    #resolve: 
+    #  identity: (TokenContainer, User, $rootScope) ->
+    #    #If we have an Oauth2 token in our localstorage, then we might still be logged in.
+    #    #Try and retrieve our identity (if the token is not expired).
+    #    if TokenContainer.get()
+    #      console.log('Retrieving User from Token')
+    #      User.currentUser().then (user) ->
+    #        User.user = user
+    #        console.log('User Retrieved from Token')
+    #        $rootScope.$broadcast('user:stateChanged')
+    #      , (error) ->
+    #        console.log('Couldn\'t retrieve User.')
 
   ############################
   #

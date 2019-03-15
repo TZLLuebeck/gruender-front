@@ -30,8 +30,12 @@
             h3.text-blue.no-margin Titelbild
           .col-md-9
             .container-fluid(style="margin-top: 25px;")
-              input#newProject_cover_image(type="file", ngf-select, ng-model="create.form.project.image" name="image" accept="image/*" ngf-max-size="1MB")
+              .input-group
+                input#newProject_cover_image(type="file", ngf-select, ng-model="create.form.project.image" name="image" accept="image/png, image/jpeg" ngf-max-size="1MB")
+                .input-group-btn
+                  button.btn.btn-default(ng-click="create.resetFile()") Reset
               label(for="newProject_cover_image") Lade hier das Titelbild deines Projektes hoch. Max. 1MB.
+              p#imageHelpBlock.form-text.bg-danger(ng-show="createForm.image.$invalid") Die Datei muss eine PNG oder JPG mit max 1MB Größe sein.
 
       .container.abstand(ng-show="create.step == 2")
         h3 Branchen

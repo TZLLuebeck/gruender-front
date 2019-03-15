@@ -1,10 +1,13 @@
-angular.module('gruenderviertel').controller 'ProfileEditCtrl', (User, TokenContainer, $state, $stateParams, instance, $rootScope) ->
+angular.module('gruenderviertel').controller 'ProfileEditCtrl', (User, TokenContainer, $state, $stateParams, instance, $rootScope, $scope) ->
 
   @state = 1
   @form = {}
   @form.user = instance
   @predit_in_progress = false
   @wrong_password = false
+
+  @validation = {}
+  @validation.confirmation = true
 
   @init = () =>
     delete @form.user.comments
@@ -42,7 +45,15 @@ angular.module('gruenderviertel').controller 'ProfileEditCtrl', (User, TokenCont
       if(error.data.error.name == "wrong_password")
         @wrong_password = true
 
-   @deleteAccount = () ->
+  @resetFile = () -> 
+    @form.user.logo = undefined
+    e = $("#predit_input_picture")
+    e.wrap('<form>').closest('form').get(0).reset()
+    e.unwrap()
+    #e.stopPropagation()
+    #e.preventDefault()
+
+  @deleteAccount = () ->
     @wrong_password = false
     $("#deletion_modal").modal('hide')
     data = {}
@@ -57,6 +68,21 @@ angular.module('gruenderviertel').controller 'ProfileEditCtrl', (User, TokenCont
       console.log('profileEditCtrl.deleteAccount Error')
       if(error.data.error.name == "wrong_password")
         @wrong_password = true
+
+  @checkPasswordConfirmation = (pw, pwc) ->
+    if pw == pwc
+      return true
+    else
+      return false
+
+  $('#predit_input_password, #predit_input_password_confirmation').on('keyup', () =>
+    console.log(@form.user.password + " - " + $('#predit_input_password').val())
+    console.log(@form.user.password_confirmation + " - " + $('#predit_input_password_confirmation').val())
+    @validation.confirmation = @checkPasswordConfirmation($('#predit_input_password').val(), $('#predit_input_password_confirmation').val()) 
+    $scope.$apply()
+    console.log(@validation)
+  )
+
 
   @init()
 

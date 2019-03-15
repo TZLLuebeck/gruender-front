@@ -19,9 +19,11 @@
           .row.col-lg-offset-2.col-lg-8
             label(for="predit_input_password") Neues Passwort
             input#predit_input_password.form-control(name="password", type="password" ng-minlength="8", ng-model="edit.form.user.password", maxlength="30")
+            p#passwordHelpBlock.form-text.bg-danger(ng-show="preditForm.password.$invalid") Dein Passwort muss zwischen 8 und 30 Zeichen haben.
           .row.col-lg-offset-2.col-lg-8
             label(for="predit_input_password_confirmation") Neues Passwort bestätigen
             input#predit_input_password_confirmation.form-control(name="password_confirmation", type="password" ng-minlength="8", ng-model="edit.form.user.password_confirmation", maxlength="30")
+            p#passwordHelpBlock.form-text.bg-danger(ng-show="preditForm.password_confirmation.$dirty && (preditForm.password_confirmation.$invalid || !edit.validation.confirmation)") Die Passwörter müssen übereinstimmen.
 
       .container#account
         //(ng-show="edit.state == 2")
@@ -46,7 +48,14 @@
           br(clear="all")
           .row.col-lg-offset-2.col-lg-8
             label(for="predit_input_picture") Profilbild
-            input#predit_input_picture(type="file", ngf-select, ng-model="edit.form.user.logo" name="image" accept="image/*" ngf-max-size="1MB")
+            .input-group
+              input#predit_input_picture.form-control-file(type="file", ngf-select, ng-model="edit.form.user.logo" name="image" accept="image/png, image/jpeg" ngf-max-size="1MB")
+              .input-group-btn
+                button.btn.btn-default(ng-click="edit.resetFile()") Reset
+            p#profilHelpBlock.form-text.bg-danger(ng-show="preditForm.image.$invalid") Du kannst für dein Profilbild eine PNG oder JPG mit max 1MB Größe wählen.
+
+            
+
           .row.col-lg-offset-2.col-lg-8.form-group(ng-class="{ 'has-error': preditForm.currentpassword.$invalid}")
             label(for="predit_input_password") Aktuelles Passwort*
             input#predit_input_currentpassword.form-control(name="currentpassword", type="password" ng-minlength="8", ng-model="edit.form.user.current_password", required, maxlength="30")

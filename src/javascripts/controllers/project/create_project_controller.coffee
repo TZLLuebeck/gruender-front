@@ -16,11 +16,11 @@ angular.module('gruenderviertel').controller 'CreateProjectCtrl', (Project, Comm
 
   @resetFile = () ->
     @form.project.image = undefined
-    e = $("#{}newProject_cover_image")
+    e = $("#newProject_cover_image")
     e.wrap('<form>').closest('form').get(0).reset()
     e.unwrap()
-    e.stopPropagation()
-    e.preventDefault()
+    #e.stopPropagation()
+    #e.preventDefault()
 
   @selectTag = (community) =>
     i = @tag_list.indexOf(community)

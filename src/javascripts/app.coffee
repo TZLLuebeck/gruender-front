@@ -14,15 +14,38 @@ app.config ($httpProvider) ->
   $httpProvider.interceptors.push('tokenInterceptor')
   $httpProvider.interceptors.push('responseInterceptor')
 
+hidebody = () ->
+  $('#bodycover').removeClass("in")
+  #$('#bodycover').fadeIn()
+    
 app.run (User, TokenContainer, $rootScope, $state, $stateParams, Rails, $transitions) ->
+
+  if TokenContainer.get()
+    console.log('Retrieving User from Token')
+    User.currentUser().then (user) ->
+      User.user = user
+      console.log('User Retrieved from Token')
+      $rootScope.$broadcast('user:stateChanged')
+    , (error) ->
+      console.log('Couldn\'t retrieve User.')
+
+  
   #predefine beginning state and add hook to state transition; used for the goBack function of the Helper.
   $rootScope.$state = $state
   $rootScope.$stateParams = $stateParams
 
+
   $transitions.onBefore {}, (transition) ->
+    hidebody()
     $rootScope.lastState = transition.from()
     $rootScope.lastStateParams = transition.params('from')
 
+  $rootScope.$on('$viewContentLoaded', (event, viewConfig) -> 
+    console.log("VIEW HAS BEEN LOADED")
+    $('#bodycover').addClass("in")
+    #$('#bodycover').fadeOut()
+  )
+    
   $transitions.onSuccess {}, ($document, $location, $anchorScroll) -> 
     if $location && $location.hash()
       $anchorScroll()
