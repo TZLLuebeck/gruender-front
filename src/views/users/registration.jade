@@ -43,7 +43,7 @@
           br(clear="all")
           .row.col-sm-offset-2.col-sm-8.form-group(style="margin-top: 15px;", ng-class="{ 'has-error': regForm2.web.$invalid }")
             label(for="reg_input_web") Webseite
-            input.form-control#reg_input_web(name="web", type="url" ng-minlength="7", ng-model="reg.form.user.web")
+            input.form-control#reg_input_web(name="web", type="text" ng-minlength="7", ng-model="reg.form.user.web")
             p#webHelpBlock.form-text Wenn du eine Webseite hast, kannst du hier die URL angeben.  
           br(clear="all")
           .row.col-sm-offset-2.col-sm-8.form-group(style="margin-top: 15px;", ng-class="{ 'has-error': regForm2.fon.$invalid }")

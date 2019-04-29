@@ -1,4 +1,11 @@
-angular.module('gruenderviertel').controller 'CreateProjectCtrl', (Project, Community, $state) ->
+angular.module('gruenderviertel').controller 'CreateProjectCtrl', ($scope, Project, Community, $state) ->
+
+  $scope.tinymceOptions = {
+    inline: false,
+    plugins: "image, fullscreen",
+    menubar: "insert, view",
+    toolbar: "image, fullscreen"
+  }
 
   @step = 1
   @pitch_characters = 200
