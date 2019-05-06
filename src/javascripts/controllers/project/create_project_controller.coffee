@@ -1,10 +1,11 @@
 angular.module('gruenderviertel').controller 'CreateProjectCtrl', ($scope, Project, Community, $state) ->
 
   $scope.tinymceOptions = {
-    inline: false,
-    plugins: "image, fullscreen",
-    menubar: "insert, view",
-    toolbar: "image, fullscreen"
+    plugins: "image autolink fullscreen hr link paste",
+    statusbar: false,
+    menubar: false,
+    toolbar: "undo redo | styleselect forecolor backcolor | bold italic underlined | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent hr | image link | fullscreen"
+    paste_data_images: true
   }
 
   @step = 1

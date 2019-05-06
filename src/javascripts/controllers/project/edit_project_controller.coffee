@@ -1,5 +1,14 @@
 angular.module('gruenderviertel').controller 'EditProjectCtrl', (Project, $scope, $state, $stateParams, instance) ->
 
+  $scope.tinymceOptions = {
+    plugins: "image autolink fullscreen hr link paste",
+    statusbar: false,
+    menubar: false,
+    toolbar: "undo redo | styleselect forecolor backcolor | bold italic underlined | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent hr | image link | fullscreen"
+    paste_data_images: true
+  }
+
+
   @form = angular.copy(instance)
   @currentImage = angular.copy(@form.image)
 
